@@ -1,7 +1,23 @@
 const canvas = document.querySelector('canvas');
 const span = document.querySelector('span');
 const ctx = canvas.getContext('2d');
+
+const shadeCanvas = document.createElement('canvas');
+const shadeCtx = shadeCanvas.getContext('2d');
+
 var hue = 0;
+var moveCamara = 0;
+var bobTiempo = 0;
+
+
+const imgPared = new Image();
+imgPared.src = 'img/backrooms-textures-v0-3b0m6yqrjhk91.webp';
+
+const tamArma = 250;
+const imgArma = new Image();
+imgArma.src = 'img/Background.png';
+
+
 
 const FOV = 60;
 
@@ -21,6 +37,22 @@ const matriz = [
     [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
     [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
     [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+    [1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1],
+    [1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1],
+    [1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1],
+    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
 ];
 
@@ -30,11 +62,11 @@ class Map {
         this.altM = matriz.length;
         //this.anchCelda = canvas.width / this.anchM;
         //this.altCelda = canvas.height / this.altM;
-        this.tamCelda = 20;
+        this.tamCelda = Math.min(canvas.width / this.anchM, canvas.height / this.altM);
         this.colorPared = `hsl(55, 66%, 25%)`;
         this.colorEspacio = '#572020';
         this.ctx = ctx;
-        this.miniCelda = this.tamCelda - 15;
+        this.miniCelda = this.tamCelda - 20;
         this.player = player;
     }
     renderMap() {
@@ -79,13 +111,19 @@ class Map {
         this.ctx.stroke();
 
         this.ctx.fillStyle = '#054408';
-        this.ctx.fillRect(miniX-2, miniY-2, 4, 4);
+        this.ctx.fillRect(miniX - 2, miniY - 2, 4, 4);
+
+        ctx.drawImage(imgArma, canvas.width / 2 - tamArma/2, canvas.height - tamArma/1.5+20+moveCamara, tamArma, tamArma/1.5);
     }
 
     renderFondo() {
         // SUELO
-        this.ctx.fillStyle = '#540a0a';
-        this.ctx.fillRect(0, canvas.height / 2, canvas.width + 5, canvas.height);
+        this.ctx.fillStyle = '#514d1f';
+        this.ctx.fillRect(0, canvas.height / 2, canvas.width, canvas.height / 2);
+
+        // TECHO
+        this.ctx.fillStyle = '#ab9f1d';
+        this.ctx.fillRect(0, 0, canvas.width, canvas.height/2);
     }
 
     colision(x, y) {
@@ -136,6 +174,8 @@ class Rayo {
 
         this.wallHitXVertical = 0;
         this.wallHitYVertical = 0;
+
+        this.pixelTextura = 0;
     }
 
     setAngulo(angulo) {
@@ -243,11 +283,17 @@ class Rayo {
             this.wallHitX = this.wallHitXHorizontal;
             this.wallHitY = this.wallHitYHorizontal;
             this.distancia = distanciaHorizontal;
+
+            this.pixelTextura = this.wallHitX - parseInt(this.wallHitX / mapa.tamCelda) * mapa.tamCelda;
         } else {
             this.wallHitX = this.wallHitXVertical;
             this.wallHitY = this.wallHitYVertical;
             this.distancia = distanciaVertical;
+
+            this.pixelTextura = this.wallHitY - parseInt(this.wallHitY / mapa.tamCelda) * mapa.tamCelda;
         }
+
+        this.pixelTextura = parseInt((this.pixelTextura / mapa.tamCelda) * imgPared.width);
 
         // CORRECCION OJO DE PEZ
         this.distancia = this.distancia * (Math.cos(this.anguloJugador - this.angulo));
@@ -259,15 +305,29 @@ class Rayo {
         let altoTile = 300;
         let distanciaPlanoProyeccion = (canvas.width / 2) / Math.tan(FOV / 2);
         let altoMuro = altoTile / this.distancia * distanciaPlanoProyeccion;
-
-        var y0 = canvas.height / 2 - altoMuro / 2;
+        var y0 = canvas.height / 2 - altoMuro / 2 + moveCamara;
         var y1 = y0 + altoMuro;
         var x = this.columna;
-        hue = -altoMuro;
 
-        // this.ctx.fillStyle = `hsl(60, 100%, 100%)`;
-        this.ctx.fillStyle = `hsl(55, ${hue}%, 35%)`;
-        this.ctx.fillRect(x, y0, 1, altoMuro);
+        this.ctx.drawImage(
+            imgPared,
+            this.pixelTextura,
+            0,
+            1,
+            imgPared.height,
+            x,
+            y0,
+            1,
+            y1 - y0,
+        );
+        shadeCtx.fillStyle = `hsl(60, ${hue}%, 20%)`;
+        shadeCtx.fillRect(x, y0, 1, altoMuro);
+        hue = parseInt(-altoMuro / 3.5);
+
+        // // this.ctx.fillStyle = `rgb(121, 115, 18)`;
+        // this.ctx.fillStyle = `hsl(55, ${hue}%, 35%, 50%)`;
+        // this.ctx.fillStyle = `hsl(55, 50%, 35%, ${hue}%)`;
+        // this.ctx.fillRect(x, y0, 1, altoMuro);
     }
 
     renderRayo() {
@@ -378,9 +438,13 @@ class Player {
         // this.altPlayer = canvas.height / matriz.length;
         this.moverPersonaje();
         for (let i = 0; i < this.numRayos; i++) {
-            // this.rayos[i].renderRayo();
-            this.rayos[i].renderPared();
+            this.rayos[i].renderRayo();
+            // this.rayos[i].renderPared();
         }
+
+        this.ctx.globalAlpha = 0.6;
+        this.ctx.drawImage(shadeCanvas, 0, 0);
+        this.ctx.globalAlpha = 1;
 
         var xDestino = this.posXPlayer + Math.cos(this.angulo) * 50;
         var yDestino = this.posYPlayer + Math.sin(this.angulo) * 50;
@@ -411,6 +475,12 @@ document.addEventListener('keydown', (tecla) => {
             player.izquierda();
             break;
     }
+
+    if (moveCamara < 10) {
+        moveCamara++;
+    } else {
+        moveCamara = -moveCamara;
+    }
 });
 
 document.addEventListener('keyup', (tecla) => {
@@ -429,6 +499,7 @@ document.addEventListener('keyup', (tecla) => {
             player.stopGiro();
             break;
     }
+    moveCamara = 0;
 });
 
 // const botones = [
@@ -450,28 +521,39 @@ document.addEventListener('keyup', (tecla) => {
 
 
 
-canvas.width = 400;  // anchM * tamCelda
-canvas.height = 350;    // altM * tamCelda
+canvas.width = 1000;  // anchM * tamCelda
+canvas.height = 550;    // altM * tamCelda
 
 const mapa = new Map(ctx);
 
 const player = new Player(mapa.tamCelda + 5, mapa.tamCelda + 5, mapa, ctx);
 
-const fps = 60;
+const fps = 70;
 const frameDuration = 1000 / fps;
 let ultimoTiempo = 0;
 function gameLoop(tiempoActual) {
     requestAnimationFrame(gameLoop);
     canvas.width = canvas.width;
     canvas.height = canvas.height;
+    shadeCanvas.width = canvas.width;
+    shadeCanvas.height = canvas.height;
 
+    
     const delta = tiempoActual - ultimoTiempo;
     if (delta < frameDuration) return;
     ultimoTiempo = tiempoActual - (delta % frameDuration);
-
+    
+    if (player.avanzando !== 0) {
+        bobTiempo += delta;
+        moveCamara = parseInt(Math.sin(bobTiempo / 100) * 10);
+    } else {
+        bobTiempo = 0;
+        moveCamara = 0;
+    }
+    
     mapa.renderFondo();
-    // mapa.renderMap();
+    mapa.renderMap();
     player.renderPlayer();
-    mapa.renderMiniMap();
+    // mapa.renderMiniMap();
 }
 requestAnimationFrame(gameLoop);
