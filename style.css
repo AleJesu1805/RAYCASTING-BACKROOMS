@@ -10,8 +10,9 @@ canvas {
     top: 50%;
     transform: translate(-50%, -50%);
     background: hsl(64, 51%, 35%);
-    /* width: 90%;
-    height: 80%; */
+    /* width: 1200px; */
+    width: 1200px;
+    height: 570px; 
     border: 5px solid black;
 }
 
