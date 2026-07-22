@@ -4,18 +4,54 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="initial-scale=1, maximum-scale=1">
-  <title></title>
+  <title>BACKROOMS GAME</title>
   <link rel="stylesheet" href="style.css">
+  <style>
+    @font-face {
+      font-family: 'Gothic';
+      src: url('fonts/fuente10.ttf') format('truetype');
+      font-display: swap;
+    }
+  </style>
+  <script>
+    function jugar() {
+      document.querySelector('canvas').removeAttribute('hidden');
+      document.querySelector('.container-start').setAttribute('hidden', true);
+      document.querySelector('#container-buttons').removeAttribute('hidden');
+      try {
+          document.documentElement.requestFullscreen();
+          screen.orientation.lock('landscape');
+          console.log('Pantalla rotada y bloqueada en horizontal');
+        } catch (error) {
+          console.error('Error al intentar rotar o entrar en pantalla completa:', error);
+        }
+    }
+  </script>
 </head>
+
 <body>
-<span></span>
-  <canvas id="canvas"></canvas>
-  <!-- <div id="container-buttons">
-    <button id="arribaBoton">↑</button>
-    <button id="izquierdaBoton">←</button>
-    <button id="derechaBoton">→</button>
-    <button id="abajoBoton">↓</button>
-  </div> -->
-  <script src="script.js"></script>
+  <div class="container-start">
+    <h1 id="msg-malvenida" class="central">MALVENIDO <br> A <br> BACKROOMS</h1>
+    <button onclick="jugar()" class="central">JUGAR <br> (se ampliara y rotara la pantalla al iniciar)</button>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+  <div id="container-buttons" hidden>
+    <input type="range" id="avanzador">
+    <input type="range" id="girador">
+    <button id="disparador">X</button>
+  </div>
+  <canvas id="canvas" hidden></canvas>
+  <script src="js/script.js"></script>
 </body>
+
 </html>

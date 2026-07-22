@@ -8,7 +8,7 @@ const shadeCtx = shadeCanvas.getContext('2d');
 var hue = 0;
 var moveCamara = 0;
 var bobTiempo = 0;
-
+const resolucionRayos = 10;
 
 const imgPared = new Image();
 imgPared.src = 'img/backrooms-textures-v0-3b0m6yqrjhk91.webp';
@@ -21,8 +21,8 @@ const FOV = 60;
 
 const matriz = [
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-    [1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 0, 1],
+    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1],
+    [1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1],
     [1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
     [1, 1, 1, 1, 0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 0, 1],
     [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
@@ -110,10 +110,10 @@ class Map {
         this.ctx.fillStyle = '#1a551e';
         this.ctx.fillRect(miniX - 2, miniY - 2, 4, 4);
 
-        ctx.drawImage(imgArma, canvas.width / 2 - tamArma / 2, canvas.height - tamArma / 1.5 + 20 + moveCamara, tamArma, tamArma / 1.5);
+        ctx.drawImage(imgArma, canvas.width / 2 - tamArma / 2, canvas.height - tamArma / 1.69 + moveCamara, tamArma, tamArma / 1.5);
 
         ctx.beginPath();
-        ctx.arc(canvas.width / 2 - this.miniCelda / 4, canvas.height / 2, this.miniCelda, 0, Math.PI * 2);
+        ctx.arc(canvas.width / 2 - this.miniCelda / 1, canvas.height / 2, this.miniCelda, 0, Math.PI * 2);
         ctx.strokeStyle = '#a20606';
         ctx.lineWidth = 1;
         ctx.stroke();
@@ -121,11 +121,11 @@ class Map {
 
     renderFondo() {
         // SUELO
-        this.ctx.fillStyle = '#514d1f';
+        this.ctx.fillStyle = '#5c5836';
         this.ctx.fillRect(0, canvas.height / 2, canvas.width, canvas.height / 2);
 
         // TECHO
-        this.ctx.fillStyle = '#ab541d';
+        this.ctx.fillStyle = '#b4b236';
         this.ctx.fillRect(0, 0, canvas.width, canvas.height / 2);
     }
 
@@ -220,8 +220,8 @@ class Rayo {
         if (!this.abajo) siguienteYHorizontal--;
 
         while (!colisionHorizontal && siguienteXHorizontal >= 0 && siguienteXHorizontal < canvas.width && siguienteYHorizontal >= 0 && siguienteYHorizontal < canvas.height) {
-            let casillaX = parseInt(siguienteXHorizontal / this.escenario.tamCelda);
-            let casillaY = parseInt(siguienteYHorizontal / this.escenario.tamCelda);
+            let casillaX = Math.floor(siguienteXHorizontal / this.escenario.tamCelda);
+            let casillaY = Math.floor(siguienteYHorizontal / this.escenario.tamCelda);
 
             if (this.escenario.colision(casillaX, casillaY)) {
                 colisionHorizontal = true;
@@ -255,8 +255,8 @@ class Rayo {
 
         while (!colisionVertical && siguienteXVertical >= 0 && siguienteXVertical < canvas.width && siguienteYVertical >= 0 && siguienteYVertical < canvas.height) {
 
-            var casillaX = parseInt(siguienteXVertical / this.escenario.tamCelda);
-            var casillaY = parseInt(siguienteYVertical / this.escenario.tamCelda);
+            let casillaX = Math.floor(siguienteXVertical / this.escenario.tamCelda);
+            let casillaY = Math.floor(siguienteYVertical / this.escenario.tamCelda);
 
             if (this.escenario.colision(casillaX, casillaY)) {
                 colisionVertical = true;
@@ -286,16 +286,16 @@ class Rayo {
             this.wallHitY = this.wallHitYHorizontal;
             this.distancia = distanciaHorizontal;
 
-            this.pixelTextura = this.wallHitX - parseInt(this.wallHitX / mapa.tamCelda) * mapa.tamCelda;
+            this.pixelTextura = this.wallHitX - Math.floor(this.wallHitX / mapa.tamCelda) * mapa.tamCelda;
         } else {
             this.wallHitX = this.wallHitXVertical;
             this.wallHitY = this.wallHitYVertical;
             this.distancia = distanciaVertical;
 
-            this.pixelTextura = this.wallHitY - parseInt(this.wallHitY / mapa.tamCelda) * mapa.tamCelda;
+            this.pixelTextura = this.wallHitY - Math.floor(this.wallHitY / mapa.tamCelda) * mapa.tamCelda;
         }
 
-        this.pixelTextura = parseInt((this.pixelTextura / mapa.tamCelda) * imgPared.width);
+        this.pixelTextura = Math.floor((this.pixelTextura / mapa.tamCelda) * imgPared.width);
 
         // CORRECCION OJO DE PEZ
         this.distancia = this.distancia * (Math.cos(this.anguloJugador - this.angulo));
@@ -304,12 +304,12 @@ class Rayo {
     renderPared() {
         // PARED
         this.cast();
-        let altoTile = 300;
+        let altoTile = 200;
         let distanciaPlanoProyeccion = (canvas.width / 2) / Math.tan(FOV / 2);
         let altoMuro = altoTile / this.distancia * distanciaPlanoProyeccion;
         var y0 = canvas.height / 2 - altoMuro / 2 + moveCamara;
         var y1 = y0 + altoMuro;
-        var x = this.columna;
+        var x = this.columna * resolucionRayos;
 
         this.ctx.drawImage(
             imgPared,
@@ -319,17 +319,12 @@ class Rayo {
             imgPared.height,
             x,
             y0,
-            1,
+            resolucionRayos,
             y1 - y0,
         );
-        shadeCtx.fillStyle = `hsl(60, ${hue}%, 30%)`;
-        shadeCtx.fillRect(x, y0, 1, altoMuro);
-        hue = parseInt(-altoMuro / 7);
-
-        // // this.ctx.fillStyle = `rgb(121, 115, 18)`;
-        // this.ctx.fillStyle = `hsl(55, ${hue}%, 35%, 50%)`;
-        // this.ctx.fillStyle = `hsl(55, 50%, 35%, ${hue}%)`;
-        // this.ctx.fillRect(x, y0, 1, altoMuro);
+        shadeCtx.fillStyle = `hsl(60, ${hue}%, 40%)`;
+        shadeCtx.fillRect(x, y0, resolucionRayos, altoMuro);
+        hue = parseInt(-altoMuro / 10);
     }
 
     renderRayo() {
@@ -361,11 +356,11 @@ class Player {
 
         this.angulo = Math.PI;
 
-        this.velAvance = 3;
+        this.velAvance = 2;
         this.velGiro = 3 * (Math.PI / 180);
 
         //this.rayo = new Rayo(this.ctx, this.escenario, this.posXPlayer, this.posYPlayer, this.angulo, 0);
-        this.numRayos = canvas.width;
+        this.numRayos = canvas.width/resolucionRayos;
         this.rayos = [];
 
         var incrementoAngulo = convierteRadianes(FOV / this.numRayos);
@@ -401,8 +396,8 @@ class Player {
 
     colision(x, y) {
         let choca = false;
-        let casillaX = parseInt(x / this.escenario.tamCelda);
-        let casillaY = parseInt(y / this.escenario.tamCelda);
+        let casillaX = Math.floor(x / this.escenario.tamCelda);
+        let casillaY = Math.floor(y / this.escenario.tamCelda);
 
         if (this.escenario.colision(casillaX, casillaY)) {
             choca = true;
@@ -453,15 +448,6 @@ class Player {
 
         var xDestino = this.posXPlayer + Math.cos(this.angulo) * 50;
         var yDestino = this.posYPlayer + Math.sin(this.angulo) * 50;
-
-        // this.ctx.beginPath();
-        // this.ctx.moveTo(this.posXPlayer, this.posYPlayer);
-        // this.ctx.lineTo(xDestino, yDestino);
-        // this.ctx.strokeStyle = '#000';
-        // this.ctx.stroke();
-
-        // this.ctx.fillStyle = '#7cff02';
-        // this.ctx.fillRect(this.posXPlayer - this.tamPlayer / 2, this.posYPlayer - this.tamPlayer / 2, this.tamPlayer, this.tamPlayer);
     }
 }
 
@@ -480,11 +466,11 @@ document.addEventListener('keydown', (tecla) => {
             player.izquierda();
             break;
     }
-    if (moveCamara < 10) {
-        moveCamara++;
-    } else {
-        moveCamara = -moveCamara;
-    }
+    // if (moveCamara < 10) {
+    //     moveCamara++;
+    // } else {
+    //     moveCamara = -moveCamara;
+    // }
 });
 
 document.addEventListener('keyup', (tecla) => {
@@ -524,8 +510,10 @@ document.addEventListener('keyup', (tecla) => {
 
 
 
-canvas.width = 1200;  // anchM * tamCelda
+canvas.width = 1080;  // anchM * tamCelda
 canvas.height = 720;    // altM * tamCelda
+shadeCanvas.width = canvas.width;
+shadeCanvas.height = canvas.height;
 
 const mapa = new Map(ctx);
 
@@ -539,26 +527,22 @@ const frameDuration = 1000 / fps;
 let ultimoTiempo = 0;
 function gameLoop(tiempoActual) {
     requestAnimationFrame(gameLoop);
-    canvas.width = canvas.width;
-    canvas.height = canvas.height;
-    shadeCanvas.width = canvas.width;
-    shadeCanvas.height = canvas.height;
-
-
     const delta = tiempoActual - ultimoTiempo;
     if (delta < frameDuration) return;
     ultimoTiempo = tiempoActual - (delta % frameDuration);
 
+    // ctx.clearRect(0, 0, canvas.width, canvas.height);
+    shadeCtx.clearRect(0, 0, shadeCanvas.width, shadeCanvas.height);
     if (player.avanzando !== 0) {
         bobTiempo += delta;
-        moveCamara = parseInt(Math.sin(bobTiempo / 100) * 10);
+        moveCamara = Math.floor(Math.sin(bobTiempo / 100) * 10);
     } else {
         bobTiempo = 0;
         moveCamara = 0;
     }
 
-    // mapa.renderMap();
     mapa.renderFondo();
+    // mapa.renderMap();
     player.renderPlayer();
     mapa.renderMiniMap();
 
