@@ -1,3 +1,6 @@
+import { player } from "../main.js";
+import { fx } from "../core/canvas.js";
+
 document.addEventListener('keydown', (tecla) => {
     switch (tecla.keyCode) {
         case 38:
@@ -30,5 +33,5 @@ document.addEventListener('keyup', (tecla) => {
             player.stopGiro();
             break;
     }
-    moveCamara = 0;
+    fx.moveCamara = 0;
 });

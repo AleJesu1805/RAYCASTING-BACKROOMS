@@ -26,11 +26,11 @@ export const touch = {
 export const resolucionRayos = 4;
 
 export const imgPared = new Image();
-imgPared.src = '../img/backrooms-textures-v0-3b0m6yqrjhk91.webp';
+imgPared.src = '../../img/...backrooms-textures-v0-3b0m6yqrjhk91.webp';
 
 export const tamArma = 350;
 export const imgArma = new Image();
-imgArma.src = '../img/backrooms-textures-v0-3b0m6yqrjhk911111111111.webp';
+imgArma.src = '../../img/...backrooms-textures-v0-3b0m6yqrjhk911111111111.webp';
 
 export const FOV = 60;
 

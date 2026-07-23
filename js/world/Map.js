@@ -107,7 +107,7 @@ export class Map {
         this.ctx.fillStyle = '#1a551e';
         this.ctx.fillRect(miniX - 2, miniY - 2, 4, 4);
 
-        ctx.drawImage(imgArma, canvas.width / 2 - tamArma / 2, canvas.height - tamArma / 1.69 + moveCamara, tamArma, tamArma / 1.5);
+        ctx.drawImage(imgArma, canvas.width / 2 - tamArma / 2, canvas.height - tamArma / 1.69 + fx.moveCamara, tamArma, tamArma / 1.5);
 
         ctx.beginPath();
         ctx.arc(canvas.width / 2 - this.miniCelda / 1, canvas.height / 2, this.miniCelda, 0, Math.PI * 2);

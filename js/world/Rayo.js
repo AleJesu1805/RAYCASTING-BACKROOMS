@@ -136,7 +136,7 @@ export class Rayo {
             this.pixelTextura = this.wallHitY - Math.floor(this.wallHitY / this.escenario.tamCelda) * this.escenario.tamCelda;
         }
 
-        this.pixelTextura = Math.floor((this.pixelTextura / this.e.tamCelda) * imgPared.width);
+        this.pixelTextura = Math.floor((this.pixelTextura / this.escenario.tamCelda) * imgPared.width);
 
         // CORRECCION OJO DE PEZ
         this.distancia = this.distancia * (Math.cos(this.anguloJugador - this.angulo));

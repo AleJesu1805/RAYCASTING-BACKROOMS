@@ -32,7 +32,7 @@ function gameLoop(tiempoActual) {
 
     mapa.renderFondo();
     player.renderPlayer();
-    mapa.renderMiniMap();
+    mapa.renderMiniMap(player);
 }
 
 requestAnimationFrame(gameLoop);
