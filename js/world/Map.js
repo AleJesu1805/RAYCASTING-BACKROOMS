@@ -1,3 +1,5 @@
+import { canvas, ctx, imgArma, tamArma, fx } from "../core/canvas.js";
+
 // const matriz = [
 //     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
 //     [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1],
@@ -56,7 +58,7 @@ const matriz = [
 ];
 
 export class Map {
-    constructor(ctx, player) {
+    constructor(ctx) {
         this.anchM = matriz[0].length;
         this.altM = matriz.length;
         this.tamCelda = Math.floor(Math.min(canvas.width / this.anchM, canvas.height / this.altM));
@@ -64,7 +66,6 @@ export class Map {
         this.colorEspacio = '#572020';
         this.ctx = ctx;
         this.miniCelda = this.tamCelda - this.anchM * 1.2;
-        this.player = player;
     }
     renderMap() {
         for (let y = 0; y < this.altM; y++) {
@@ -79,7 +80,7 @@ export class Map {
         }
     }
 
-    renderMiniMap() {
+    renderMiniMap(player) {
         for (let y = 0; y < this.altM; y++) {
             for (let x = 0; x < this.anchM; x++) {
                 if (matriz[y][x] === 1) {

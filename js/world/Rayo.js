@@ -1,3 +1,6 @@
+import { canvas, shadeCtx, imgPared, resolucionRayos, FOV, fx } from "../core/canvas.js";
+import { normalizaAngulo, distanciaEntrePuntos } from "../core/utils.js";
+
 export class Rayo {
     constructor(ctx, escenario, x, y, angulo, incrementoAngulo, columna) {
         this.ctx = ctx;
@@ -124,16 +127,16 @@ export class Rayo {
             this.wallHitY = this.wallHitYHorizontal;
             this.distancia = distanciaHorizontal;
 
-            this.pixelTextura = this.wallHitX - Math.floor(this.wallHitX / mapa.tamCelda) * mapa.tamCelda;
+            this.pixelTextura = this.wallHitX - Math.floor(this.wallHitX / this.escenario.tamCelda) * this.escenario.tamCelda;
         } else {
             this.wallHitX = this.wallHitXVertical;
             this.wallHitY = this.wallHitYVertical;
             this.distancia = distanciaVertical;
 
-            this.pixelTextura = this.wallHitY - Math.floor(this.wallHitY / mapa.tamCelda) * mapa.tamCelda;
+            this.pixelTextura = this.wallHitY - Math.floor(this.wallHitY / this.escenario.tamCelda) * this.escenario.tamCelda;
         }
 
-        this.pixelTextura = Math.floor((this.pixelTextura / mapa.tamCelda) * imgPared.width);
+        this.pixelTextura = Math.floor((this.pixelTextura / this.e.tamCelda) * imgPared.width);
 
         // CORRECCION OJO DE PEZ
         this.distancia = this.distancia * (Math.cos(this.anguloJugador - this.angulo));
@@ -145,7 +148,7 @@ export class Rayo {
         let altoTile = 200;
         let distanciaPlanoProyeccion = (canvas.width / 2) / Math.tan(FOV / 2);
         let altoMuro = altoTile / this.distancia * distanciaPlanoProyeccion;
-        var y0 = canvas.height / 2 - altoMuro / 2 + moveCamara;
+        var y0 = canvas.height / 2 - altoMuro / 2 + fx.moveCamara;
         var y1 = y0 + altoMuro;
         var x = this.columna * resolucionRayos;
 
@@ -160,9 +163,9 @@ export class Rayo {
             resolucionRayos,
             y1 - y0,
         );
-        shadeCtx.fillStyle = `hsl(60, ${hue}%, 40%)`;
+        shadeCtx.fillStyle = `hsl(60, ${fx.hue}%, 40%)`;
         shadeCtx.fillRect(x, y0, resolucionRayos, altoMuro);
-        hue = parseInt(-altoMuro / 10);
+        fx.hue = parseInt(-altoMuro / 10);
     }
 
     renderRayo() {

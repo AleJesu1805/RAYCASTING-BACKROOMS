@@ -1,3 +1,7 @@
+import { canvas, shadeCanvas, resolucionRayos, FOV } from "../core/canvas.js";
+import { convierteRadianes, normalizaAngulo } from "../core/utils.js";
+import { Rayo } from "../world/Rayo.js";
+
 export class Player {
     constructor(x, y, escenario, ctx) {
         this.posXPlayer = x;

@@ -46,3 +46,7 @@ else {
     expandirPantalla.innerHTML = 'MINIMIZAR PANTALLA';
 }
 
+window.jugar = jugar;
+window.abrirConfig = abrirConfig;
+window.ampliar = ampliar;
+
