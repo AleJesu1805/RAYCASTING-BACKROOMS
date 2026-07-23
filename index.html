@@ -5,42 +5,18 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="initial-scale=1, maximum-scale=1">
   <title>BACKROOMS GAME</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="css/style.css">
   <style>
     @font-face {
       font-family: 'Gothic';
       src: url('fonts/fuente10.ttf') format('truetype');
       font-display: swap;
     }
-    html{
+
+    html {
       background-color: black;
     }
   </style>
-  <script>
-    function jugar() {
-      document.querySelector('canvas').removeAttribute('hidden');
-      document.querySelector('.container-start').style.display = "none";
-      if (navigator.userAgentData.mobile) document.querySelector('.container-buttons').removeAttribute('hidden');
-      try {
-        // document.documentElement.requestFullscreen();
-        // screen.orientation.lock('landscape');
-        console.log('Pantalla rotada y bloqueada en horizontal');
-      } catch (error) {
-        console.error('Error al intentar rotar o entrar en pantalla completa:', error);
-      }
-    }
-    var configOpen = false;
-    function abrirConfig() {
-      configOpen = !configOpen;
-      const config = document.querySelector('.container-config');
-      if (configOpen) { config.style.display = 'flex'; }
-      else { config.style.display = 'none'; }
-    }
-    function ampliar() {
-      if (document.fullscreenElement != null) { document.exitFullscreen(); }
-      else { document.documentElement.requestFullscreen(); }
-    }
-  </script>
 </head>
 
 <body>
@@ -49,26 +25,28 @@
 
   <button class="configuraciones" onclick="abrirConfig()">AJUSTES</button>
   <div class="container-config" style="display: none;">
-    <button id="expandirPantalla" onclick="ampliar()">MINIMIZAR PANTALLA</button>
+    <button id="expandirPantalla" onclick="ampliar()"></button>
   </div>
 
   <!-- -------------- PANTALLA DE MALVENIDA ------------------ -->
 
-  <div class="container-start" style="display: none;">
+  <div class="container-start">
     <h1 id="msg-malvenida" class="central">MALVENIDO <br> A <br> BACKROOMS</h1>
-    <button onclick="jugar()" class="central"><strong> JUGAR </strong><br> (se ampliara y rotara la pantalla al iniciar)</button>
+    <button onclick="jugar()" class="central"><strong> JUGAR </strong><br> (se ampliara y rotara la pantalla al
+      iniciar)</button>
   </div>
 
   <!-- -------------- BOTONES MOVILES ------------------ -->
 
-  <div class="container-buttons">
+  <div class="container-buttons" hidden>
     <div id="joystick">
       <div id="ballJoystick">&nbsp;</div>
     </div>
-    <button id="disparador">X</button>
+    <!-- <button id="disparador">X</button> -->
   </div>
-  <canvas id="canvas" ></canvas>
-  <script src="js/script.js"></script>
+  <canvas id="canvas" hidden></canvas>
+  <script src="js/canvas.js" type="module"></script>
+  <script src="js/setting.js"></script>
 </body>
 
 </html>
