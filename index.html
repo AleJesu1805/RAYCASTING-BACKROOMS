@@ -12,45 +12,62 @@
       src: url('fonts/fuente10.ttf') format('truetype');
       font-display: swap;
     }
+    html{
+      background-color: black;
+    }
   </style>
   <script>
     function jugar() {
       document.querySelector('canvas').removeAttribute('hidden');
-      document.querySelector('.container-start').setAttribute('hidden', true);
-      document.querySelector('#container-buttons').removeAttribute('hidden');
+      document.querySelector('.container-start').style.display = "none";
+      if (navigator.userAgentData.mobile) document.querySelector('.container-buttons').removeAttribute('hidden');
       try {
-          document.documentElement.requestFullscreen();
-          screen.orientation.lock('landscape');
-          console.log('Pantalla rotada y bloqueada en horizontal');
-        } catch (error) {
-          console.error('Error al intentar rotar o entrar en pantalla completa:', error);
-        }
+        // document.documentElement.requestFullscreen();
+        // screen.orientation.lock('landscape');
+        console.log('Pantalla rotada y bloqueada en horizontal');
+      } catch (error) {
+        console.error('Error al intentar rotar o entrar en pantalla completa:', error);
+      }
+    }
+    var configOpen = false;
+    function abrirConfig() {
+      configOpen = !configOpen;
+      const config = document.querySelector('.container-config');
+      if (configOpen) { config.style.display = 'flex'; }
+      else { config.style.display = 'none'; }
+    }
+    function ampliar() {
+      if (document.fullscreenElement != null) { document.exitFullscreen(); }
+      else { document.documentElement.requestFullscreen(); }
     }
   </script>
 </head>
 
 <body>
-  <div class="container-start">
-    <h1 id="msg-malvenida" class="central">MALVENIDO <br> A <br> BACKROOMS</h1>
-    <button onclick="jugar()" class="central">JUGAR <br> (se ampliara y rotara la pantalla al iniciar)</button>
+
+  <!-- --------------CONFIGURACIONES ------------------ -->
+
+  <button class="configuraciones" onclick="abrirConfig()">AJUSTES</button>
+  <div class="container-config" style="display: none;">
+    <button id="expandirPantalla" onclick="ampliar()">MINIMIZAR PANTALLA</button>
   </div>
 
+  <!-- -------------- PANTALLA DE MALVENIDA ------------------ -->
 
+  <div class="container-start" style="display: none;">
+    <h1 id="msg-malvenida" class="central">MALVENIDO <br> A <br> BACKROOMS</h1>
+    <button onclick="jugar()" class="central"><strong> JUGAR </strong><br> (se ampliara y rotara la pantalla al iniciar)</button>
+  </div>
 
+  <!-- -------------- BOTONES MOVILES ------------------ -->
 
-
-
-
-
-
-
-
-  <div id="container-buttons" hidden>
-    <input type="range" id="avanzador">
-    <input type="range" id="girador">
+  <div class="container-buttons">
+    <div id="joystick">
+      <div id="ballJoystick">&nbsp;</div>
+    </div>
     <button id="disparador">X</button>
   </div>
-  <canvas id="canvas" hidden></canvas>
+  <canvas id="canvas" ></canvas>
   <script src="js/script.js"></script>
 </body>
 

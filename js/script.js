@@ -1,13 +1,30 @@
+"use strict";
 const canvas = document.querySelector('canvas');
-const span = document.querySelector('span');
 const ctx = canvas.getContext('2d');
 
 const shadeCanvas = document.createElement('canvas');
 const shadeCtx = shadeCanvas.getContext('2d');
 
-var hue = 0;
-var moveCamara = 0;
-var bobTiempo = 0;
+// VARIABLES PARA LOS EFECTOS DE FEEDBACK
+
+let hue = 0;
+let moveCamara = 0;
+let bobTiempo = 0;
+
+// VARIABLES PARA LA DETECCION DE EVENTOS EN MOVILES
+
+const rangoDePresion = document.querySelector('.container-buttons');
+const ballJoystick = document.getElementById('ballJoystick');
+
+let inicioXDedo = 0;
+let inicioYDedo = 0;
+
+let actXDedo = 0;
+let actYDedo = 0;
+
+let desplazadoXDedo = 0;
+let desplazadoYDedo = 0;
+
 const resolucionRayos = 10;
 
 const imgPared = new Image();
@@ -18,6 +35,7 @@ const imgArma = new Image();
 imgArma.src = 'img/backrooms-textures-v0-3b0m6yqrjhk911111111111.webp';
 
 const FOV = 60;
+
 
 const matriz = [
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
@@ -57,8 +75,6 @@ class Map {
     constructor(ctx, player) {
         this.anchM = matriz[0].length;
         this.altM = matriz.length;
-        //this.anchCelda = canvas.width / this.anchM;
-        //this.altCelda = canvas.height / this.altM;
         this.tamCelda = Math.floor(Math.min(canvas.width / this.anchM, canvas.height / this.altM));
         this.colorPared = `hsl(55, 66%, 25%)`;
         this.colorEspacio = '#572020';
@@ -67,8 +83,6 @@ class Map {
         this.player = player;
     }
     renderMap() {
-        //this.anchCelda = canvas.width / this.anchM;
-        //this.altCelda = canvas.height / this.altM;
         for (let y = 0; y < this.altM; y++) {
             for (let x = 0; x < this.anchM; x++) {
                 if (matriz[y][x] === 1) {
@@ -76,7 +90,6 @@ class Map {
                 } else {
                     ctx.fillStyle = this.colorEspacio;
                 }
-                //ctx.strokeRect(x * this.anchCelda, y * this.altCelda, this.anchCelda, this.altCelda);
                 ctx.fillRect(x * this.tamCelda, y * this.tamCelda, this.tamCelda, this.tamCelda);
             }
         }
@@ -90,7 +103,6 @@ class Map {
                 } else {
                     ctx.fillStyle = this.colorEspacio;
                 }
-                //ctx.strokeRect(x * this.anchCelda, y * this.altCelda, this.anchCelda, this.altCelda);
                 ctx.fillRect(x * this.miniCelda, y * this.miniCelda, this.miniCelda, this.miniCelda);
             }
         }
@@ -188,9 +200,6 @@ class Rayo {
     cast() {
         this.xIntercept = 0;
         this.yIntercept = 0;
-
-        //this.xStep = 0;
-        //this.yStep = 0;
 
         this.abajo = false;
         this.izquierda = false;
@@ -344,8 +353,6 @@ class Player {
     constructor(x, y, escenario, ctx) {
         this.posXPlayer = x;
         this.posYPlayer = y;
-        //this.anchPlayer = canvas.width / matriz[0].length / 3;
-        //this.altPlayer = canvas.height / matriz.length / 3;
         this.escenario = escenario;
         this.ctx = ctx;
 
@@ -359,8 +366,7 @@ class Player {
         this.velAvance = 2;
         this.velGiro = 3 * (Math.PI / 180);
 
-        //this.rayo = new Rayo(this.ctx, this.escenario, this.posXPlayer, this.posYPlayer, this.angulo, 0);
-        this.numRayos = canvas.width/resolucionRayos;
+        this.numRayos = canvas.width / resolucionRayos;
         this.rayos = [];
 
         var incrementoAngulo = convierteRadianes(FOV / this.numRayos);
@@ -421,15 +427,12 @@ class Player {
         }
         this.angulo += this.girando * this.velGiro;
         this.angulo = normalizaAngulo(this.angulo);
-        // this.rayo.setAngulo(this.angulo);
-        // this.rayo.x = this.posXPlayer;
-        // this.rayo.y = this.posYPlayer;
-        //this.rayo.renderRayo();
 
         for (let i = 0; i < this.numRayos; i++) {
             this.rayos[i].x = this.posXPlayer;
             this.rayos[i].y = this.posYPlayer;
             this.rayos[i].setAngulo(this.angulo);
+            this.rayos[i].renderPared();
         }
     }
 
@@ -439,7 +442,7 @@ class Player {
         this.moverPersonaje();
         for (let i = 0; i < this.numRayos; i++) {
             // this.rayos[i].renderRayo();
-            this.rayos[i].renderPared();
+            // this.rayos[i].renderPared();
         }
 
         this.ctx.globalAlpha = 0.6;
@@ -466,11 +469,6 @@ document.addEventListener('keydown', (tecla) => {
             player.izquierda();
             break;
     }
-    // if (moveCamara < 10) {
-    //     moveCamara++;
-    // } else {
-    //     moveCamara = -moveCamara;
-    // }
 });
 
 document.addEventListener('keyup', (tecla) => {
@@ -491,35 +489,41 @@ document.addEventListener('keyup', (tecla) => {
     moveCamara = 0;
 });
 
-// const botones = [
-//     { id: 'arribaBoton', start: () => player.arriba(), stop: () => player.stopAvance() },
-//     { id: 'abajoBoton', start: () => player.abajo(), stop: () => player.stopAvance() },
-//     { id: 'derechaBoton', start: () => player.derecha(), stop: () => player.stopGiro() },
-//     { id: 'izquierdaBoton', start: () => player.izquierda(), stop: () => player.stopGiro() },
-// ];
+rangoDePresion.addEventListener('touchstart', (e) => {
+    e.preventDefault();
+    inicioXDedo = e.touches[0].pageX;
+}, { passive: false });
 
-// botones.forEach(({ id, start, stop }) => {
-//     const boton = document.getElementById(id);
-//     boton.addEventListener('touchstart', start);
-//     boton.addEventListener('touchend', stop);
-//     boton.addEventListener('touchcancel', stop);
-// });
+rangoDePresion.addEventListener('touchmove', (e) => {
+    e.preventDefault();
+    actXDedo = e.touches[0].pageX;
+    if (actXDedo >= canvas.width / 3) {
+        desplazadoXDedo = actXDedo - inicioXDedo;
+        console.log(desplazadoXDedo);
+        if (desplazadoXDedo > 0) {
+            player.derecha();
+        } else if (desplazadoXDedo < 0) {
+            player.izquierda();
+        }
+    }
+}, { passive: false });
 
-// canvas.width = mapa.anchM * mapa.tamCelda;  // anchM * tamCelda
-// canvas.height = mapa.altM * mapa.tamCelda;    // altM * tamCelda
+rangoDePresion.addEventListener('touchend', (e) => {
+    player.stopGiro();
+});
 
 
 
-canvas.width = 1080;  // anchM * tamCelda
-canvas.height = 720;    // altM * tamCelda
+canvas.width = 1280;
+canvas.height = 720;
 shadeCanvas.width = canvas.width;
 shadeCanvas.height = canvas.height;
 
 const mapa = new Map(ctx);
 
 const player = new Player(
-    (mapa.anchM - 2) * mapa.tamCelda + mapa.tamCelda / 2,  // centro de la columna 62
-    mapa.tamCelda + mapa.tamCelda / 2,                      // centro de la fila 1
+    (mapa.anchM - 2) * mapa.tamCelda + mapa.tamCelda / 2,
+    mapa.tamCelda + mapa.tamCelda / 2,
     mapa, ctx
 );
 const fps = 70;
@@ -545,8 +549,6 @@ function gameLoop(tiempoActual) {
     // mapa.renderMap();
     player.renderPlayer();
     mapa.renderMiniMap();
-
-    // ctx.fillRect(canvas.width/2,canvas.height/2, 1, 1);
 
 }
 requestAnimationFrame(gameLoop);
