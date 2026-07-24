@@ -1,3 +1,5 @@
+// import { mapa } from "./js/main.js";
+
 // js/core/canvas.js
 export const canvas = document.querySelector('canvas');
 export const ctx = canvas.getContext('2d');
@@ -5,6 +7,8 @@ export const ctx = canvas.getContext('2d');
 export const shadeCanvas = document.createElement('canvas');
 export const shadeCtx = shadeCanvas.getContext('2d');
 
+// export const miniCanvas = document.getElementById('miniCanvas');
+// export const miniCanvasCtx = miniCanvas.getContext('2d');
 // OBJETO PARA LOS EFECTOS DE FEEDBACK
 
 export const fx = { hue: 0, moveCamara: 0, bobTiempo: 0 };
@@ -23,14 +27,7 @@ export const touch = {
     desplazadoYDedo: 0,
 };
 
-export const resolucionRayos = 4;
-
-export const imgPared = new Image();
-imgPared.src = 'img/backrooms-textures-v0-3b0m6yqrjhk91.webp';
-
-export const tamArma = 350;
-export const imgArma = new Image();
-imgArma.src = 'img/backrooms-textures-v0-3b0m6yqrjhk911111111111.webp';
+export const resolucionRayos = 1;
 
 export const FOV = 60;
 canvas.width = 1280;

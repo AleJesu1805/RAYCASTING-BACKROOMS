@@ -1,5 +1,6 @@
-import { canvas, shadeCtx, imgPared, resolucionRayos, FOV, fx } from "../core/canvas.js";
+import { canvas, shadeCtx, resolucionRayos, FOV, fx } from "../core/canvas.js";
 import { normalizaAngulo, distanciaEntrePuntos } from "../core/utils.js";
+import { imgPared } from "../core/assets.js";
 
 export class Rayo {
     constructor(ctx, escenario, x, y, angulo, incrementoAngulo, columna) {
@@ -163,9 +164,9 @@ export class Rayo {
             resolucionRayos,
             y1 - y0,
         );
-        shadeCtx.fillStyle = `hsl(60, ${fx.hue}%, 40%)`;
+        shadeCtx.fillStyle = 'hsl(60,'+ fx.hue +'%, 40%)';
         shadeCtx.fillRect(x, y0, resolucionRayos, altoMuro);
-        fx.hue = parseInt(-altoMuro / 10);
+        fx.hue = Math.floor(-altoMuro / 10);
     }
 
     renderRayo() {

@@ -32,7 +32,7 @@ button {
   }
 }
 
-canvas {
+#canvas {
   position: fixed;
   left: 50%;
   top: 50%;
@@ -42,6 +42,12 @@ canvas {
   height: var(--resolucion-height);
   border: 5px solid black;
 }
+
+/* #miniCanvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+} */
 
 .container-buttons {
   width: 100%;

@@ -1,4 +1,5 @@
-import { canvas, ctx, imgArma, tamArma, fx } from "../core/canvas.js";
+import { canvas, ctx, fx } from "../core/canvas.js";
+import { imgArma } from "../core/assets.js";
 
 // const matriz = [
 //     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
@@ -65,32 +66,24 @@ export class Map {
         this.colorPared = `hsl(55, 66%, 25%)`;
         this.colorEspacio = '#572020';
         this.ctx = ctx;
-        this.miniCelda = this.tamCelda - this.anchM * 1.2;
+        this.tamMiniMap = 200;
+        this.miniCelda = Math.min(this.tamMiniMap / this.anchM, this.tamMiniMap / this.altM);
     }
+
     renderMap() {
         for (let y = 0; y < this.altM; y++) {
             for (let x = 0; x < this.anchM; x++) {
                 if (matriz[y][x] === 1) {
-                    ctx.fillStyle = this.colorPared;
+                    this.ctx.fillStyle = this.colorPared;
                 } else {
-                    ctx.fillStyle = this.colorEspacio;
+                    this.ctx.fillStyle = this.colorEspacio;
                 }
-                ctx.fillRect(x * this.tamCelda, y * this.tamCelda, this.tamCelda, this.tamCelda);
+                this.ctx.fillRect(x * this.tamCelda, y * this.tamCelda, this.tamCelda, this.tamCelda);
             }
         }
     }
 
-    renderMiniMap(player) {
-        for (let y = 0; y < this.altM; y++) {
-            for (let x = 0; x < this.anchM; x++) {
-                if (matriz[y][x] === 1) {
-                    ctx.fillStyle = this.colorPared;
-                } else {
-                    ctx.fillStyle = this.colorEspacio;
-                }
-                ctx.fillRect(x * this.miniCelda, y * this.miniCelda, this.miniCelda, this.miniCelda);
-            }
-        }
+    renderPlayerInMinimap(player) {
         var escala = this.miniCelda / this.tamCelda;
         var miniX = player.posXPlayer * escala;
         var miniY = player.posYPlayer * escala;
@@ -106,14 +99,19 @@ export class Map {
 
         this.ctx.fillStyle = '#1a551e';
         this.ctx.fillRect(miniX - 2, miniY - 2, 4, 4);
+    }
 
-        ctx.drawImage(imgArma, canvas.width / 2 - tamArma / 2, canvas.height - tamArma / 1.69 + fx.moveCamara, tamArma, tamArma / 1.5);
-
-        ctx.beginPath();
-        ctx.arc(canvas.width / 2 - this.miniCelda / 1, canvas.height / 2, this.miniCelda, 0, Math.PI * 2);
-        ctx.strokeStyle = '#a20606';
-        ctx.lineWidth = 1;
-        ctx.stroke();
+    renderMiniMap() {
+        for (let y = 0; y < this.altM; y++) {
+            for (let x = 0; x < this.anchM; x++) {
+                if (matriz[y][x] === 1) {
+                    this.ctx.fillStyle = this.colorPared;
+                } else {
+                    this.ctx.fillStyle = this.colorEspacio;
+                }
+            this.ctx.fillRect(x * this.miniCelda, y * this.miniCelda, this.miniCelda, this.miniCelda);
+            }
+        }
     }
 
     renderFondo() {

@@ -1,6 +1,7 @@
-import { canvas, shadeCanvas, resolucionRayos, FOV } from "../core/canvas.js";
+import { canvas, shadeCanvas, resolucionRayos, FOV, fx} from "../core/canvas.js";
 import { convierteRadianes, normalizaAngulo } from "../core/utils.js";
 import { Rayo } from "../world/Rayo.js";
+import {imgArma} from "../core/assets.js";
 
 export class Player {
     constructor(x, y, escenario, ctx) {
@@ -16,8 +17,8 @@ export class Player {
 
         this.angulo = Math.PI;
 
-        this.velAvance = 2;
-        this.velGiro = 3 * (Math.PI / 180);
+        this.velAvance = 4;
+        this.velGiro = 5 * (Math.PI / 180);
 
         this.numRayos = canvas.width / resolucionRayos;
         this.rayos = [];
@@ -100,5 +101,17 @@ export class Player {
         this.ctx.globalAlpha = 1;
         var xDestino = this.posXPlayer + Math.cos(this.angulo) * 50;
         var yDestino = this.posYPlayer + Math.sin(this.angulo) * 50;
+    }
+
+    renderArma(){
+        const tamArma = 350;
+        this.ctx.drawImage(imgArma, canvas.width / 2 - tamArma / 2, canvas.height - tamArma / 1.69 + fx.moveCamara, tamArma, tamArma / 1.5);
+        
+        let tamañoPuntero=10;
+        this.ctx.beginPath();
+        this.ctx.arc(canvas.width / 2 - tamañoPuntero/2, canvas.height / 2, tamañoPuntero, 0, Math.PI * 2);
+        this.ctx.strokeStyle = '#a20606';
+        this.ctx.lineWidth = 1;
+        this.ctx.stroke();
     }
 }
