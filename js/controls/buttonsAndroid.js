@@ -12,10 +12,10 @@ function girarEnMovil(x, y, rect) {
 joystick.addEventListener('touchstart', (e) => {
     e.preventDefault();
     const rect = joystick.getBoundingClientRect();
-    const x = e.touches[0].clientX - rect.left;
-    const y = e.touches[0].clientY - rect.top;
+    const x = e.changedTouches[0].clientX - rect.left;
+    const y = e.changedTouches[0].clientY - rect.top;
 
-    ballJoystick.style.left = `${x}px`;
+    // ballJoystick.style.left = `${x}px`;
     ballJoystick.style.top = `${y}px`;
 
     girarEnMovil(x, y, rect);
@@ -24,12 +24,17 @@ joystick.addEventListener('touchstart', (e) => {
 joystick.addEventListener('touchmove', (e) => {
     e.preventDefault();
     const rect = joystick.getBoundingClientRect();
-    const x = e.touches[0].clientX - rect.left;
-    const y = e.touches[0].clientY - rect.top;
+    const x = e.targetTouches[0].clientX - rect.left;
+    const y = e.targetTouches[0].clientY - rect.top;
 
-    if (x < rect.width && x > 0) {
-        ballJoystick.style.left = `${x}px`;
+        if (!e.targetTouches[0]) {
+        player.stopAvance();
+        return;
     }
+
+    // if (x < rect.width && x > 0) {
+    //     ballJoystick.style.left = `${x}px`;
+    // }
     if (y < rect.height && y > 0) {
         ballJoystick.style.top = `${y}px`;
     }
@@ -38,20 +43,23 @@ joystick.addEventListener('touchmove', (e) => {
 
 joystick.addEventListener('touchend', (e) => {
     e.preventDefault();
-    ballJoystick.style.left = `50%`;
-    ballJoystick.style.top = `50%`;
-    player.stopAvance();
+    if (e.targetTouches.length === 0) {
+        ballJoystick.style.left = `50%`;
+        ballJoystick.style.top = `50%`;
+        player.stopAvance();
+    }
 });
 
 rangoDePresion.addEventListener('touchstart', (e) => {
     e.preventDefault();
-    touch.inicioXDedo = e.touches[0].pageX;
+    touch.inicioXDedo = e.changedTouches[0].pageX;
 }, { passive: false });
 
 rangoDePresion.addEventListener('touchmove', (e) => {
     e.preventDefault();
+    if (!e.targetTouches[0]) return;
     if (touch.inicioXDedo > canvas.width / 4) {
-        touch.actXDedo = e.touches[0].pageX;
+        touch.actXDedo = e.targetTouches[0].pageX;
         touch.desplazadoXDedo = touch.actXDedo - touch.inicioXDedo;
         player.angulo += touch.desplazadoXDedo * 0.0025;
         touch.inicioXDedo = touch.actXDedo;

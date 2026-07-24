@@ -118,11 +118,11 @@ export class Map {
 
     renderFondo() {
         // SUELO
-        this.ctx.fillStyle = '#5c5836';
+        this.ctx.fillStyle = '#616431';
         this.ctx.fillRect(0, canvas.height / 2, canvas.width, canvas.height / 2);
 
         // TECHO
-        this.ctx.fillStyle = '#b4b236';
+        this.ctx.fillStyle = '#5c5601';
         this.ctx.fillRect(0, 0, canvas.width, canvas.height / 2);
     }
 

@@ -2,8 +2,6 @@ import { canvas, ctx, fx, shadeCanvas, shadeCtx } from "./core/canvas.js";
 import { Map } from "./world/Map.js";
 import { Player } from "./entities/Player.js";
 
-canvas.width = 1280;
-canvas.height = 720;
 export const mapa = new Map(ctx);
 
 export const player = new Player(

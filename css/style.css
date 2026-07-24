@@ -17,7 +17,19 @@ body {
   --resolucion-width: clamp(640px, 90vw, 1280px);
   --resolucion-height: clamp(360px, 90vh, 720px);
   --color-button: #967120;
-  --sombra-button: 0px 0px 15px 3px #a4b300;
+  --sombra-button: 0px 0px 15px 3px #b35a00;
+}
+
+button {
+  opacity: 0.9;
+  transform: scale(1);
+  transition: .2s transform ease, .2s opacity ease;
+  &:hover{
+    opacity: 1;
+  }
+  &:active{
+    transform: scale(1.2);
+  }
 }
 
 canvas {
@@ -36,7 +48,6 @@ canvas {
   height: 60vh;
   position: fixed;
   bottom: 0;
-  /* background-color: #b40d0d6c; */
   z-index: 1;
 }
 
@@ -47,7 +58,7 @@ canvas {
   border-radius: 100%;
   width: 25vw;
   height: 25vw;
-  background-color: #141161c7;
+  background-color: #525087c7;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -86,6 +97,11 @@ canvas {
   font-size: 3rem;
 }
 
+#msg-malvenida {
+  letter-spacing: 8px;
+  line-height: 50px;
+}
+
 button[onclick="jugar()"] {
   font-size: 1.5rem;
   font-family: 'Gothic';
@@ -95,16 +111,21 @@ button[onclick="jugar()"] {
   border-radius: 25px;
   border: none;
   font-weight: 900;
-  margin: min(6vw, 20px);
+  margin: 50px;
 }
-
-
 
 .configuraciones {
   position: fixed;
+  padding: 3%;
   top: 0;
   right: 0;
   z-index: 2;
+  background: #470f0f;
+  color: #c01a1a;
+  font-size: 25px;
+  font-family: 'Gothic';
+  border-radius: 0px 0px 0 20px;
+  border: 3px solid #361963;
 }
 
 .container-config {
@@ -116,4 +137,9 @@ button[onclick="jugar()"] {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+#expandirPantalla {
+  position: static;
+  border-radius: 15px;
 }
