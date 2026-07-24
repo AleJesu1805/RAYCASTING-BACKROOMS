@@ -7,6 +7,9 @@ export const ctx = canvas.getContext('2d');
 export const shadeCanvas = document.createElement('canvas');
 export const shadeCtx = shadeCanvas.getContext('2d');
 
+export const viewCanvas = document.createElement('canvas');
+export const viewCtx = viewCanvas.getContext('2d');
+
 // export const miniCanvas = document.getElementById('miniCanvas');
 // export const miniCanvasCtx = miniCanvas.getContext('2d');
 // OBJETO PARA LOS EFECTOS DE FEEDBACK
@@ -19,19 +22,22 @@ export const rangoDePresion = document.querySelector('.container-buttons');
 export const joystick = document.getElementById('joystick');
 export const ballJoystick = document.getElementById('ballJoystick');
 export const touch = {
-    inicioXDedo: 0, 
+    inicioXDedo: 0,
     inicioYDedo: 0,
-    actXDedo: 0, 
+    actXDedo: 0,
     actYDedo: 0,
-    desplazadoXDedo: 0, 
+    desplazadoXDedo: 0,
     desplazadoYDedo: 0,
 };
 
 export const resolucionRayos = 1;
 
 export const FOV = 60;
-canvas.width = 1280;
-canvas.height = 720;
+canvas.width = 640;
+canvas.height = 360;
+
 shadeCanvas.width = canvas.width;
 shadeCanvas.height = canvas.height;
 
+viewCanvas.width = canvas.width;
+viewCanvas.height = canvas.height;

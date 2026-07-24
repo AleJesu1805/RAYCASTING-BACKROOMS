@@ -164,9 +164,9 @@ export class Rayo {
             resolucionRayos,
             y1 - y0,
         );
-        shadeCtx.fillStyle = 'hsl(60,'+ fx.hue +'%, 40%)';
+        shadeCtx.fillStyle = 'hsl(60,' + fx.hue + '%, 40%)';
         shadeCtx.fillRect(x, y0, resolucionRayos, altoMuro);
-        fx.hue = Math.floor(-altoMuro / 10);
+        fx.hue = Math.floor(-altoMuro / 5);
     }
 
     renderRayo() {

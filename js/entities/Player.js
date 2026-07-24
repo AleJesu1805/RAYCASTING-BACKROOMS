@@ -1,7 +1,7 @@
-import { canvas, shadeCanvas, resolucionRayos, FOV, fx} from "../core/canvas.js";
+import { canvas, shadeCanvas, viewCtx, resolucionRayos, shadeCtx, FOV, fx } from "../core/canvas.js";
 import { convierteRadianes, normalizaAngulo } from "../core/utils.js";
 import { Rayo } from "../world/Rayo.js";
-import {imgArma} from "../core/assets.js";
+import { imgArma } from "../core/assets.js";
 
 export class Player {
     constructor(x, y, escenario, ctx) {
@@ -17,8 +17,8 @@ export class Player {
 
         this.angulo = Math.PI;
 
-        this.velAvance = 4;
-        this.velGiro = 5 * (Math.PI / 180);
+        this.velAvance = 3;
+        this.velGiro = (this.velAvance + 1) * (Math.PI / 180);
 
         this.numRayos = canvas.width / resolucionRayos;
         this.rayos = [];
@@ -33,17 +33,33 @@ export class Player {
         }
     }
 
+    lanzarRayos() {
+        // Limpiar shadeCanvas antes de dibujar nuevas sombras
+        shadeCtx.clearRect(0, 0, canvas.width, canvas.height);
+
+        for (let i = 0; i < this.numRayos; i++) {
+            this.rayos[i].x = this.posXPlayer;
+            this.rayos[i].y = this.posYPlayer;
+            this.rayos[i].setAngulo(this.angulo);
+            this.rayos[i].renderPared();
+        }
+    }
+
     arriba() {
         this.avanzando = 1;
+        fx.moveCamara = 0;
     }
     abajo() {
         this.avanzando = -1;
+        fx.moveCamara = 0;
     }
     derecha() {
         this.girando = 1;
+
     }
     izquierda() {
         this.girando = -1;
+
     }
 
     stopAvance() {
@@ -82,19 +98,15 @@ export class Player {
         this.angulo += this.girando * this.velGiro;
         this.angulo = normalizaAngulo(this.angulo);
 
-        for (let i = 0; i < this.numRayos; i++) {
-            this.rayos[i].x = this.posXPlayer;
-            this.rayos[i].y = this.posYPlayer;
-            this.rayos[i].setAngulo(this.angulo);
-            this.rayos[i].renderPared();
-        }
+        this.lanzarRayos();
+
+        viewCtx.clearRect(0, 0, canvas.width, canvas.height);
+        viewCtx.drawImage(canvas, 0, 0);
+        viewCtx.globalAlpha = 1;
+        viewCtx.drawImage(shadeCanvas, 0, 0);
     }
 
     renderPlayer() {
-        // for (let i = 0; i < this.numRayos; i++) {
-        //     this.rayos[i].renderRayo();
-        //     this.rayos[i].renderPared();
-        // }
         this.moverPersonaje();
         this.ctx.globalAlpha = 0.6;
         this.ctx.drawImage(shadeCanvas, 0, 0);
@@ -103,13 +115,13 @@ export class Player {
         var yDestino = this.posYPlayer + Math.sin(this.angulo) * 50;
     }
 
-    renderArma(){
-        const tamArma = 350;
+    renderArma() {
+        const tamArma = 200;
         this.ctx.drawImage(imgArma, canvas.width / 2 - tamArma / 2, canvas.height - tamArma / 1.69 + fx.moveCamara, tamArma, tamArma / 1.5);
-        
-        let tamañoPuntero=10;
+
+        let tamañoPuntero = 5;
         this.ctx.beginPath();
-        this.ctx.arc(canvas.width / 2 - tamañoPuntero/2, canvas.height / 2, tamañoPuntero, 0, Math.PI * 2);
+        this.ctx.arc(canvas.width / 2 - tamañoPuntero / 2, canvas.height / 2, tamañoPuntero, 0, Math.PI * 2);
         this.ctx.strokeStyle = '#a20606';
         this.ctx.lineWidth = 1;
         this.ctx.stroke();

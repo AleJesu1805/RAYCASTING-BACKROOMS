@@ -24,10 +24,12 @@ button {
   opacity: 0.9;
   transform: scale(1);
   transition: .2s transform ease, .2s opacity ease;
-  &:hover{
+
+  &:hover {
     opacity: 1;
   }
-  &:active{
+
+  &:active {
     transform: scale(1.2);
   }
 }
@@ -37,10 +39,11 @@ button {
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  background: hsl(64, 51%, 35%);
+  background: transparent;
   width: var(--resolucion-width);
   height: var(--resolucion-height);
   border: 5px solid black;
+  image-rendering: pixelated;
 }
 
 /* #miniCanvas {
@@ -88,7 +91,7 @@ button {
 }
 
 .container-start {
-  background: url(../img/backromsVideo.webp) center / cover no-repeat;
+  background: url(../img/backromsVideo.web) center / cover no-repeat;
   width: 100vw;
   height: 100vh;
   display: grid;
