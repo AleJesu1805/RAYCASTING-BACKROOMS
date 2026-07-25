@@ -17,8 +17,8 @@ export class Player {
 
         this.angulo = Math.PI;
 
-        this.velAvance = 3;
-        this.velGiro = (this.velAvance + 1) * (Math.PI / 180);
+        this.velAvance = 2;
+        this.velGiro = 3 * (Math.PI / 180);
 
         this.numRayos = canvas.width / resolucionRayos;
         this.rayos = [];
@@ -100,10 +100,10 @@ export class Player {
 
         this.lanzarRayos();
 
-        viewCtx.clearRect(0, 0, canvas.width, canvas.height);
-        viewCtx.drawImage(canvas, 0, 0);
-        viewCtx.globalAlpha = 1;
-        viewCtx.drawImage(shadeCanvas, 0, 0);
+        // viewCtx.clearRect(0, 0, canvas.width, canvas.height);
+        // viewCtx.drawImage(canvas, 0, 0);
+        // viewCtx.globalAlpha = 1;
+        // viewCtx.drawImage(shadeCanvas, 0, 0);
     }
 
     renderPlayer() {

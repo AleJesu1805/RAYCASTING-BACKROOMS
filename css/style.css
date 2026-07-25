@@ -31,6 +31,7 @@ button {
 
   &:active {
     transform: scale(1.2);
+    opacity: 1;
   }
 }
 
@@ -43,7 +44,7 @@ button {
   width: var(--resolucion-width);
   height: var(--resolucion-height);
   border: 5px solid black;
-  image-rendering: pixelated;
+  /* image-rendering: pixelated; */
 }
 
 /* #miniCanvas {
@@ -91,7 +92,7 @@ button {
 }
 
 .container-start {
-  background: url(../img/backromsVideo.web) center / cover no-repeat;
+  background: url(../img/backromsVideo.webp) center / cover no-repeat;
   width: 100vw;
   height: 100vh;
   display: grid;

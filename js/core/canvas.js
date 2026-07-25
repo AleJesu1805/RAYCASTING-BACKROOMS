@@ -30,10 +30,10 @@ export const touch = {
     desplazadoYDedo: 0,
 };
 
-export const resolucionRayos = 1;
+export const resolucionRayos = 2;
 
 export const FOV = 60;
-canvas.width = 640;
+canvas.width = 720;
 canvas.height = 360;
 
 shadeCanvas.width = canvas.width;

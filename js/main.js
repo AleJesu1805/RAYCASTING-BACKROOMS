@@ -4,8 +4,8 @@ import { Player } from "./entities/Player.js";
 
 export const mapa = new Map(ctx);
 export const player = new Player(
-    (mapa.anchM - 2) * mapa.tamCelda + mapa.tamCelda / 2,
-    mapa.tamCelda + mapa.tamCelda / 2,
+    mapa.tamCelda * 27,
+    mapa.tamCelda * 5,
     mapa, ctx
 );
 
@@ -29,25 +29,28 @@ function gameLoop(tiempoActual) {
     // shadeCtx.clearRect(0, mapa.tamMiniMap, shadeCanvas.width, shadeCanvas.height-mapa.tamMiniMap);
     // shadeCtx.clearRect(mapa.tamMiniMap, 0, shadeCanvas.width-mapa.tamMiniMap, shadeCanvas.height);
 
-    shadeCtx.clearRect(0, 0, canvas.width, canvas.height);
-    mapa.renderFondo();
+    // shadeCtx.clearRect(0, 0, canvas.width, canvas.height);
+    // mapa.renderFondo();
     // mapa.renderMap();
 
     if (player.avanzando !== 0 || player.girando !== 0) {
+        shadeCtx.clearRect(0, 0, canvas.width, canvas.height);
+        mapa.renderFondo();
+
         fx.bobTiempo += delta;
         fx.moveCamara = Math.floor(Math.sin(fx.bobTiempo / 100) * 6);
         player.renderPlayer();
 
         viewCtx.clearRect(0, 0, canvas.width, canvas.height);
         viewCtx.drawImage(canvas, 0, 0);
-        viewCtx.drawImage(shadeCanvas, 0, 0);
+        // viewCtx.drawImage(shadeCanvas, 0, 0);
     } else {
         fx.bobTiempo = 0;
         fx.moveCamara = 0;
         ctx.drawImage(viewCanvas, 0, 0);
     }
-    // mapa.renderMiniMap();
-    // mapa.renderPlayerInMinimap(player);
+    mapa.renderMiniMap();
+    mapa.renderPlayerInMinimap(player);
     player.renderArma();
 }
 requestAnimationFrame(gameLoop);

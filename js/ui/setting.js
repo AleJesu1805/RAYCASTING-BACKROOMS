@@ -12,9 +12,9 @@ function jugar() {
         containerButtons.removeAttribute('hidden');
     }
     try {
-        // document.documentElement.requestFullscreen();
+        document.documentElement.requestFullscreen();
         // expandirPantalla.innerHTML = 'MINIMIZAR PANTALLA';
-        // screen.orientation.lock('landscape');
+        screen.orientation.lock('landscape');
     } catch (error) {
         console.error('Error al intentar rotar o entrar en pantalla completa:', error);
     }
