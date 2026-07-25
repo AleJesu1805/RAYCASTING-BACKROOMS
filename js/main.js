@@ -1,6 +1,7 @@
 import { canvas, ctx, shadeCanvas, shadeCtx, viewCanvas, viewCtx, fx } from "./core/canvas.js";
 import { Map } from "./world/Map.js";
 import { Player } from "./entities/Player.js";
+import { imgPared } from "./core/assets.js";
 
 export const mapa = new Map(ctx);
 export const player = new Player(
@@ -9,14 +10,24 @@ export const player = new Player(
     mapa, ctx
 );
 
-player.lanzarRayos();
-mapa.renderFondo();
-viewCtx.clearRect(0, 0, canvas.width, canvas.height);
-viewCtx.drawImage(canvas, 0, 0);
-viewCtx.drawImage(shadeCanvas, 0, 0);
-ctx.drawImage(viewCanvas, 0, 0);
+function renderFrameInicial() {
+    mapa.renderFondo();
+    player.lanzarRayos();
+    viewCtx.clearRect(0, 0, canvas.width, canvas.height);
+    viewCtx.drawImage(canvas, 0, 0);
+    viewCtx.globalAlpha = 0.6;
+    viewCtx.drawImage(shadeCanvas, 0, 0);
+    viewCtx.globalAlpha = 1;
+    ctx.drawImage(viewCanvas, 0, 0);
+}
 
-const fps = 50;
+if (imgPared.complete) {
+    renderFrameInicial();
+} else {
+    imgPared.onload = renderFrameInicial;
+}
+
+const fps = 60;
 const frameDuration = 1000 / fps;
 let ultimoTiempo = 0;
 
@@ -44,13 +55,14 @@ function gameLoop(tiempoActual) {
         viewCtx.clearRect(0, 0, canvas.width, canvas.height);
         viewCtx.drawImage(canvas, 0, 0);
         // viewCtx.drawImage(shadeCanvas, 0, 0);
+
+        // mapa.renderMiniMap();
+        // mapa.renderPlayerInMinimap(player);
     } else {
         fx.bobTiempo = 0;
         fx.moveCamara = 0;
         ctx.drawImage(viewCanvas, 0, 0);
     }
-    mapa.renderMiniMap();
-    mapa.renderPlayerInMinimap(player);
     player.renderArma();
 }
 requestAnimationFrame(gameLoop);
