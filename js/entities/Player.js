@@ -34,7 +34,6 @@ export class Player {
     }
 
     lanzarRayos() {
-        // Limpiar shadeCanvas antes de dibujar nuevas sombras
         shadeCtx.clearRect(0, 0, canvas.width, canvas.height);
 
         for (let i = 0; i < this.numRayos; i++) {

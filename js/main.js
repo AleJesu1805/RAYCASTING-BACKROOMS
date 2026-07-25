@@ -1,11 +1,11 @@
 import { canvas, ctx, shadeCanvas, shadeCtx, viewCanvas, viewCtx, fx } from "./core/canvas.js";
 import { Map } from "./world/Map.js";
 import { Player } from "./entities/Player.js";
-import { imgPared } from "./core/assets.js";
+import { imagenes } from "./core/assets.js";
 
 export const mapa = new Map(ctx);
 export const player = new Player(
-    mapa.tamCelda * 27,
+    mapa.tamCelda * 26,
     mapa.tamCelda * 5,
     mapa, ctx
 );
@@ -19,13 +19,37 @@ function renderFrameInicial() {
     viewCtx.drawImage(shadeCanvas, 0, 0);
     viewCtx.globalAlpha = 1;
     ctx.drawImage(viewCanvas, 0, 0);
+    mapa.renderMiniMap();
+    mapa.renderPlayerInMinimap(player);
 }
 
-if (imgPared.complete) {
-    renderFrameInicial();
-} else {
-    imgPared.onload = renderFrameInicial;
+function iniciarRecursos() {
+    let cargadas = 0;
+
+    if (imagenes.every((img) => img.complete)) {
+        renderFrameInicial();
+        return;
+    }
+
+    imagenes.forEach((img) => {
+        if (img.complete) {
+            cargadas++;
+            if (cargadas === imagenes.length) {
+                renderFrameInicial();
+            }
+            return;
+        }
+
+        img.onload = () => {
+            cargadas++;
+            if (cargadas === imagenes.length) {
+                renderFrameInicial();
+            }
+        };
+    });
 }
+iniciarRecursos();
+
 
 const fps = 60;
 const frameDuration = 1000 / fps;
@@ -41,12 +65,12 @@ function gameLoop(tiempoActual) {
     // shadeCtx.clearRect(mapa.tamMiniMap, 0, shadeCanvas.width-mapa.tamMiniMap, shadeCanvas.height);
 
     // shadeCtx.clearRect(0, 0, canvas.width, canvas.height);
-    // mapa.renderFondo();
+    mapa.renderFondo();
     // mapa.renderMap();
 
     if (player.avanzando !== 0 || player.girando !== 0) {
         shadeCtx.clearRect(0, 0, canvas.width, canvas.height);
-        mapa.renderFondo();
+        // mapa.renderFondo();
 
         fx.bobTiempo += delta;
         fx.moveCamara = Math.floor(Math.sin(fx.bobTiempo / 100) * 6);
@@ -55,14 +79,13 @@ function gameLoop(tiempoActual) {
         viewCtx.clearRect(0, 0, canvas.width, canvas.height);
         viewCtx.drawImage(canvas, 0, 0);
         // viewCtx.drawImage(shadeCanvas, 0, 0);
-
-        // mapa.renderMiniMap();
-        // mapa.renderPlayerInMinimap(player);
     } else {
         fx.bobTiempo = 0;
         fx.moveCamara = 0;
         ctx.drawImage(viewCanvas, 0, 0);
     }
     player.renderArma();
+    mapa.renderMiniMap();
+    mapa.renderPlayerInMinimap(player);
 }
 requestAnimationFrame(gameLoop);

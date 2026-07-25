@@ -10,6 +10,7 @@ body {
 * {
   margin: 0;
   padding: 0;
+  user-select: none
 }
 
 :root {
@@ -21,9 +22,9 @@ body {
 }
 
 button {
-  opacity: 0.9;
+  opacity: 0.85;
   transform: scale(1);
-  transition: .2s transform ease, .2s opacity ease;
+  transition: .1s transform ease, .1s opacity ease;
 
   &:hover {
     opacity: 1;

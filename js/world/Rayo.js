@@ -1,6 +1,6 @@
 import { canvas, shadeCtx, resolucionRayos, FOV, fx } from "../core/canvas.js";
 import { normalizaAngulo, distanciaEntrePuntos } from "../core/utils.js";
-import { imgPared } from "../core/assets.js";
+import { imgArma, imgPared1, imgPared2, imagenes } from "../core/assets.js";
 
 export class Rayo {
     constructor(ctx, escenario, x, y, angulo, incrementoAngulo, columna) {
@@ -23,6 +23,8 @@ export class Rayo {
         this.wallHitYVertical = 0;
 
         this.pixelTextura = 0;
+        this.texturaDibujar = imagenes[1];
+
     }
 
     setAngulo(angulo) {
@@ -133,11 +135,19 @@ export class Rayo {
             this.wallHitX = this.wallHitXVertical;
             this.wallHitY = this.wallHitYVertical;
             this.distancia = distanciaVertical;
-
             this.pixelTextura = this.wallHitY - Math.floor(this.wallHitY / this.escenario.tamCelda) * this.escenario.tamCelda;
         }
 
-        this.pixelTextura = Math.floor((this.pixelTextura / this.escenario.tamCelda) * imgPared.width);
+        this.casilla = this.escenario.saberCasilla(this.wallHitX, this.wallHitY);
+        // if (this.casilla === 2) {
+        //     this.texturaDibujar = imgPared2;
+        // } else {
+        //     this.texturaDibujar = imgPared1;
+        // }
+        this.texturaDibujar = imagenes[this.casilla];
+
+
+        this.pixelTextura = Math.floor((this.pixelTextura / this.escenario.tamCelda) * imagenes[this.casilla].width);
 
         // CORRECCION OJO DE PEZ
         this.distancia = this.distancia * (Math.cos(this.anguloJugador - this.angulo));
@@ -149,21 +159,22 @@ export class Rayo {
         let altoTile = 200;
         let distanciaPlanoProyeccion = (canvas.width / 2) / Math.tan(FOV / 2);
         let altoMuro = altoTile / this.distancia * distanciaPlanoProyeccion;
-        var y0 = canvas.height / 2 - altoMuro / 2 + fx.moveCamara;
-        var y1 = y0 + altoMuro;
-        var x = this.columna * resolucionRayos;
+        let y0 = canvas.height / 2 - altoMuro / 2 + fx.moveCamara;
+        let y1 = y0 + altoMuro;
+        let x = this.columna * resolucionRayos;
 
         this.ctx.drawImage(
-            imgPared,
+            this.texturaDibujar,
             this.pixelTextura,
             0,
             1,
-            imgPared.height,
+            imagenes[this.casilla].height,
             x,
             y0,
             resolucionRayos,
             y1 - y0,
         );
+
         shadeCtx.fillStyle = 'hsl(60,' + fx.hue + '%, 40%)';
         shadeCtx.fillRect(x, y0, resolucionRayos, altoMuro);
         fx.hue = Math.floor(-altoMuro / 5);
