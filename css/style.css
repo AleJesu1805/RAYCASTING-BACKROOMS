@@ -5,6 +5,8 @@ body {
   padding: 0;
   box-sizing: border-box;
   font-family: 'Gothic';
+  height: 100%;
+  width: 100dvw;
 }
 
 * {
@@ -14,7 +16,7 @@ body {
 }
 
 :root {
-  --medida-responsive: clamp(10px, 5%, 50px);
+  --medida-responsive: clamp(20px, 10%, 100px);
   --resolucion-width: clamp(640px, 90vw, 1280px);
   --resolucion-height: clamp(360px, 90vh, 720px);
   --color-button: #967120;
@@ -93,36 +95,36 @@ button {
 }
 
 .container-start {
-  background: url(../img/backromsVideo.webp) center / cover no-repeat;
-  width: 100vw;
-  height: 100vh;
+  background: url(../img/backromsVideo.web) center / cover no-repeat;
+  width: 100dvw;
+  height: 100%;
   display: grid;
   justify-items: center;
   align-content: center;
-  gap: 8vw;
+  /* gap: 8vw; */
 }
 
 .central {
   position: relative;
   text-align: center;
-  font-size: 3rem;
+  font-size: calc(var(--medida-responsive) * 2);
 }
 
 #msg-malvenida {
   letter-spacing: 8px;
   line-height: 50px;
+  margin: 50px 50px;
 }
 
 button[onclick="jugar()"] {
-  font-size: 1.5rem;
   font-family: 'Gothic';
-  padding: var(--medida-responsive);
+  padding: calc(var(--medida-responsive)/1.5) calc(var(--medida-responsive)*2);
   background: var(--color-button);
   box-shadow: var(--sombra-button);
   border-radius: 25px;
   border: none;
   font-weight: 900;
-  margin: 50px;
+  margin: 0px 50px;
 }
 
 .configuraciones {

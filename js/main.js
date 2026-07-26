@@ -5,50 +5,55 @@ import { imagenes } from "./core/assets.js";
 
 export const mapa = new Map(ctx);
 export const player = new Player(
-    mapa.tamCelda * 26,
+    mapa.tamCelda * 27,
     mapa.tamCelda * 5,
     mapa, ctx
 );
 
-function renderFrameInicial() {
-    mapa.renderFondo();
-    player.lanzarRayos();
-    viewCtx.clearRect(0, 0, canvas.width, canvas.height);
-    viewCtx.drawImage(canvas, 0, 0);
-    viewCtx.globalAlpha = 0.6;
-    viewCtx.drawImage(shadeCanvas, 0, 0);
-    viewCtx.globalAlpha = 1;
-    ctx.drawImage(viewCanvas, 0, 0);
-    mapa.renderMiniMap();
-    mapa.renderPlayerInMinimap(player);
-}
+player.arriba();
+player.renderPlayer();
+setTimeout(() => player.stopAvance(), 200);
 
-function iniciarRecursos() {
-    let cargadas = 0;
+// function renderFrameInicial() {
 
-    if (imagenes.every((img) => img.complete)) {
-        renderFrameInicial();
-        return;
-    }
+//     mapa.renderFondo();
+//     player.lanzarRayos();
+//     viewCtx.clearRect(0, 0, canvas.width, canvas.height);
+//     viewCtx.drawImage(canvas, 0, 0);
+//     viewCtx.globalAlpha = 0.6;
+//     viewCtx.drawImage(shadeCanvas, 0, 0);
+//     viewCtx.globalAlpha = 1;
+//     ctx.drawImage(viewCanvas, 0, 0);
+//     mapa.renderMiniMap();
+//     mapa.renderPlayerInMinimap(player);
+// }
 
-    imagenes.forEach((img) => {
-        if (img.complete) {
-            cargadas++;
-            if (cargadas === imagenes.length) {
-                renderFrameInicial();
-            }
-            return;
-        }
+// function iniciarRecursos() {
+//     let cargadas = 0;
 
-        img.onload = () => {
-            cargadas++;
-            if (cargadas === imagenes.length) {
-                renderFrameInicial();
-            }
-        };
-    });
-}
-iniciarRecursos();
+//     if (imagenes.every((img) => img.complete)) {
+//         renderFrameInicial();
+//         return;
+//     }
+
+//     imagenes.forEach((img) => {
+//         if (img.complete) {
+//             cargadas++;
+//             if (cargadas === imagenes.length) {
+//                 renderFrameInicial();
+//             }
+//             return;
+//         }
+
+//         img.onload = () => {
+//             cargadas++;
+//             if (cargadas === imagenes.length) {
+//                 renderFrameInicial();
+//             }
+//         };
+//     });
+// }
+// iniciarRecursos();
 
 
 const fps = 60;

@@ -1,5 +1,5 @@
 import { canvas, ctx, fx } from "../core/canvas.js";
-import { imgArma } from "../core/assets.js";
+// import { ima } from "../core/assets.js";
 
 const matriz = [
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
