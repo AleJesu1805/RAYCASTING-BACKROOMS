@@ -1,18 +1,24 @@
-import { canvas, ctx, shadeCanvas, shadeCtx, viewCanvas, viewCtx, fx } from "./core/canvas.js";
+import { canvas, ctx, shadeCanvas, shadeCtx, viewCanvas, viewCtx, fx, touch } from "./core/canvas.js";
 import { Map } from "./world/Map.js";
 import { Player } from "./entities/Player.js";
 import { imagenes } from "./core/assets.js";
 
 export const mapa = new Map(ctx);
 export const player = new Player(
-    mapa.tamCelda * 27,
+    mapa.tamCelda * 26,
     mapa.tamCelda * 5,
     mapa, ctx
 );
 
-player.arriba();
-player.renderPlayer();
-setTimeout(() => player.stopAvance(), 200);
+player.izquierda();
+setTimeout(() => {
+    // player.stopAvance();
+    player.stopGiro();
+}, 500)
+
+
+
+
 
 // function renderFrameInicial() {
 
@@ -55,7 +61,6 @@ setTimeout(() => player.stopAvance(), 200);
 // }
 // iniciarRecursos();
 
-
 const fps = 60;
 const frameDuration = 1000 / fps;
 let ultimoTiempo = 0;
@@ -72,13 +77,13 @@ function gameLoop(tiempoActual) {
     // shadeCtx.clearRect(0, 0, canvas.width, canvas.height);
     mapa.renderFondo();
     // mapa.renderMap();
-
-    if (player.avanzando !== 0 || player.girando !== 0) {
+    if (player.avanzando !== 0 || player.girando !== 0 || touch.girandoCamara) {
         shadeCtx.clearRect(0, 0, canvas.width, canvas.height);
         // mapa.renderFondo();
 
         fx.bobTiempo += delta;
         fx.moveCamara = Math.floor(Math.sin(fx.bobTiempo / 100) * 6);
+
         player.renderPlayer();
 
         viewCtx.clearRect(0, 0, canvas.width, canvas.height);

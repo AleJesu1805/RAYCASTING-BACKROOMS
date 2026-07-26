@@ -95,7 +95,7 @@ button {
 }
 
 .container-start {
-  background: url(../img/backromsVideo.web) center / cover no-repeat;
+  background: url(../img/backromsVideo.webp) center / cover no-repeat;
   width: 100dvw;
   height: 100%;
   display: grid;

@@ -28,6 +28,7 @@ export const touch = {
     actYDedo: 0,
     desplazadoXDedo: 0,
     desplazadoYDedo: 0,
+    girandoCamara: false,
 };
 
 export const resolucionRayos = 2;

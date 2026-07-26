@@ -1,5 +1,5 @@
 import { player } from "../main.js";
-import { canvas, joystick, ballJoystick, rangoDePresion, touch } from "../core/canvas.js";
+import { canvas, joystick, ballJoystick, rangoDePresion, touch, fx } from "../core/canvas.js";
 
 function girarEnMovil(x, y, rect) {
     if (y < rect.height / 2) { player.arriba() }
@@ -53,23 +53,24 @@ joystick.addEventListener('touchend', (e) => {
 });
 
 document.addEventListener('touchstart', (e) => {
-    e.preventDefault();
+    // e.preventDefault();
     touch.inicioXDedo = e.changedTouches[0].pageX;
 }, { passive: false });
 
 document.addEventListener('touchmove', (e) => {
-    e.preventDefault();
+    // e.preventDefault();
     if (!e.targetTouches[0]) return;
     if (touch.inicioXDedo > canvas.width / 2) {
         touch.actXDedo = e.targetTouches[0].pageX;
         touch.desplazadoXDedo = touch.actXDedo - touch.inicioXDedo;
-        // player.angulo += touch.desplazadoXDedo * 0.0025;
-        player.girando = touch.desplazadoXDedo / 6;
+        player.angulo += touch.desplazadoXDedo * 0.0025;
         touch.inicioXDedo = touch.actXDedo;
+        touch.girandoCamara = true;
     }
 }, { passive: false });
 
-document.addEventListener('touchend', () => {
+document.addEventListener('touchend', (e) => {
     touch.desplazadoXDedo = 0;
     player.girando = 0;
+    touch.girandoCamara = false;
 }, { passive: false });

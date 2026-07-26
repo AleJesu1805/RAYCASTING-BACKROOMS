@@ -94,15 +94,11 @@ export class Player {
         if (!this.colision(this.posXPlayer, nuevaY)) {
             this.posYPlayer = nuevaY;
         }
+
         this.angulo += this.girando * this.velGiro;
         this.angulo = normalizaAngulo(this.angulo);
 
         this.lanzarRayos();
-
-        // viewCtx.clearRect(0, 0, canvas.width, canvas.height);
-        // viewCtx.drawImage(canvas, 0, 0);
-        // viewCtx.globalAlpha = 1;
-        // viewCtx.drawImage(shadeCanvas, 0, 0);
     }
 
     renderPlayer() {
