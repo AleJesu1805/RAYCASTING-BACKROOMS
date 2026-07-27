@@ -1,4 +1,5 @@
 import { canvas, ctx, fx } from "../core/canvas.js";
+import { player } from "../main.js";
 // import { ima } from "../core/assets.js";
 
 const matriz = [
@@ -50,6 +51,12 @@ const matriz = [
 //     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
 // ];
 
+// const matriz = Array.from({ length: 32 }, (_, i) =>
+//     Array.from({ length: 32 }, (_, j) =>
+//         (i === 0 || i === 31 || j === 0 || j === 31) ? 1 : 0
+//     )
+// );
+
 export class Map {
     constructor(ctx) {
         this.anchM = matriz[0].length;
@@ -61,18 +68,15 @@ export class Map {
         this.color4 = '#799592';
         this.color0 = '#695b28';
         this.ctx = ctx;
-        this.tamMiniMap = 200;
+        this.tamMiniMap = 150;
         this.miniCelda = Math.floor(Math.min(this.tamMiniMap / this.anchM, this.tamMiniMap / this.altM));
     }
 
     renderMap() {
         for (let y = 0; y < this.altM; y++) {
             for (let x = 0; x < this.anchM; x++) {
-                if (matriz[y][x] === 1) {
-                    this.ctx.fillStyle = this.colorPared;
-                } else {
-                    this.ctx.fillStyle = this.colorEspacio;
-                }
+                const color = this[`color${matriz[y][x]}`];
+                this.ctx.fillStyle = color || this.color0;
                 this.ctx.fillRect(x * this.tamCelda, y * this.tamCelda, this.tamCelda, this.tamCelda);
             }
         }
@@ -84,13 +88,13 @@ export class Map {
         return (matriz[casillaY][casillaX]);
     }
 
-    renderPlayerInMinimap(player) {
+    renderEntitieInMinimap(entitie) {
         var escala = this.miniCelda / this.tamCelda;
-        var miniX = player.posXPlayer * escala;
-        var miniY = player.posYPlayer * escala;
+        var miniX = entitie.posXPlayer * escala;
+        var miniY = entitie.posYPlayer * escala;
 
-        var xDestino = miniX + Math.cos(player.angulo) * (20 * escala);
-        var yDestino = miniY + Math.sin(player.angulo) * (20 * escala);
+        var xDestino = miniX + Math.cos(entitie.angulo) * (20 * escala);
+        var yDestino = miniY + Math.sin(entitie.angulo) * (20 * escala);
 
         this.ctx.beginPath();
         this.ctx.moveTo(miniX, miniY);

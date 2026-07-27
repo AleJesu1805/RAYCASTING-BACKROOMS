@@ -44,8 +44,10 @@ button {
   top: 50%;
   transform: translate(-50%, -50%);
   background: transparent;
-  width: var(--resolucion-width);
-  height: var(--resolucion-height);
+  /* width: var(--resolucion-width); */
+  width: 70%;
+  /* height: var(--resolucion-height); */
+  height: 70%;
   border: 5px solid black;
   /* image-rendering: pixelated; */
 }
@@ -58,7 +60,7 @@ button {
 
 .container-buttons {
   width: 100%;
-  height: 60vh;
+  height: 70vh;
   position: fixed;
   bottom: 0;
   z-index: 1;
@@ -87,6 +89,14 @@ button {
   background-color: #201c84;
 }
 
+#zonaDeslice {
+  position: fixed;
+  right: 0;
+  width: 50%;
+  height: 100%;
+  background-color: #470f0f6f;
+}
+
 #disparador {
   position: absolute;
   right: 10%;
@@ -98,7 +108,7 @@ button {
   background: url(../img/backromsVideo.webp) center / cover no-repeat;
   width: 100dvw;
   height: 100%;
-  display: grid;
+  display: none;
   justify-items: center;
   align-content: center;
   /* gap: 8vw; */
@@ -119,13 +129,15 @@ button {
 button[onclick="jugar()"] {
   font-family: 'Gothic';
   padding: calc(var(--medida-responsive)/1.5) calc(var(--medida-responsive)*2);
-  background: var(--color-button);
-  box-shadow: var(--sombra-button);
+  background: transparent;
+  /* box-shadow: var(--sombra-button); */
   border-radius: 25px;
   border: none;
   font-weight: 900;
   margin: 0px 50px;
+  animation: agrandarSuavemente .5s alternate infinite ease;
 }
+
 
 .configuraciones {
   position: fixed;
@@ -155,4 +167,10 @@ button[onclick="jugar()"] {
 #expandirPantalla {
   position: static;
   border-radius: 15px;
+}
+
+@keyframes agrandarSuavemente {
+  to {
+    scale: 1.2;
+  }
 }

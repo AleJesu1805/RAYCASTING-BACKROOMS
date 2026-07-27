@@ -21,6 +21,9 @@ export const fx = { hue: 0, moveCamara: 0, bobTiempo: 0 };
 export const rangoDePresion = document.querySelector('.container-buttons');
 export const joystick = document.getElementById('joystick');
 export const ballJoystick = document.getElementById('ballJoystick');
+
+export const zonaDeslice = document.getElementById('zonaDeslice');
+
 export const touch = {
     inicioXDedo: 0,
     inicioYDedo: 0,
@@ -31,7 +34,7 @@ export const touch = {
     girandoCamara: false,
 };
 
-export const resolucionRayos = 2;
+export const resolucionRayos = 3;
 
 export const FOV = 60;
 canvas.width = 720;

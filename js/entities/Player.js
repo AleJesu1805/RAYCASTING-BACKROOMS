@@ -1,5 +1,5 @@
 import { canvas, shadeCanvas, viewCtx, resolucionRayos, shadeCtx, FOV, fx } from "../core/canvas.js";
-import { convierteRadianes, normalizaAngulo } from "../core/utils.js";
+import { convierteRadianes, normalizaAngulo, colision } from "../core/utils.js";
 import { Rayo } from "../world/Rayo.js";
 import { imgArma } from "../core/assets.js";
 
@@ -10,7 +10,7 @@ export class Player {
         this.escenario = escenario;
         this.ctx = ctx;
 
-        this.tamPlayer = this.escenario.tamCelda / 2;
+        this.radio = this.escenario.tamCelda / 1.5;
 
         this.avanzando = 0;
         this.girando = 0;
@@ -24,7 +24,7 @@ export class Player {
         this.rayos = [];
 
         var incrementoAngulo = convierteRadianes(FOV / this.numRayos);
-        var anguloInicial = convierteRadianes(this.angulo - 30);
+        var anguloInicial = convierteRadianes(this.angulo - FOV / 2);
         var anguloRayo = anguloInicial;
 
         for (let i = 0; i < this.numRayos; i++) {
@@ -40,6 +40,7 @@ export class Player {
             this.rayos[i].x = this.posXPlayer;
             this.rayos[i].y = this.posYPlayer;
             this.rayos[i].setAngulo(this.angulo);
+            // this.rayos[i].renderRayo();
             this.rayos[i].renderPared();
         }
     }
@@ -69,45 +70,43 @@ export class Player {
         this.girando = 0;
     }
 
-    colision(x, y) {
-        let choca = false;
-        let casillaX = Math.floor(x / this.escenario.tamCelda);
-        let casillaY = Math.floor(y / this.escenario.tamCelda);
-
-        if (this.escenario.colision(casillaX, casillaY)) {
-            choca = true;
-        }
-
-        return choca;
-    }
-
     moverPersonaje() {
         let movimientoX = this.avanzando * Math.cos(this.angulo) * this.velAvance;
         let movimientoY = this.avanzando * Math.sin(this.angulo) * this.velAvance;
 
         let nuevaX = this.posXPlayer + movimientoX;
-        if (!this.colision(nuevaX, this.posYPlayer)) {
+        if (!colision(nuevaX, this.posYPlayer, this.radio / 2)) {
             this.posXPlayer = nuevaX;
         }
 
         let nuevaY = this.posYPlayer + movimientoY;
-        if (!this.colision(this.posXPlayer, nuevaY)) {
+        if (!colision(this.posXPlayer, nuevaY, this.radio / 2)) {
             this.posYPlayer = nuevaY;
         }
 
         this.angulo += this.girando * this.velGiro;
         this.angulo = normalizaAngulo(this.angulo);
-
-        this.lanzarRayos();
     }
 
     renderPlayer() {
         this.moverPersonaje();
-        this.ctx.globalAlpha = 0.6;
-        this.ctx.drawImage(shadeCanvas, 0, 0);
-        this.ctx.globalAlpha = 1;
         var xDestino = this.posXPlayer + Math.cos(this.angulo) * 50;
         var yDestino = this.posYPlayer + Math.sin(this.angulo) * 50;
+    }
+
+    renderPlayer2d() {
+        this.moverPersonaje();
+        var xDestino = this.posXPlayer + Math.cos(this.angulo) * (20);
+        var yDestino = this.posYPlayer + Math.sin(this.angulo) * (20);
+
+        this.ctx.beginPath();
+        this.ctx.moveTo(this.posXPlayer, this.posYPlayer);
+        this.ctx.lineTo(xDestino, yDestino);
+        this.ctx.strokeStyle = '#000';
+        this.ctx.stroke();
+
+        this.ctx.fillStyle = '#1a551e';
+        this.ctx.fillRect(this.posXPlayer - this.radio / 2, this.posYPlayer - this.radio / 2, this.radio, this.radio);
     }
 
     renderArma() {

@@ -1,9 +1,10 @@
-import { canvas, shadeCtx, resolucionRayos, FOV, fx } from "../core/canvas.js";
+import { player, enemie } from "../main.js";
+import { FOV, fx, resolucionRayos, shadeCanvas, shadeCtx } from "../core/canvas.js";
 import { normalizaAngulo, distanciaEntrePuntos } from "../core/utils.js";
 import { imgArma, imgPared1, imgPared2, imagenes } from "../core/assets.js";
 
 export class Rayo {
-    constructor(ctx, escenario, x, y, angulo, incrementoAngulo, columna) {
+    constructor(ctx, escenario, x, y, angulo, incrementoAngulo, columna, duenio = null) {
         this.ctx = ctx;
         this.escenario = escenario;
         this.x = x;
@@ -12,6 +13,9 @@ export class Rayo {
         this.incrementoAngulo = incrementoAngulo;
         this.columna = columna;
         this.distancia = 0;
+
+        this.duenio = duenio;
+        this.entidadImpactada = null;
 
         this.wallHitX = 0;
         this.wallHitY = 0;
@@ -114,8 +118,8 @@ export class Rayo {
             }
         }
 
-        var distanciaHorizontal = 9999;
-        var distanciaVertical = 9999;
+        var distanciaHorizontal = Infinity;
+        var distanciaVertical = Infinity;
 
         if (colisionHorizontal) {
             distanciaHorizontal = distanciaEntrePuntos(this.x, this.y, this.wallHitXHorizontal, this.wallHitYHorizontal);
@@ -139,13 +143,7 @@ export class Rayo {
         }
 
         this.casilla = this.escenario.saberCasilla(this.wallHitX, this.wallHitY);
-        // if (this.casilla === 2) {
-        //     this.texturaDibujar = imgPared2;
-        // } else {
-        //     this.texturaDibujar = imgPared1;
-        // }
         this.texturaDibujar = imagenes[this.casilla];
-
 
         this.pixelTextura = Math.floor((this.pixelTextura / this.escenario.tamCelda) * imagenes[this.casilla].width);
 
@@ -179,6 +177,7 @@ export class Rayo {
         shadeCtx.fillRect(x, y0, resolucionRayos, altoMuro);
         fx.hue = Math.floor(-altoMuro / 5);
     }
+
 
     renderRayo() {
         this.cast();
