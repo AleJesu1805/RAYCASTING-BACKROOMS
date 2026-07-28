@@ -1,7 +1,7 @@
-import { player, enemie } from "../main.js";
-import { FOV, fx, resolucionRayos, shadeCanvas, shadeCtx } from "../core/canvas.js";
+import { player, enemie1 } from "../main.js";
 import { normalizaAngulo, distanciaEntrePuntos } from "../core/utils.js";
 import { imgArma, imgPared1, imgPared2, imagenes } from "../core/assets.js";
+import { FOV, fx, resolucionRayos, shadeCanvas, shadeCtx, zBuffer } from "../core/canvas.js";
 
 export class Rayo {
     constructor(ctx, escenario, x, y, angulo, incrementoAngulo, columna, duenio = null) {
@@ -149,6 +149,9 @@ export class Rayo {
 
         // CORRECCION OJO DE PEZ
         this.distancia = this.distancia * (Math.cos(this.anguloJugador - this.angulo));
+
+        // GUARDAMOS LA DISTANCIA PARA QUE LOS SPRITES SEPAN SI ESTÁN OCULTOS
+        zBuffer[this.columna] = this.distancia;
     }
 
     renderPared() {

@@ -1,9 +1,12 @@
 import { player } from "../main.js";
 import { canvas, joystick, ballJoystick, rangoDePresion, zonaDeslice, touch, fx } from "../core/canvas.js";
 
-function girarEnMovil(x, y, rect) {
-    if (y < rect.height / 2) { player.arriba() }
-    else if (y > rect.height / 2) { player.abajo() }
+function avanceMovil(x, y, rect) {
+    const centroY = rect.height / 2;
+    const maxVelocidad = 2;
+    let factor = (centroY - y) / centroY;
+    factor = Math.max(-1, Math.min(1, factor));
+    player.avanzando = factor * maxVelocidad;
 
     // if (x < rect.width / 2) { player.izquierda() }
     // else if (x > rect.width / 2) { player.derecha() }
@@ -18,7 +21,7 @@ joystick.addEventListener('touchstart', (e) => {
     ballJoystick.style.left = `${x}px`;
     ballJoystick.style.top = `${y}px`;
 
-    girarEnMovil(x, y, rect);
+    avanceMovil(x, y, rect);
 });
 
 joystick.addEventListener('touchmove', (e) => {
@@ -39,7 +42,7 @@ joystick.addEventListener('touchmove', (e) => {
     if (y < rect.height && y > 0) {
         ballJoystick.style.top = `${y}px`;
     }
-    girarEnMovil(x, y, rect);
+    avanceMovil(x, y, rect);
 });
 
 joystick.addEventListener('touchend', (e) => {
@@ -53,12 +56,10 @@ joystick.addEventListener('touchend', (e) => {
 });
 
 zonaDeslice.addEventListener('touchstart', (e) => {
-    // e.preventDefault();
     touch.inicioXDedo = e.changedTouches[0].pageX;
 }, { passive: false });
 
 zonaDeslice.addEventListener('touchmove', (e) => {
-    // e.preventDefault();
     if (!e.targetTouches[0]) return;
     if (touch.inicioXDedo > canvas.width / 2) {
         touch.actXDedo = e.targetTouches[0].pageX;

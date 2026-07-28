@@ -31,11 +31,6 @@ button {
   &:hover {
     opacity: 1;
   }
-
-  &:active {
-    transform: scale(1.2);
-    opacity: 1;
-  }
 }
 
 #canvas {
@@ -44,19 +39,10 @@ button {
   top: 50%;
   transform: translate(-50%, -50%);
   background: transparent;
-  /* width: var(--resolucion-width); */
-  width: 70%;
-  /* height: var(--resolucion-height); */
-  height: 70%;
+  width: var(--resolucion-width);
+  height: var(--resolucion-height);
   border: 5px solid black;
-  /* image-rendering: pixelated; */
 }
-
-/* #miniCanvas {
-  position: fixed;
-  top: 0;
-  left: 0;
-} */
 
 .container-buttons {
   width: 100%;
@@ -94,7 +80,7 @@ button {
   right: 0;
   width: 50%;
   height: 100%;
-  background-color: #470f0f6f;
+  /* background-color: #2a864c6f; */
 }
 
 #disparador {
@@ -106,9 +92,12 @@ button {
 
 .container-start {
   background: url(../img/backromsVideo.webp) center / cover no-repeat;
+  position: fixed;
+  top: 0;
+  left: 0;
   width: 100dvw;
   height: 100%;
-  display: none;
+  display: grid;
   justify-items: center;
   align-content: center;
   /* gap: 8vw; */
@@ -138,39 +127,48 @@ button[onclick="jugar()"] {
   animation: agrandarSuavemente .5s alternate infinite ease;
 }
 
+button[onclick="abrirConfig()"] {
+  position: fixed;
+  top: 0;
+  right: 0%;
+  margin: 0;
+  border-radius: 0 0 0 20px;
+  padding: 3%;
+}
 
 .configuraciones {
-  position: fixed;
-  padding: 3%;
-  top: 0;
-  right: 0;
+  padding: 10%;
   z-index: 2;
   background: #470f0f;
   color: #c01a1a;
   font-size: 25px;
   font-family: 'Gothic';
-  border-radius: 0px 0px 0 20px;
+  border-radius: 20px;
   border: 3px solid #361963;
+  /* margin: 5px 0px; */
 }
 
 .container-config {
-  position: absolute;
-  width: 100%;
-  height: 100%;
+  position: fixed;
+  opacity: 0;
+  left: 50dvw;
+  transform: translateX(-50%);
+  backdrop-filter: blur(3px) brightness(80%);
+  width: 100dvw;
+  height: 100dvh;
   z-index: 1;
-  background: #79765881;
-  display: flex;
+  display: none;
   align-items: center;
   justify-content: center;
+  transition: opacity .2s ease;
 }
 
-#expandirPantalla {
-  position: static;
-  border-radius: 15px;
+#cambiarResolucion {
+  display: grid;
+  text-align: center;
+  padding: 10%;
 }
 
-@keyframes agrandarSuavemente {
-  to {
-    scale: 1.2;
-  }
+#valorResolucion {
+  margin: 15px 0px;
 }

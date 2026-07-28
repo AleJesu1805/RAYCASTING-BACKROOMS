@@ -2,6 +2,7 @@ import { canvas, shadeCanvas, viewCtx, resolucionRayos, shadeCtx, FOV, fx } from
 import { convierteRadianes, normalizaAngulo, colision } from "../core/utils.js";
 import { Rayo } from "../world/Rayo.js";
 import { imgArma } from "../core/assets.js";
+import { enemies, enemie1 } from "../main.js";
 
 export class Player {
     constructor(x, y, escenario, ctx) {
@@ -18,7 +19,7 @@ export class Player {
         this.angulo = Math.PI;
 
         this.velAvance = 2;
-        this.velGiro = 3 * (Math.PI / 180);
+        this.velGiro = 2 * (Math.PI / 180);
 
         this.numRayos = canvas.width / resolucionRayos;
         this.rayos = [];
@@ -86,12 +87,6 @@ export class Player {
 
         this.angulo += this.girando * this.velGiro;
         this.angulo = normalizaAngulo(this.angulo);
-    }
-
-    renderPlayer() {
-        this.moverPersonaje();
-        var xDestino = this.posXPlayer + Math.cos(this.angulo) * 50;
-        var yDestino = this.posYPlayer + Math.sin(this.angulo) * 50;
     }
 
     renderPlayer2d() {

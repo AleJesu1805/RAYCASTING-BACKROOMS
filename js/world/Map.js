@@ -88,10 +88,10 @@ export class Map {
         return (matriz[casillaY][casillaX]);
     }
 
-    renderEntitieInMinimap(entitie) {
+    renderEntitieInMinimap(entitie, x, y, color) {
         var escala = this.miniCelda / this.tamCelda;
-        var miniX = entitie.posXPlayer * escala;
-        var miniY = entitie.posYPlayer * escala;
+        var miniX = x * escala;
+        var miniY = y * escala;
 
         var xDestino = miniX + Math.cos(entitie.angulo) * (20 * escala);
         var yDestino = miniY + Math.sin(entitie.angulo) * (20 * escala);
@@ -102,7 +102,7 @@ export class Map {
         this.ctx.strokeStyle = '#000';
         this.ctx.stroke();
 
-        this.ctx.fillStyle = '#1a551e';
+        this.ctx.fillStyle = color;
         this.ctx.fillRect(miniX - 2, miniY - 2, 4, 4);
     }
 

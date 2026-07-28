@@ -34,9 +34,10 @@ export const touch = {
     girandoCamara: false,
 };
 
-export const resolucionRayos = 3;
-
+export const resolucionRayos = 2;
 export const FOV = 60;
+export const zBuffer = new Array(Math.floor(canvas.width / resolucionRayos)).fill(Infinity);
+
 canvas.width = 720;
 canvas.height = 360;
 

@@ -23,9 +23,11 @@ function jugar() {
 function abrirConfig() {
     configOpen = !configOpen;
     if (configOpen) {
+        configSection.style.opacity = 1;
         configSection.style.display = 'grid';
     }
     else {
+        configSection.style.opacity = 0;
         configSection.style.display = 'none';
     }
 }
@@ -37,13 +39,6 @@ function ampliar() {
     else {
         document.documentElement.requestFullscreen();
     }
-}
-
-if (document.fullscreenElement != null) {
-    expandirPantalla.innerHTML = 'MAXIMIZAR PANTALLA';
-}
-else {
-    expandirPantalla.innerHTML = 'MINIMIZAR PANTALLA';
 }
 
 window.jugar = jugar;

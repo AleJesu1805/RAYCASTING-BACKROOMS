@@ -15,3 +15,11 @@ imgPared4.src = 'img/pared5.webp';
 
 export const imagenes = [imgArma, imgPared1, imgPared2, imgPared3, imgPared4];
 
+export const sprite1 = new Image();
+sprite1.src = 'img/enemie1.webp';
+
+export const sprite2 = new Image();
+sprite2.src = 'img/enemie2.webp';
+
+export const sprites = [sprite1, sprite2];
+

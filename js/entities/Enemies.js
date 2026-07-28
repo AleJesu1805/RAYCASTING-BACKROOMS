@@ -1,8 +1,10 @@
 import { canvas, shadeCanvas, viewCtx, resolucionRayos, shadeCtx, FOV } from "../core/canvas.js";
 import { convierteRadianes, normalizaAngulo, colision } from "../core/utils.js";
-import { enemie, player } from "../main.js";
+import { enemie1, player } from "../main.js";
 import { Rayo } from "../world/Rayo.js";
 import { Player } from "./Player.js";
+import { Sprite } from "./Sprite.js";
+import { sprite1 } from "../core/assets.js";
 
 export class Enemies {
     constructor(x, y, escenario, ctx) {
@@ -19,6 +21,7 @@ export class Enemies {
         this.velocidad = 2;
 
         this.rayo = new Rayo(this.ctx, this.escenario, this.posX, this.posY, this.angulo, 0, 0);
+        this.sprite = new Sprite(this.posX, this.posY, sprite1, this.ctx);
     }
 
     lanzarRayo() {
@@ -47,6 +50,9 @@ export class Enemies {
             this.angulo += Math.random() * (this.max - this.min) + this.min;
         }
         this.angulo = normalizaAngulo(this.angulo);
+
+        this.sprite.x = this.posX;
+        this.sprite.y = this.posY;
 
         // PERSEGUIR AL JUGADOR
         if (this.rayo.wallHitX === player.posXPlayer) {
