@@ -14,6 +14,9 @@ document.addEventListener('keydown', (tecla) => {
         case 37:
             player.izquierda();
             break;
+        case 32:
+            player.disparar();
+            break;
     }
 });
 

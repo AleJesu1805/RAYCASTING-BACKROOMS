@@ -62,7 +62,7 @@ export class Sprite {
                     this.imagen,
                     pixelTextura, // xImg
                     0, // yImg
-                    this.imagen.width, // wImg
+                    this.imagen.width * 2, // wImg
                     this.imagen.height, // hImg
                     x, // xCtx
                     y0, // yCtx

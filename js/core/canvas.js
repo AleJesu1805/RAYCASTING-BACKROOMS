@@ -10,10 +10,6 @@ export const shadeCtx = shadeCanvas.getContext('2d');
 export const viewCanvas = document.createElement('canvas');
 export const viewCtx = viewCanvas.getContext('2d');
 
-// export const miniCanvas = document.getElementById('miniCanvas');
-// export const miniCanvasCtx = miniCanvas.getContext('2d');
-// OBJETO PARA LOS EFECTOS DE FEEDBACK
-
 export const fx = { hue: 0, moveCamara: 0, bobTiempo: 0 };
 
 // VARIABLES Y OBJETOS PARA LA DETECCION DE EVENTOS EN MOVILES
@@ -38,8 +34,8 @@ export const resolucionRayos = 2;
 export const FOV = 60;
 export const zBuffer = new Array(Math.floor(canvas.width / resolucionRayos)).fill(Infinity);
 
-canvas.width = 720;
-canvas.height = 360;
+canvas.width = 700;
+canvas.height = 700;
 
 shadeCanvas.width = canvas.width;
 shadeCanvas.height = canvas.height;

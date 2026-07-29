@@ -11,15 +11,15 @@ export class Player {
         this.escenario = escenario;
         this.ctx = ctx;
 
-        this.radio = this.escenario.tamCelda / 1.5;
+        this.radio = this.escenario.tamCelda / 2;
 
         this.avanzando = 0;
         this.girando = 0;
 
-        this.angulo = Math.PI;
+        this.angulo = 0;
 
         this.velAvance = 2;
-        this.velGiro = 2 * (Math.PI / 180);
+        this.velGiro = 3 * (Math.PI / 180);
 
         this.numRayos = canvas.width / resolucionRayos;
         this.rayos = [];
@@ -76,14 +76,16 @@ export class Player {
         let movimientoY = this.avanzando * Math.sin(this.angulo) * this.velAvance;
 
         let nuevaX = this.posXPlayer + movimientoX;
-        if (!colision(nuevaX, this.posYPlayer, this.radio / 2)) {
+        if (!colision(nuevaX, this.posYPlayer, 4)) {
             this.posXPlayer = nuevaX;
         }
 
         let nuevaY = this.posYPlayer + movimientoY;
-        if (!colision(this.posXPlayer, nuevaY, this.radio / 2)) {
+        if (!colision(this.posXPlayer, nuevaY, 4)) {
             this.posYPlayer = nuevaY;
         }
+
+
 
         this.angulo += this.girando * this.velGiro;
         this.angulo = normalizaAngulo(this.angulo);
@@ -91,8 +93,8 @@ export class Player {
 
     renderPlayer2d() {
         this.moverPersonaje();
-        var xDestino = this.posXPlayer + Math.cos(this.angulo) * (20);
-        var yDestino = this.posYPlayer + Math.sin(this.angulo) * (20);
+        let xDestino = this.posXPlayer + Math.cos(this.angulo) * (20);
+        let yDestino = this.posYPlayer + Math.sin(this.angulo) * (20);
 
         this.ctx.beginPath();
         this.ctx.moveTo(this.posXPlayer, this.posYPlayer);
@@ -102,6 +104,10 @@ export class Player {
 
         this.ctx.fillStyle = '#1a551e';
         this.ctx.fillRect(this.posXPlayer - this.radio / 2, this.posYPlayer - this.radio / 2, this.radio, this.radio);
+    }
+
+    disparar() {
+
     }
 
     renderArma() {

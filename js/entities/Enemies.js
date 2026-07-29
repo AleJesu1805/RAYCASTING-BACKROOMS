@@ -12,13 +12,13 @@ export class Enemies {
         this.posY = y;
         this.escenario = escenario;
         this.ctx = ctx;
-        this.radio = 10;
+        this.radio = escenario.tamCelda / 2;
 
         this.min = Math.ceil(Math.PI / 2);
         this.max = Math.floor(Math.PI);
 
         this.angulo = Math.PI / 2;
-        this.velocidad = 2;
+        this.velocidad = 1;
 
         this.rayo = new Rayo(this.ctx, this.escenario, this.posX, this.posY, this.angulo, 0, 0);
         this.sprite = new Sprite(this.posX, this.posY, sprite1, this.ctx);
@@ -35,19 +35,19 @@ export class Enemies {
         // CAMINAR SIN RUMBO POR EL MAPA
         let movimientoX = Math.cos(this.angulo) * this.velocidad;
         let movimientoY = Math.sin(this.angulo) * this.velocidad;
-        let nuevaX = this.posX + movimientoX;
 
-        if (!colision(nuevaX, this.posY, this.radio / 2)) {
+        let nuevaX = this.posX + movimientoX;
+        if (!colision(nuevaX, this.posY, this.radio)) {
             this.posX = nuevaX;
         } else {
-            this.angulo += Math.random() * (this.max - this.min) + this.min;
+            this.angulo += Math.PI / 2;
         }
 
         let nuevaY = this.posY + movimientoY;
-        if (!colision(this.posX, nuevaY, this.radio / 2)) {
+        if (!colision(this.posX, nuevaY, this.radio)) {
             this.posY = nuevaY;
         } else {
-            this.angulo += Math.random() * (this.max - this.min) + this.min;
+            this.angulo += Math.PI / 2;
         }
         this.angulo = normalizaAngulo(this.angulo);
 
@@ -55,11 +55,11 @@ export class Enemies {
         this.sprite.y = this.posY;
 
         // PERSEGUIR AL JUGADOR
-        if (this.rayo.wallHitX === player.posXPlayer) {
+        // if (this.rayo.wallHitX === player.posXPlayer) {
 
-        } else if (this.rayo.wallHitY === player.posYPlayer) {
+        // } else if (this.rayo.wallHitY === player.posYPlayer) {
 
-        }
+        // }
     }
     atacar() {
 

@@ -7,18 +7,18 @@ import { imagenes } from "./core/assets.js";
 
 export const mapa = new Map(ctx);
 export const player = new Player(
-    mapa.tamCelda * 26,
-    mapa.tamCelda * 2,
+    mapa.tamCelda * 1.5,
+    mapa.tamCelda * 1.5,
     mapa, ctx
 );
 
 export const enemie1 = new Enemies(
-    mapa.tamCelda * 4,
-    mapa.tamCelda * 2,
+    mapa.tamCelda * 6,
+    mapa.tamCelda * 1.5,
     mapa, ctx
 );
 export const enemie2 = new Enemies(
-    mapa.tamCelda * 20,
+    mapa.tamCelda * 4,
     mapa.tamCelda * 10,
     mapa, ctx
 );
@@ -32,9 +32,9 @@ function renderFrameInicial() {
 
     viewCtx.clearRect(0, 0, canvas.width, canvas.height);
     viewCtx.drawImage(canvas, 0, 0);
-    viewCtx.globalAlpha = 0.6;
-    viewCtx.drawImage(shadeCanvas, 0, 0);
-    viewCtx.globalAlpha = 1;
+    // viewCtx.globalAlpha = 0.6;
+    // viewCtx.drawImage(shadeCanvas, 0, 0);
+    // viewCtx.globalAlpha = 1;
     ctx.drawImage(viewCanvas, 0, 0);
     mapa.renderMiniMap();
 }
@@ -79,9 +79,6 @@ function gameLoop(tiempoActual) {
     if (player.avanzando !== 0 || player.girando !== 0 || touch.girandoCamara) {
         shadeCtx.clearRect(0, 0, canvas.width, canvas.height);
         mapa.renderFondo();
-        // mapa.renderMap();
-
-        viewCtx.drawImage(canvas, 0, 0);
 
         fx.bobTiempo += delta;
         fx.moveCamara = Math.floor(Math.sin(fx.bobTiempo / 100) * 6);
@@ -91,13 +88,11 @@ function gameLoop(tiempoActual) {
 
         viewCtx.clearRect(0, 0, canvas.width, canvas.height);
         viewCtx.drawImage(canvas, 0, 0);
-        viewCtx.globalAlpha = 0.6;
-        viewCtx.drawImage(shadeCanvas, 0, 0);
-        viewCtx.globalAlpha = 1;
+        // viewCtx.globalAlpha = 0.6;
+        // viewCtx.drawImage(shadeCanvas, 0, 0);
+        // viewCtx.globalAlpha = 1;
         ctx.drawImage(viewCanvas, 0, 0);
 
-        mapa.renderMiniMap();
-        mapa.renderEntitieInMinimap(player);
     } else {
         fx.bobTiempo = 0;
         fx.moveCamara = 0;
@@ -105,20 +100,22 @@ function gameLoop(tiempoActual) {
     }
 
     [...enemies]
-        .map(e => { e.sprite.calculaDistancia(); return e; })
+        // .map(e => { e.sprite.calculaDistancia(); return e; })
         .sort((a, b) => b.sprite.distancia - a.sprite.distancia)
         .forEach(e => e.sprite.dibuja());
-
-    // enemies.forEach((enemie) => {
-    //     // enemie.renderizarEnemie2d();
-    //     // enemie.lanzarRayo();
-    //     enemie.moverse();
-    // });
+    // mapa.renderMap();
+    // player.lanzarRayos();
+    // player.renderPlayer2d();
+    enemies.forEach((enemie) => {
+        // enemie.renderizarEnemie2d();
+        // enemie.lanzarRayo();
+        enemie.moverse();
+    });
 
     player.renderArma();
     mapa.renderMiniMap();
+    mapa.renderEntitieInMinimap(player, player.posXPlayer, player.posYPlayer, '#0d5a0d');
     mapa.renderEntitieInMinimap(enemie1, enemie1.posX, enemie1.posY, '#6b1212');
     mapa.renderEntitieInMinimap(enemie2, enemie2.posX, enemie2.posY, '#6b1212');
-    mapa.renderEntitieInMinimap(player, player.posXPlayer, player.posYPlayer, '#0d5a0d');
 }
 requestAnimationFrame(gameLoop);
