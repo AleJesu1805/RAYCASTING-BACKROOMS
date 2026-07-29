@@ -7,7 +7,7 @@ import { imagenes } from "./core/assets.js";
 
 export const mapa = new Map(ctx);
 export const player = new Player(
-    mapa.tamCelda * 1.5,
+    mapa.tamCelda * 5,
     mapa.tamCelda * 1.5,
     mapa, ctx
 );
@@ -76,15 +76,17 @@ function gameLoop(tiempoActual) {
     if (delta < frameDuration) return;
     ultimoTiempo = tiempoActual - (delta % frameDuration);
 
-    if (player.avanzando !== 0 || player.girando !== 0 || touch.girandoCamara) {
+    if (player.avanzando !== 0 || player.girando !== 0 || touch.girandoCamara || player.disparando) {
         shadeCtx.clearRect(0, 0, canvas.width, canvas.height);
         mapa.renderFondo();
 
-        fx.bobTiempo += delta;
-        fx.moveCamara = Math.floor(Math.sin(fx.bobTiempo / 100) * 6);
+        if (player.avanzando !== 0) {
+            fx.bobTiempo += delta;
+            fx.moveCamara = Math.floor(Math.sin(fx.bobTiempo / 100) * 6);
+        }
 
         player.moverPersonaje();
-        player.lanzarRayos();
+        // player.lanzarRayos();
 
         viewCtx.clearRect(0, 0, canvas.width, canvas.height);
         viewCtx.drawImage(canvas, 0, 0);
@@ -92,7 +94,6 @@ function gameLoop(tiempoActual) {
         // viewCtx.drawImage(shadeCanvas, 0, 0);
         // viewCtx.globalAlpha = 1;
         ctx.drawImage(viewCanvas, 0, 0);
-
     } else {
         fx.bobTiempo = 0;
         fx.moveCamara = 0;
@@ -109,7 +110,7 @@ function gameLoop(tiempoActual) {
     enemies.forEach((enemie) => {
         // enemie.renderizarEnemie2d();
         // enemie.lanzarRayo();
-        enemie.moverse();
+        // enemie.moverse();
     });
 
     player.renderArma();

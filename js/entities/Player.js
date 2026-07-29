@@ -1,8 +1,9 @@
 import { canvas, shadeCanvas, viewCtx, resolucionRayos, shadeCtx, FOV, fx } from "../core/canvas.js";
-import { convierteRadianes, normalizaAngulo, colision } from "../core/utils.js";
+import { convierteRadianes, normalizaAngulo, colision, distanciaEntrePuntos } from "../core/utils.js";
 import { Rayo } from "../world/Rayo.js";
 import { imgArma } from "../core/assets.js";
 import { enemies, enemie1 } from "../main.js";
+import { Proyectiles } from "./Proyectiles.js";
 
 export class Player {
     constructor(x, y, escenario, ctx) {
@@ -44,6 +45,32 @@ export class Player {
             // this.rayos[i].renderRayo();
             this.rayos[i].renderPared();
         }
+
+        if (this.disparando) {
+            const rayoCentral = this.rayos[Math.floor(this.numRayos / 2)];
+            this.disparar(rayoCentral);
+            this.disparando = false;
+        }
+    }
+
+    disparar(rayo) {
+        const alcance = 500;
+        const tolerancia = convierteRadianes(20);
+
+        enemies.forEach(enemigo => {
+            const dist = distanciaEntrePuntos(this.posXPlayer, this.posYPlayer, enemigo.posX, enemigo.posY);
+            if (dist > alcance) return;
+
+            const anguloEnemigo = Math.atan2(enemigo.posY - this.posYPlayer, enemigo.posX - this.posXPlayer);
+            const diferencia = normalizaAngulo(anguloEnemigo - rayo.angulo);
+
+            if (Math.abs(diferencia) < tolerancia || Math.abs(diferencia) > 2 * Math.PI - tolerancia) {
+                const distRayo = rayo.distancia;
+                if (dist < distRayo || distRayo === Infinity) {
+                    console.log("¡Impacto!");
+                }
+            }
+        });
     }
 
     arriba() {
@@ -72,6 +99,7 @@ export class Player {
     }
 
     moverPersonaje() {
+        this.lanzarRayos();
         let movimientoX = this.avanzando * Math.cos(this.angulo) * this.velAvance;
         let movimientoY = this.avanzando * Math.sin(this.angulo) * this.velAvance;
 
@@ -85,16 +113,16 @@ export class Player {
             this.posYPlayer = nuevaY;
         }
 
-
-
         this.angulo += this.girando * this.velGiro;
         this.angulo = normalizaAngulo(this.angulo);
+
+        this.disparando = false;
     }
 
     renderPlayer2d() {
         this.moverPersonaje();
-        let xDestino = this.posXPlayer + Math.cos(this.angulo) * (20);
-        let yDestino = this.posYPlayer + Math.sin(this.angulo) * (20);
+        let xDestino = this.posXPlayer + Math.cos(this.angulo) * (100);
+        let yDestino = this.posYPlayer + Math.sin(this.angulo) * (100);
 
         this.ctx.beginPath();
         this.ctx.moveTo(this.posXPlayer, this.posYPlayer);
@@ -104,10 +132,6 @@ export class Player {
 
         this.ctx.fillStyle = '#1a551e';
         this.ctx.fillRect(this.posXPlayer - this.radio / 2, this.posYPlayer - this.radio / 2, this.radio, this.radio);
-    }
-
-    disparar() {
-
     }
 
     renderArma() {
