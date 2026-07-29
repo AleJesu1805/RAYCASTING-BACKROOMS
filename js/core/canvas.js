@@ -32,6 +32,7 @@ export const touch = {
 
 export const resolucionRayos = 5;
 export const FOV = 60;
+export const altoTile = 200;
 export const zBuffer = new Array(Math.floor(canvas.width / resolucionRayos)).fill(Infinity);
 
 canvas.width = 700;

@@ -1,7 +1,7 @@
 import { player, enemie1 } from "../main.js";
 import { normalizaAngulo, distanciaEntrePuntos } from "../core/utils.js";
 import { imgArma, imgPared1, imgPared2, imagenes } from "../core/assets.js";
-import { FOV, fx, resolucionRayos, shadeCanvas, shadeCtx, zBuffer } from "../core/canvas.js";
+import { FOV, fx, resolucionRayos, shadeCanvas, shadeCtx, zBuffer, altoTile } from "../core/canvas.js";
 
 export class Rayo {
     constructor(ctx, escenario, x, y, angulo, incrementoAngulo, columna, duenio = null) {
@@ -157,7 +157,6 @@ export class Rayo {
     renderPared() {
         // PARED
         this.cast();
-        let altoTile = 200;
         let distanciaPlanoProyeccion = (canvas.width / 2) / Math.tan(FOV / 2);
         let altoMuro = altoTile / this.distancia * distanciaPlanoProyeccion;
         let y0 = canvas.height / 2 - altoMuro / 2 + fx.moveCamara;

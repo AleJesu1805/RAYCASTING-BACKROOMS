@@ -15,6 +15,7 @@ document.addEventListener('keydown', (tecla) => {
             player.izquierda();
             break;
         case 32:
+            tecla.preventDefault();
             player.disparando = true;
             break;
     }

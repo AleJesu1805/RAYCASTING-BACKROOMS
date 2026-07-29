@@ -80,10 +80,10 @@ function gameLoop(tiempoActual) {
         shadeCtx.clearRect(0, 0, canvas.width, canvas.height);
         mapa.renderFondo();
 
-        if (player.avanzando !== 0) {
-            fx.bobTiempo += delta;
-            fx.moveCamara = Math.floor(Math.sin(fx.bobTiempo / 100) * 6);
-        }
+        fx.bobTiempo += delta;
+        fx.moveCamara = Math.floor(Math.sin(fx.bobTiempo / 100) * 6);
+        console.log(fx.bobTiempo, fx.moveCamara);
+
 
         player.moverPersonaje();
         // player.lanzarRayos();
