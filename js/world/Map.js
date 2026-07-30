@@ -88,7 +88,7 @@ export class Map {
         this.color4 = '#0a0c0c';
         this.color0 = '#4b2348';
         this.ctx = ctx;
-        this.tamMiniMap = 150;
+        this.tamMiniMap = 200;
         this.miniCelda = Math.floor(Math.min(this.tamMiniMap / this.anchM, this.tamMiniMap / this.altM));
 
         // NUEVO: caché del minimapa

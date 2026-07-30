@@ -58,11 +58,11 @@ button {
 
 #joystick {
   position: absolute;
-  left: 5%;
+  left: 10%;
   bottom: 10%;
-  border-radius: 100%;
-  width: 25vw;
+  width: 5vw;
   height: 25vw;
+  border-radius: 100px;
   background-color: #525087c7;
   display: flex;
   justify-content: center;
@@ -74,7 +74,7 @@ button {
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  padding: 10%;
+  padding: 60%;
   border-radius: 100%;
   background-color: #201c84;
 }
@@ -157,7 +157,7 @@ button[onclick="abrirConfig()"] {
 
 .configuraciones {
   padding: 10%;
-  z-index: 2;
+  z-index: 20;
   background: #717070;
   color: #1c0808;
   font-size: 25px;
@@ -175,7 +175,7 @@ button[onclick="abrirConfig()"] {
   backdrop-filter: blur(3px) brightness(80%);
   width: 100dvw;
   height: 100dvh;
-  z-index: 1;
+  z-index: 10;
   display: none;
   align-items: center;
   justify-content: center;

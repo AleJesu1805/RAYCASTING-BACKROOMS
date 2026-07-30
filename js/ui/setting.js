@@ -7,7 +7,7 @@ var configOpen = false;
 
 function jugar() {
     canvas.removeAttribute('hidden');
-    pantallaStart.style.display = "none";
+    // pantallaStart.style.display = "none";
     if (/Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
         containerButtons.removeAttribute('hidden');
     }

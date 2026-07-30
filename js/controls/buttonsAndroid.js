@@ -18,7 +18,7 @@ joystick.addEventListener('touchstart', (e) => {
     const x = e.changedTouches[0].clientX - rect.left;
     const y = e.changedTouches[0].clientY - rect.top;
 
-    ballJoystick.style.left = `${x}px`;
+    // ballJoystick.style.left = `${x}px`;
     ballJoystick.style.top = `${y}px`;
 
     avanceMovil(x, y, rect);
@@ -36,9 +36,9 @@ joystick.addEventListener('touchmove', (e) => {
         return;
     }
 
-    if (x < rect.width && x > 0) {
-        ballJoystick.style.left = `${x}px`;
-    }
+    // if (x < rect.width && x > 0) {
+    //     ballJoystick.style.left = `${x}px`;
+    // }
     if (y < rect.height && y > 0) {
         ballJoystick.style.top = `${y}px`;
     }
@@ -64,7 +64,7 @@ zonaDeslice.addEventListener('touchmove', (e) => {
     if (touch.inicioXDedo > canvas.width / 2) {
         touch.actXDedo = e.targetTouches[0].pageX;
         touch.desplazadoXDedo = touch.actXDedo - touch.inicioXDedo;
-        player.angulo += touch.desplazadoXDedo * 0.0025;
+        player.angulo += touch.desplazadoXDedo * 0.0040;
         touch.inicioXDedo = touch.actXDedo;
         touch.girandoCamara = true;
     }

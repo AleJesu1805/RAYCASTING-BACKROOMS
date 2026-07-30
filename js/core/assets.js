@@ -26,9 +26,28 @@ sprite2.src = 'img/enemigos/enemie2.webp';
 
 export const sprites = [sprite1, sprite2];
 
-export const disparo = new Audio();
-disparo.src = 'audio/explosion (1).wav';
+const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+const buffers = {};
 
-export const disparoAcierto = new Audio();
-disparoAcierto.src = 'audio/hitHurt.wav';
+async function cargarSonido(nombre, url) {
+    const res = await fetch(url);
+    const arrayBuffer = await res.arrayBuffer();
+    buffers[nombre] = await audioCtx.decodeAudioData(arrayBuffer);
+}
+
+export function reproducirSonido(nombre) {
+    if (!buffers[nombre]) return;
+    const source = audioCtx.createBufferSource();
+    source.buffer = buffers[nombre];
+    source.connect(audioCtx.destination);
+    source.start(0);
+}
+
+cargarSonido('disparoAcierto', 'audio/DisparoComun (1).mp3');
+cargarSonido('disparo', 'audio/disparoAcierto.mp3');
+
+// iOS/Android exigen un gesto del usuario para desbloquear el audio
+document.addEventListener('touchstart', () => {
+    if (audioCtx.state === 'suspended') audioCtx.resume();
+}, { once: true });
 

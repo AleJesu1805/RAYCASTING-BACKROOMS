@@ -1,7 +1,7 @@
 import { canvas, shadeCanvas, viewCtx, resolucionRayos, shadeCtx, FOV, fx } from "../core/canvas.js";
 import { convierteRadianes, normalizaAngulo, colision, distanciaEntrePuntos } from "../core/utils.js";
 import { Rayo } from "../world/Rayo.js";
-import { imgArma, explosionArma, disparo, disparoAcierto } from "../core/assets.js";
+import { imgArma, explosionArma, reproducirSonido } from "../core/assets.js";
 import { enemies, enemie1 } from "../main.js";
 
 export class Player {
@@ -60,8 +60,9 @@ export class Player {
 
     disparar(rayo) {
         const alcance = 500;
-        const tolerancia = convierteRadianes(2);
-        disparo.play();
+        // const tolerancia = convierteRadianes(2);
+        const tolerancia = 0.1;
+        reproducirSonido('disparo');
         this.ctx.drawImage(explosionArma, canvas.width / 2 - 85, canvas.height - 270, 150, 150);
 
         enemies.forEach(enemigo => {
@@ -75,7 +76,7 @@ export class Player {
                 const distRayo = rayo.distancia;
                 if (dist < distRayo || distRayo === Infinity) {
                     this.acertaste = true;
-                    disparoAcierto.play();
+                    reproducirSonido('disparoAcierto');
                 }
             }
         });
@@ -95,7 +96,6 @@ export class Player {
     }
     izquierda() {
         this.girando = -1;
-
     }
 
     stopAvance() {
@@ -108,14 +108,14 @@ export class Player {
 
     moverPersonaje() {
         this.lanzarRayos();
-        let movimientoX = this.avanzando * Math.cos(this.angulo) * this.velAvance;
-        let movimientoY = this.avanzando * Math.sin(this.angulo) * this.velAvance;
 
+        let movimientoX = this.avanzando * Math.cos(this.angulo) * this.velAvance;
         let nuevaX = this.posXPlayer + movimientoX;
         if (!colision(nuevaX, this.posYPlayer, 4)) {
             this.posXPlayer = nuevaX;
         }
 
+        let movimientoY = this.avanzando * Math.sin(this.angulo) * this.velAvance;
         let nuevaY = this.posYPlayer + movimientoY;
         if (!colision(this.posXPlayer, nuevaY, 4)) {
             this.posYPlayer = nuevaY;
