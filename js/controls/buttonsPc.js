@@ -1,3 +1,4 @@
+import { canvas } from "../core/canvas.js";
 import { player } from "../main.js";
 
 document.addEventListener('keydown', (tecla) => {
@@ -15,7 +16,6 @@ document.addEventListener('keydown', (tecla) => {
             player.izquierda();
             break;
         case 32:
-            tecla.preventDefault();
             player.disparando = true;
             break;
     }

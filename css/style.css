@@ -24,11 +24,15 @@ body {
 }
 
 button {
-  opacity: 0.85;
+  opacity: 1;
   transform: scale(1);
   transition: .1s transform ease, .1s opacity ease;
 
-  &:hover {
+  /* &:hover {
+    opacity: 1;
+  } */
+
+  &:active {
     opacity: 1;
   }
 }
@@ -83,11 +87,22 @@ button {
   /* background-color: #2a864c6f; */
 }
 
-#disparador {
+.disparador {
   position: absolute;
-  right: 10%;
-  padding: 5%;
-  bottom: 7%;
+  width: 18dvw;
+  height: 18dvw;
+  border: none;
+  background-color: #1f4704;
+  border-radius: 100%;
+  clip-path: circle();
+  right: 6dvw;
+  bottom: 10%;
+  transform: scale(1);
+}
+
+.disparador-activo {
+  background-color: #3f8212;
+  transform: scale(1.2);
 }
 
 .container-start {
@@ -137,18 +152,18 @@ button[onclick="abrirConfig()"] {
   right: 0%;
   margin: 0;
   border-radius: 0 0 0 20px;
-  padding: 3%;
+  padding: 2%;
 }
 
 .configuraciones {
   padding: 10%;
   z-index: 2;
-  background: #470f0f;
-  color: #c01a1a;
+  background: #717070;
+  color: #1c0808;
   font-size: 25px;
   font-family: 'Gothic';
   border-radius: 20px;
-  border: 3px solid #361963;
+  border: 3px solid #03000a5d;
   /* margin: 5px 0px; */
 }
 

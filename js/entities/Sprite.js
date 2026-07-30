@@ -1,4 +1,4 @@
-import { canvas, FOV, resolucionRayos, zBuffer, fx, altoTile } from "../core/canvas.js";
+import { canvas, FOV, resolucionRayos, zBuffer, fx } from "../core/canvas.js";
 import { convierteRadianes, distanciaEntrePuntos } from "../core/utils.js";
 import { player } from "../main.js";
 
@@ -40,7 +40,7 @@ export class Sprite {
         // que un sprite mida lo mismo que un muro a su misma distancia
         // (es exactamente el cálculo de raycasting.js: altoTile / distancia * distanciaPlanoProyeccion)
         // ============================================================
-        // const altoTile = 500; // debe coincidir con el altoTile usado en Rayo.renderPared()
+        const altoTile = 200; // debe coincidir con el altoTile usado en Rayo.renderPared()
         const distanciaPlanoProyeccion = (canvas.width / 2) / Math.tan(FOV / 2); // OJO: igual que en Rayo.js, FOV NO se convierte a radianes aquí (a propósito, para que cuadre con los muros)
         const alturaSprite = (altoTile / this.distancia) * distanciaPlanoProyeccion;
 
@@ -74,35 +74,36 @@ export class Sprite {
         // ============================================================
         // DIBUJADO COLUMNA A COLUMNA comparando contra el zBuffer, igual
         // que raycasting.js (para que las paredes puedan tapar al sprite).
-        // Única diferencia de implementación: en vez de recorrer columna
-        // por columna NATIVA de la imagen (lo que en tu motor, con un
-        // sprite de 249px de ancho, sería carísimo por sprite y por
-        // frame), avanzo de "resolucionRayos" en "resolucionRayos" px de
-        // pantalla, igual que ya hace tu motor para las paredes. La
-        // lógica de qué se dibuja y qué se tapa es idéntica.
+        // Diferencia de implementación frente al original: en vez de
+        // recorrer columna por columna NATIVA de la imagen (carísimo con
+        // un sprite de 249px de ancho), avanzo de "resolucionRayos" en
+        // "resolucionRayos" px de pantalla, igual que tu motor ya hace
+        // para las paredes. La lógica de qué se dibuja y qué se tapa es
+        // idéntica; lo que cambia es cuánto de la imagen se muestrea por
+        // franja: como el sprite en pantalla casi siempre es más chico
+        // que la imagen nativa, cada franja de pantalla representa VARIAS
+        // columnas nativas, no una sola — por eso se toma el rango
+        // correspondiente en vez de una única columna estirada (eso era
+        // lo que causaba el aliasing: bordes con transparencia "saltados"
+        // que se veían como huecos, y el aspecto pixelado).
         // ============================================================
-        // this.ctx.imageSmoothingEnabled = false;
+        this.ctx.imageSmoothingEnabled = true; // aquí SÍ interesa suavizar: el sprite tiene bordes con alfa que hay que promediar, a diferencia de las paredes (opacas)
 
-        for (let x1 = Math.round(xIzquierda); x1 < xIzquierda + anchuraFinal; x1 += resolucionRayos) {
+        for (let x1 = Math.floor(xIzquierda); x1 < xIzquierda + anchuraFinal; x1 += resolucionRayos) {
             if (x1 < 0 || x1 >= canvas.width) continue;
 
             const columnaRayo = Math.floor(x1 / resolucionRayos);
             if (zBuffer[columnaRayo] === undefined) continue;
             if (zBuffer[columnaRayo] <= this.distancia) continue; // hay un muro más cerca en esa columna: no se dibuja
 
-            const proporcion = (x1 - xIzquierda) / anchuraFinal;
-            const columnaTextura = Math.trunc(proporcion * anchoTextura);
+            const srcXInicio = ((x1 - xIzquierda) / anchuraFinal) * anchoTextura;
+            const srcXFin = Math.min(anchoTextura, ((x1 + resolucionRayos - xIzquierda) / anchuraFinal) * anchoTextura);
+            const srcAncho = Math.max(1, srcXFin - srcXInicio);
 
             this.ctx.drawImage(
                 this.imagen,
-                columnaTextura,
-                0,
-                1,
-                altoTextura,
-                x1,
-                y1,
-                resolucionRayos,
-                alturaFinal
+                srcXInicio, 0, srcAncho, altoTextura,
+                x1, y1, resolucionRayos, alturaFinal
             );
         }
     }

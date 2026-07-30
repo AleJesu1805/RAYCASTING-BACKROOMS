@@ -76,13 +76,13 @@ function gameLoop(tiempoActual) {
     if (delta < frameDuration) return;
     ultimoTiempo = tiempoActual - (delta % frameDuration);
 
-    if (player.avanzando !== 0 || player.girando !== 0 || touch.girandoCamara || player.disparando) {
+    if (player.avanzando !== 0 || player.girando !== 0 || touch.girandoCamara) {
         shadeCtx.clearRect(0, 0, canvas.width, canvas.height);
         mapa.renderFondo();
 
         fx.bobTiempo += delta;
         fx.moveCamara = Math.floor(Math.sin(fx.bobTiempo / 100) * 6);
-        console.log(fx.bobTiempo, fx.moveCamara);
+        // console.log(fx.bobTiempo, fx.moveCamara);
 
 
         player.moverPersonaje();
@@ -99,6 +99,7 @@ function gameLoop(tiempoActual) {
         fx.moveCamara = 0;
         ctx.drawImage(viewCanvas, 0, 0);
     }
+    player.comprobarDisparo();
 
     [...enemies]
         // .map(e => { e.sprite.calculaDistancia(); return e; })
@@ -110,9 +111,8 @@ function gameLoop(tiempoActual) {
     enemies.forEach((enemie) => {
         // enemie.renderizarEnemie2d();
         // enemie.lanzarRayo();
-        // enemie.moverse();
+        enemie.moverse();
     });
-
     player.renderArma();
     mapa.renderMiniMap();
     mapa.renderEntitieInMinimap(player, player.posXPlayer, player.posYPlayer, '#0d5a0d');

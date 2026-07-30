@@ -1,9 +1,9 @@
 import { player } from "../main.js";
-import { canvas, joystick, ballJoystick, rangoDePresion, zonaDeslice, touch, fx } from "../core/canvas.js";
+import { canvas, joystick, ballJoystick, rangoDePresion, zonaDeslice, disparador, touch, fx } from "../core/canvas.js";
 
 function avanceMovil(x, y, rect) {
     const centroY = rect.height / 2;
-    const maxVelocidad = 2;
+    const maxVelocidad = 1;
     let factor = (centroY - y) / centroY;
     factor = Math.max(-1, Math.min(1, factor));
     player.avanzando = factor * maxVelocidad;
@@ -75,3 +75,15 @@ zonaDeslice.addEventListener('touchend', (e) => {
     player.girando = 0;
     touch.girandoCamara = false;
 }, { passive: false });
+
+disparador.addEventListener('touchstart', (e) => {
+    e.preventDefault();
+    disparador.classList.add('disparador-activo');
+    player.disparando = true;
+});
+
+disparador.addEventListener('touchend', (e) => {
+    e.preventDefault();
+    disparador.classList.remove('disparador-activo');
+    player.disparando = false;
+});

@@ -12,7 +12,7 @@ export class Enemies {
         this.posY = y;
         this.escenario = escenario;
         this.ctx = ctx;
-        this.radio = escenario.tamCelda / 2;
+        this.radio = escenario.tamCelda / 3;
 
         this.min = Math.ceil(Math.PI / 2);
         this.max = Math.floor(Math.PI);
@@ -33,6 +33,11 @@ export class Enemies {
 
     moverse() {
         // CAMINAR SIN RUMBO POR EL MAPA
+        let n = Math.random();
+        if (n < 0.5) n = -1
+        else n = 1;
+        // console.log(n);
+
         let movimientoX = Math.cos(this.angulo) * this.velocidad;
         let movimientoY = Math.sin(this.angulo) * this.velocidad;
 
@@ -40,14 +45,14 @@ export class Enemies {
         if (!colision(nuevaX, this.posY, this.radio)) {
             this.posX = nuevaX;
         } else {
-            this.angulo += Math.PI / 2;
+            this.angulo += Math.PI / 2 * n;
         }
 
         let nuevaY = this.posY + movimientoY;
         if (!colision(this.posX, nuevaY, this.radio)) {
             this.posY = nuevaY;
         } else {
-            this.angulo += Math.PI / 2;
+            this.angulo += Math.PI / 2 * n;
         }
         this.angulo = normalizaAngulo(this.angulo);
 
