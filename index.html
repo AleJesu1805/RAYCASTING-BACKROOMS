@@ -24,8 +24,9 @@
   <!-- -------------- PANTALLA DE MALVENIDA ------------------ -->
 
   <div class="container-start">
-    <h1 id="msg-malvenida" class="central">MALVENIDO <br> A <br> DySToPHy</h1>
-    <button onclick="jugar()" class="central"> TOCA PARA SUFRIR </button>
+    <div></div>
+    <h1 id="msg-malvenida" class="central">DySToPHy</h1>
+    <button onclick="jugar()" class="central"> SUFRIR </button>
   </div>
 
   <!-- --------------CONFIGURACIONES ------------------ -->
@@ -42,12 +43,6 @@
     <button id="expandirPantalla" class="configuraciones" onclick="ampliar()">MAXIMIZAR MINIMIZAR</button>
 
     <button id="rotarPantalla" class="configuraciones" onclick="rotar()">ROTAR</button>
-
-    <div id="cambiarResolucion" class="configuraciones">
-      <span>RESOLUCIÓN</span>
-      <input type="range" id="valorResolucion">
-      <p>100%</p>
-    </div>
   </div>
 
 
@@ -70,7 +65,7 @@
         </g>
       </svg></button>
   </div>
-  <canvas id="canvas" hidden></canvas>
+  <canvas id="canvas" style="display: none;"></canvas>
   <script src="js/main.js" type="module"></script>
   <script src="js/controls/buttonsPc.js" type="module"></script>
   <script src="js/controls/buttonsAndroid.js" type="module"></script>

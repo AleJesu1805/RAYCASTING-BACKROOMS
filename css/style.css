@@ -114,8 +114,17 @@ button {
   height: 100%;
   display: grid;
   justify-items: center;
-  align-content: center;
+  /* align-content: center; */
   /* gap: 8vw; */
+}
+
+.container-start div {
+  backdrop-filter: brightness(20%);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }
 
 .central {
@@ -128,8 +137,10 @@ button {
   letter-spacing: 10px;
   line-height: 50px;
   margin: 50px 50px;
-  color: #00640c;
-  text-shadow: 0px 0px 10px #a21111;
+  color: #0d5415;
+  text-shadow: 0px 0px 10px #004a04;
+  filter: hue-rotate(0deg) blur(0px);
+  animation: filtros 5s alternate-reverse infinite;
 }
 
 button[onclick="jugar()"] {
@@ -141,9 +152,10 @@ button[onclick="jugar()"] {
   border: none;
   font-weight: 900;
   margin: 0px 50px;
-  color: #13135d;
-  text-shadow: 0px 0px 10px #30a418;
-  font-size: calc(var(--medida-responsive) * 2);
+  color: #85858d;
+  /* text-shadow: 0px 0px 10px #30a418; */
+  font-size: calc(var(--medida-responsive) * 3);
+  animation: agrandar 1s alternate-reverse infinite;
 }
 
 button[onclick="abrirConfig()"] {
@@ -190,4 +202,18 @@ button[onclick="abrirConfig()"] {
 
 #valorResolucion {
   margin: 15px 0px;
+}
+
+
+
+@keyframes agrandar {
+  to {
+    scale: 1.2;
+  }
+}
+
+@keyframes filtros {
+  to {
+    filter: hue-rotate(360deg) blur(1px);
+  }
 }

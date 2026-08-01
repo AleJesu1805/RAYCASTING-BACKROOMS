@@ -1,3 +1,5 @@
+import { resolucionRayos } from "../core/canvas.js";
+
 const expandirPantalla = document.getElementById('expandirPantalla');
 const canvas = document.querySelector('canvas');
 const pantallaStart = document.querySelector('.container-start');
@@ -6,8 +8,8 @@ const configSection = document.querySelector('.container-config');
 var configOpen = false;
 
 function jugar() {
-    canvas.removeAttribute('hidden');
-    // pantallaStart.style.display = "none";
+    canvas.style.display = 'block';
+    pantallaStart.style.display = "none";
     if (/Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
         containerButtons.removeAttribute('hidden');
     }

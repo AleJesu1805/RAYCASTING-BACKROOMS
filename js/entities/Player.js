@@ -60,8 +60,8 @@ export class Player {
 
     disparar(rayo) {
         const alcance = 500;
-        // const tolerancia = convierteRadianes(2);
-        const tolerancia = 0.1;
+        const tolerancia = convierteRadianes(2);
+        // const tolerancia = 0.1;
         reproducirSonido('disparo');
         this.ctx.drawImage(explosionArma, canvas.width / 2 - 85, canvas.height - 270, 150, 150);
 
@@ -123,7 +123,6 @@ export class Player {
 
         this.angulo += this.girando * this.velGiro;
         this.angulo = normalizaAngulo(this.angulo);
-        this.disparando = false;
     }
 
     renderPlayer2d() {

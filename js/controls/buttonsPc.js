@@ -15,9 +15,16 @@ document.addEventListener('keydown', (tecla) => {
         case 37:
             player.izquierda();
             break;
-        case 32:
-            player.disparando = true;
-            break;
+        // case 32:
+        //     player.disparando = true;
+        //     break;
+    }
+});
+
+document.addEventListener('keydown', (tecla) => {
+    if (tecla.repeat) return;
+    if (tecla.keyCode === 32) {
+        player.disparando = true;
     }
 });
 
