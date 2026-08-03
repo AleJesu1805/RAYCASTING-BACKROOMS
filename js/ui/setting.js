@@ -5,11 +5,14 @@ const canvas = document.querySelector('canvas');
 const pantallaStart = document.querySelector('.container-start');
 const containerButtons = document.querySelector('.container-buttons');
 const configSection = document.querySelector('.container-config');
+const estadisticas = document.getElementById('estadisticas');
+
 var configOpen = false;
 
 function jugar() {
     canvas.style.display = 'block';
     pantallaStart.style.display = "none";
+    estadisticas.removeAttribute('hidden');
     if (/Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
         containerButtons.removeAttribute('hidden');
     }

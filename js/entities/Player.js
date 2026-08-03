@@ -10,6 +10,8 @@ export class Player {
         this.posYPlayer = y;
         this.escenario = escenario;
         this.ctx = ctx;
+        this.vida = 100;
+        this.balas = 50;
 
         this.radio = this.escenario.tamCelda / 2;
 

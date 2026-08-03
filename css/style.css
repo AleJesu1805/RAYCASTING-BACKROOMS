@@ -21,6 +21,7 @@ body {
   --resolucion-height: clamp(360px, 90vh, 720px);
   --color-button: #967120;
   --sombra-button: 0px 0px 15px 3px #b35a00;
+  --alto-estadisticas: 15vh;
 }
 
 button {
@@ -37,73 +38,12 @@ button {
   }
 }
 
-#canvas {
-  position: fixed;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  background: transparent;
-  width: var(--resolucion-width);
-  height: var(--resolucion-height);
-  border: 5px solid black;
-}
-
-.container-buttons {
+img {
   width: 100%;
-  height: 70vh;
-  position: fixed;
-  bottom: 0;
-  z-index: 1;
-}
-
-#joystick {
-  position: absolute;
-  left: 10%;
-  bottom: 10%;
-  width: 5vw;
-  height: 25vw;
-  border-radius: 100px;
-  background-color: #525087c7;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-#ballJoystick {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  padding: 60%;
-  border-radius: 100%;
-  background-color: #201c84;
-}
-
-#zonaDeslice {
-  position: fixed;
-  right: 0;
-  width: 50%;
   height: 100%;
-  /* background-color: #2a864c6f; */
 }
 
-.disparador {
-  position: absolute;
-  width: 18dvw;
-  height: 18dvw;
-  border: none;
-  background-color: #1f4704;
-  border-radius: 100%;
-  clip-path: circle();
-  right: 6dvw;
-  bottom: 10%;
-  transform: scale(1);
-}
-
-.disparador-activo {
-  background-color: #3f8212;
-  transform: scale(1.2);
-}
+/* PANTALLA INICIAL */
 
 .container-start {
   background: url(../img/paredesFuturistas/photo-wall-texture-lite.webp) center / cover no-repeat;
@@ -158,6 +98,131 @@ button[onclick="jugar()"] {
   animation: agrandar 1s alternate-reverse infinite;
 }
 
+/* CANVAS */
+
+#canvas {
+  position: fixed;
+  left: 50%;
+  top: 0%;
+  transform: translate(-50%, 0%);
+  background: transparent;
+  width: 100vw;
+  height: calc(100vh - var(--alto-estadisticas));
+  /* border: 5px solid black; */
+}
+
+/* BOTONES PARA MOVILES */
+
+.container-buttons {
+  width: 100%;
+  height: 70vh;
+  position: fixed;
+  bottom: 0;
+  z-index: 1;
+}
+
+/* AVANCE */
+
+#joystick {
+  position: absolute;
+  left: 10%;
+  bottom: 10%;
+  width: 5vw;
+  height: 25vw;
+  border-radius: 100px;
+  background-color: #525087c7;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#ballJoystick {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  padding: 60%;
+  border-radius: 100%;
+  background-color: #201c84;
+}
+
+/* GIRO */
+
+#zonaDeslice {
+  position: fixed;
+  right: 0;
+  width: 50%;
+  height: 100%;
+  /* background-color: #2a864c6f; */
+}
+
+/* DISPARAR */
+
+.disparador {
+  position: absolute;
+  width: 18dvw;
+  height: 18dvw;
+  border: none;
+  background-color: #1f4704;
+  border-radius: 100%;
+  clip-path: circle();
+  right: 6dvw;
+  bottom: 10%;
+  transform: scale(1);
+}
+
+.disparador-activo {
+  background-color: #3f8212;
+  transform: scale(1.2);
+}
+
+/* ESTADISTICAS */
+
+table {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100dvw;
+  margin: 0;
+  padding: 0;
+  border-spacing: 0;
+  background: url(../img/prota/fondoHUD.webp);
+  image-rendering: pixelated;
+}
+
+tr {
+  width: 100%;
+  height: var(--alto-estadisticas);
+  display: flex;
+  justify-content: center;
+  gap: 15%;
+  backdrop-filter: brightness(100%);
+}
+
+th {
+  height: 100%;
+  width: 20vw;
+  /* flex: 1; */
+  /* border: solid 2px #5d5151; */
+  background-color: #13183592;
+}
+
+th:nth-child(2) img {
+  object-fit: cover;
+  object-position: center;
+}
+
+.valor {
+  font-size: 3rem;
+  width: 20vw;
+  color: #3e6912;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* CONFIGURACIONES */
+
 button[onclick="abrirConfig()"] {
   position: fixed;
   top: 0;
@@ -204,7 +269,7 @@ button[onclick="abrirConfig()"] {
   margin: 15px 0px;
 }
 
-
+/* ANIMACIONES */
 
 @keyframes agrandar {
   to {
