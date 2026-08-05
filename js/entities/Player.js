@@ -2,7 +2,7 @@ import { canvas, shadeCanvas, viewCtx, resolucionRayos, shadeCtx, FOV, fx } from
 import { convierteRadianes, normalizaAngulo, colision, distanciaEntrePuntos } from "../core/utils.js";
 import { Rayo } from "../world/Rayo.js";
 import { imgArma, explosionArma, reproducirSonido } from "../core/assets.js";
-import { enemies, enemie1 } from "../main.js";
+import { enemies } from "../main.js";
 
 export class Player {
     constructor(x, y, escenario, ctx) {
@@ -13,15 +13,15 @@ export class Player {
         this.vida = 100;
         this.balas = 50;
 
-        this.radio = this.escenario.tamCelda / 2;
+        this.radio = this.escenario.tamCelda / 3;
 
         this.avanzando = 0;
         this.girando = 0;
 
         this.angulo = 0;
 
-        this.velAvance = 2;
-        this.velGiro = 2 * (Math.PI / 180);
+        this.velAvance = 3;
+        this.velGiro = 3 * (Math.PI / 180);
 
         this.numRayos = canvas.width / resolucionRayos;
         this.rayos = [];
@@ -78,6 +78,8 @@ export class Player {
                 const distRayo = rayo.distancia;
                 if (dist < distRayo || distRayo === Infinity) {
                     this.acertaste = true;
+                    console.log(enemigo);
+
                     reproducirSonido('disparoAcierto');
                 }
             }

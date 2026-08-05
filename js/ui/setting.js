@@ -7,18 +7,19 @@ const containerButtons = document.querySelector('.container-buttons');
 const configSection = document.querySelector('.container-config');
 const estadisticas = document.getElementById('estadisticas');
 
+const elementos = document.querySelectorAll('.hidden');
+
 var configOpen = false;
 
 function jugar() {
-    canvas.style.display = 'block';
-    pantallaStart.style.display = "none";
-    estadisticas.removeAttribute('hidden');
+    elementos.forEach(el => {
+        el.classList.remove('hidden');
+    });
     if (/Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
         containerButtons.removeAttribute('hidden');
     }
     try {
         document.documentElement.requestFullscreen();
-        // expandirPantalla.innerHTML = 'MINIMIZAR PANTALLA';
         screen.orientation.lock('landscape');
     } catch (error) {
         console.error('Error al intentar rotar o entrar en pantalla completa:', error);

@@ -66,7 +66,7 @@ function iniciarRecursos() {
 }
 iniciarRecursos();
 
-const fps = 60;
+const fps = 50;
 const frameDuration = 1000 / fps;
 let ultimoTiempo = 0;
 
@@ -80,8 +80,10 @@ function gameLoop(tiempoActual) {
         shadeCtx.clearRect(0, 0, canvas.width, canvas.height);
         mapa.renderFondo();
 
-        fx.bobTiempo += delta;
-        fx.moveCamara = Math.floor(Math.sin(fx.bobTiempo / 100) * 6);
+        if (player.avanzando !== 0) {
+            fx.bobTiempo += delta;
+            fx.moveCamara = Math.floor(Math.sin(fx.bobTiempo / 100) * 6);
+        }
         // console.log(fx.bobTiempo, fx.moveCamara);
 
 

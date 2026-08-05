@@ -16,12 +16,16 @@ body {
 }
 
 :root {
-  --medida-responsive: clamp(20px, 10%, 100px);
-  --resolucion-width: clamp(640px, 90vw, 1280px);
-  --resolucion-height: clamp(360px, 90vh, 720px);
+  --medida-responsive: clamp(20px, 5vw, 100px);
+  /* --resolucion-width: clamp(640px, 90vw, 1280px);
+  --resolucion-height: clamp(360px, 90vh, 720px); */
   --color-button: #967120;
   --sombra-button: 0px 0px 15px 3px #b35a00;
   --alto-estadisticas: 15vh;
+}
+
+.hidden {
+  display: none !important;
 }
 
 button {
@@ -106,8 +110,9 @@ button[onclick="jugar()"] {
   top: 0%;
   transform: translate(-50%, 0%);
   background: transparent;
-  width: 100vw;
-  height: calc(100vh - var(--alto-estadisticas));
+  width: 100dvw;
+  /* height: calc(100vh - var(--alto-estadisticas); */
+  height: 100dvh;
   /* border: 5px solid black; */
 }
 
@@ -163,62 +168,71 @@ button[onclick="jugar()"] {
   width: 18dvw;
   height: 18dvw;
   border: none;
-  background-color: #1f4704;
+  background-color: #757c11;
   border-radius: 100%;
-  clip-path: circle();
+  /* clip-path: circle(); */
+  border-radius: 999999px;
   right: 6dvw;
   bottom: 10%;
   transform: scale(1);
+  box-shadow: 0px 0px 5px #aabc07;
+  opacity: .5;
 }
 
 .disparador-activo {
-  background-color: #3f8212;
+  background-color: #aabc07;
+  box-shadow: 0px 0px 20px #aabc07;
+  opacity: .8;
   transform: scale(1.2);
 }
 
-/* ESTADISTICAS */
-
-table {
-  position: fixed;
-  left: 0;
-  bottom: 0;
-  width: 100dvw;
-  margin: 0;
-  padding: 0;
-  border-spacing: 0;
-  background: url(../img/prota/fondoHUD.webp);
-  image-rendering: pixelated;
+img[src="img/SVGs/fuegoDeCañon.svg"] {
+  width: 70%;
 }
 
-tr {
-  width: 100%;
-  height: var(--alto-estadisticas);
-  display: flex;
-  justify-content: center;
-  gap: 15%;
-  backdrop-filter: brightness(100%);
+/* SALUD */
+
+#container-salud {
+  position: absolute;
+  top: 0;
+  right: calc((var(--medida-responsive)) * (2.8));
+  width: 12dvw;
+  height: 12dvw;
 }
 
-th {
-  height: 100%;
-  width: 20vw;
-  /* flex: 1; */
-  /* border: solid 2px #5d5151; */
-  background-color: #13183592;
-}
-
-th:nth-child(2) img {
-  object-fit: cover;
-  object-position: center;
-}
-
-.valor {
-  font-size: 3rem;
-  width: 20vw;
-  color: #3e6912;
+#valorSalud {
   position: absolute;
   top: 50%;
-  transform: translateY(-50%);
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 250%;
+  font-weight: 900;
+  color: #e84200;
+  text-shadow: 0px 0px 5px #9c0247;
+  z-index: 2;
+}
+
+/* TIEMPO */
+
+#container-cronometro {
+  width: 15vw;
+  height: 10vw;
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #0a2e033e;
+  border-radius: 0 0 20% 20%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* text-align: center; */
+}
+
+#tiempo {
+  font-size: 250%;
+  color: #6bed00;
+  text-shadow: 0px 0px 5px #126e20;
 }
 
 /* CONFIGURACIONES */
@@ -226,10 +240,21 @@ th:nth-child(2) img {
 button[onclick="abrirConfig()"] {
   position: fixed;
   top: 0;
-  right: 0%;
+  right: 0;
   margin: 0;
-  border-radius: 0 0 0 20px;
-  padding: 2%;
+  padding: 0;
+  border-radius: 0 0 0 40%;
+  width: calc((var(--medida-responsive)) * (2.5));
+  height: calc((var(--medida-responsive)) * (2.5));
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#iconAjustes {
+  position: absolute;
+  width: 60%;
+  height: 60%;
 }
 
 .configuraciones {
