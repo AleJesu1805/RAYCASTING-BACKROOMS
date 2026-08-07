@@ -3,21 +3,19 @@ import { player } from "../main.js";
 
 document.addEventListener('keydown', (tecla) => {
     switch (tecla.keyCode) {
-        case 38:
+        case 87:
+        case 69:
             player.arriba();
             break;
-        case 40:
+        case 83:
             player.abajo();
             break;
-        case 39:
+        case 68:
             player.derecha();
             break;
-        case 37:
+        case 65:
             player.izquierda();
             break;
-        // case 32:
-        //     player.disparando = true;
-        //     break;
     }
 });
 
@@ -30,16 +28,16 @@ document.addEventListener('keydown', (tecla) => {
 
 document.addEventListener('keyup', (tecla) => {
     switch (tecla.keyCode) {
-        case 38:
+        case 87:
             player.stopAvance();
             break;
-        case 40:
+        case 83:
             player.stopAvance();
             break;
-        case 39:
+        case 68:
             player.stopGiro();
             break;
-        case 37:
+        case 65:
             player.stopGiro();
             break;
     }

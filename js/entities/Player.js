@@ -62,12 +62,12 @@ export class Player {
 
     disparar(rayo) {
         const alcance = 500;
-        const tolerancia = convierteRadianes(2);
+        const tolerancia = convierteRadianes(3);
         // const tolerancia = 0.1;
         reproducirSonido('disparo');
         this.ctx.drawImage(explosionArma, canvas.width / 2 - 85, canvas.height - 270, 150, 150);
 
-        enemies.forEach(enemigo => {
+        enemies.forEach((enemigo, index) => {
             const dist = distanciaEntrePuntos(this.posXPlayer, this.posYPlayer, enemigo.posX, enemigo.posY);
             if (dist > alcance) return;
 
@@ -77,9 +77,8 @@ export class Player {
             if (Math.abs(diferencia) < tolerancia || Math.abs(diferencia) > 2 * Math.PI - tolerancia) {
                 const distRayo = rayo.distancia;
                 if (dist < distRayo || distRayo === Infinity) {
+                    console.log("Le diste al enemigo", index);
                     this.acertaste = true;
-                    console.log(enemigo);
-
                     reproducirSonido('disparoAcierto');
                 }
             }

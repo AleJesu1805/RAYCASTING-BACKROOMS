@@ -19,7 +19,7 @@ export const enemie1 = new Enemies(
 );
 export const enemie2 = new Enemies(
     mapa.tamCelda * 4,
-    mapa.tamCelda * 10,
+    mapa.tamCelda * 7,
     mapa, ctx
 );
 
@@ -66,7 +66,7 @@ function iniciarRecursos() {
 }
 iniciarRecursos();
 
-const fps = 50;
+const fps = 60;
 const frameDuration = 1000 / fps;
 let ultimoTiempo = 0;
 
