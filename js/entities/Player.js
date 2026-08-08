@@ -20,8 +20,8 @@ export class Player {
 
         this.angulo = 0;
 
-        this.velAvance = 3;
-        this.velGiro = 3 * (Math.PI / 180);
+        this.velAvance = 2;
+        this.velGiro = 2 * (Math.PI / 180);
 
         this.numRayos = canvas.width / resolucionRayos;
         this.rayos = [];
