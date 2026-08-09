@@ -5,6 +5,10 @@ import { Enemies } from "./entities/Enemies.js";
 import { Sprite } from "./entities/Sprite.js";
 import { imagenes } from "./core/assets.js";
 
+if ('service worker' in navigator) {
+    navigator.serviceWorker.register('workers/sw.js');
+}
+
 export const mapa = new Map(ctx);
 export const player = new Player(
     mapa.tamCelda * 5,

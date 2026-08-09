@@ -12,10 +12,9 @@
     "start_url": "index.html",
     "icons": [
         {
-            "src": "../img/SVGs/arma.svg",
-            "sizes": "512x512",
-            "type": "image/svg",
-            "purpose": "any maskable"
+            "src": "../../img/SVGs/arma.svg",
+            "type": "image/svg+xml",
+            "purpose": "any"
         }
     ]
 }
