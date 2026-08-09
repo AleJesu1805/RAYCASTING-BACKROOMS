@@ -7,7 +7,7 @@ import { Sprite } from "./Sprite.js";
 import { sprite1 } from "../core/assets.js";
 
 export class Enemies {
-    constructor(x, y, escenario, ctx) {
+    constructor(x, y, escenario, ctx, velocidad) {
         this.posX = x;
         this.posY = y;
         this.escenario = escenario;
@@ -18,7 +18,7 @@ export class Enemies {
         this.max = Math.floor(Math.PI);
 
         this.angulo = Math.PI / 2;
-        this.velocidad = 1;
+        this.velocidad = velocidad;
 
         this.rayo = new Rayo(this.ctx, this.escenario, this.posX, this.posY, this.angulo, 0, 0);
         this.sprite = new Sprite(this.posX, this.posY, sprite1, this.ctx);

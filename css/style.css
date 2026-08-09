@@ -16,7 +16,7 @@ body {
 }
 
 :root {
-  --medida-responsive: clamp(20px, 5vw, 100px);
+  --medida-responsive: clamp(20px, 5vw, 30px);
   /* --resolucion-width: clamp(640px, 90vw, 1280px);
   --resolucion-height: clamp(360px, 90vh, 720px); */
   --color-button: #967120;
@@ -50,7 +50,7 @@ img {
 /* PANTALLA INICIAL */
 
 .container-start {
-  background: url(../img/paredesFuturistas/photo-wall-texture-lite.webp) center / cover no-repeat;
+  background: url(../img/paredesFuturistas/photo-wall-texture-lite.webp) center / 100% no-repeat;
   position: fixed;
   top: 0;
   left: 0;

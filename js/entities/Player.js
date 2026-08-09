@@ -2,7 +2,7 @@ import { canvas, shadeCanvas, viewCtx, resolucionRayos, shadeCtx, FOV, fx } from
 import { convierteRadianes, normalizaAngulo, colision, distanciaEntrePuntos } from "../core/utils.js";
 import { Rayo } from "../world/Rayo.js";
 import { imgArma, explosionArma, reproducirSonido } from "../core/assets.js";
-import { enemies } from "../main.js";
+import { enemies, mapa } from "../main.js";
 
 export class Player {
     constructor(x, y, escenario, ctx) {
@@ -20,8 +20,8 @@ export class Player {
 
         this.angulo = 0;
 
-        this.velAvance = 2;
-        this.velGiro = 2 * (Math.PI / 180);
+        this.velAvance = 1.5;
+        this.velGiro = 3 * (Math.PI / 180);
 
         this.numRayos = canvas.width / resolucionRayos;
         this.rayos = [];
@@ -67,7 +67,7 @@ export class Player {
         reproducirSonido('disparo');
         this.ctx.drawImage(explosionArma, canvas.width / 2 - 85, canvas.height - 270, 150, 150);
 
-        enemies.forEach((enemigo, index) => {
+        enemies.forEach((enemigo) => {
             const dist = distanciaEntrePuntos(this.posXPlayer, this.posYPlayer, enemigo.posX, enemigo.posY);
             if (dist > alcance) return;
 
@@ -77,7 +77,8 @@ export class Player {
             if (Math.abs(diferencia) < tolerancia || Math.abs(diferencia) > 2 * Math.PI - tolerancia) {
                 const distRayo = rayo.distancia;
                 if (dist < distRayo || distRayo === Infinity) {
-                    console.log("Le diste al enemigo", index);
+                    enemigo.posX = mapa.tamCelda * (mapa.anchM / 2);
+                    enemigo.posY = mapa.tamCelda * (mapa.anchM / 2);
                     this.acertaste = true;
                     reproducirSonido('disparoAcierto');
                 }
@@ -85,29 +86,29 @@ export class Player {
         });
     }
 
-    arriba() {
-        this.avanzando = 1;
-        fx.moveCamara = 0;
-    }
-    abajo() {
-        this.avanzando = -1;
-        fx.moveCamara = 0;
-    }
-    derecha() {
-        this.girando = 1;
+    // arriba() {
+    //     this.avanzando = 1;
+    //     fx.moveCamara = 0;
+    // }
+    // abajo() {
+    //     this.avanzando = -1;
+    //     fx.moveCamara = 0;
+    // }
+    // derecha() {
+    //     this.girando = 1;
 
-    }
-    izquierda() {
-        this.girando = -1;
-    }
+    // }
+    // izquierda() {
+    //     this.girando = -1;
+    // }
 
-    stopAvance() {
-        this.avanzando = 0;
-    }
+    // stopAvance() {
+    //     this.avanzando = 0;
+    // }
 
-    stopGiro() {
-        this.girando = 0;
-    }
+    // stopGiro() {
+    //     this.girando = 0;
+    // }
 
     moverPersonaje() {
         this.lanzarRayos();
@@ -129,7 +130,7 @@ export class Player {
     }
 
     renderPlayer2d() {
-        this.moverPersonaje();
+        // this.moverPersonaje();
         let xDestino = this.posXPlayer + Math.cos(this.angulo) * (100);
         let yDestino = this.posYPlayer + Math.sin(this.angulo) * (100);
 

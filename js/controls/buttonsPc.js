@@ -1,20 +1,28 @@
-import { canvas } from "../core/canvas.js";
+import { canvas, fx } from "../core/canvas.js";
 import { player } from "../main.js";
 
 document.addEventListener('keydown', (tecla) => {
     switch (tecla.keyCode) {
         case 87:
-        case 69:
-            player.arriba();
+        case 82:
+            player.avanzando = 1;
+            fx.moveCamara = 0;
             break;
         case 83:
-            player.abajo();
+            player.avanzando = -1;
+            fx.moveCamara = 0;
             break;
         case 68:
-            player.derecha();
+            player.girando = 0.5;
             break;
         case 65:
-            player.izquierda();
+            player.girando = -0.5;
+            break;
+        case 69:
+            player.girando = 1.5;
+            break;
+        case 81:
+            player.girando = -1.5;
             break;
     }
 });
@@ -29,16 +37,22 @@ document.addEventListener('keydown', (tecla) => {
 document.addEventListener('keyup', (tecla) => {
     switch (tecla.keyCode) {
         case 87:
-            player.stopAvance();
+            player.avanzando = 0;
             break;
         case 83:
-            player.stopAvance();
+            player.avanzando = 0;
             break;
         case 68:
-            player.stopGiro();
+            player.girando = 0;
             break;
         case 65:
-            player.stopGiro();
+            player.girando = 0;
+            break;
+        case 69:
+            player.girando = 0;
+            break;
+        case 81:
+            player.girando = 0;
             break;
     }
 });

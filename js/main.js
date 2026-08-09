@@ -13,14 +13,14 @@ export const player = new Player(
 );
 
 export const enemie1 = new Enemies(
-    mapa.tamCelda * 6,
+    mapa.tamCelda * (mapa.anchM - 2),
     mapa.tamCelda * 1.5,
-    mapa, ctx
+    mapa, ctx, 1 * Math.random()
 );
 export const enemie2 = new Enemies(
-    mapa.tamCelda * 4,
+    mapa.tamCelda * 3.5,
     mapa.tamCelda * 7,
-    mapa, ctx
+    mapa, ctx, 1 * Math.random()
 );
 
 export const enemies = [enemie1, enemie2];
@@ -82,7 +82,7 @@ function gameLoop(tiempoActual) {
 
         if (player.avanzando !== 0) {
             fx.bobTiempo += delta;
-            fx.moveCamara = Math.floor(Math.sin(fx.bobTiempo / 100) * 6);
+            fx.moveCamara = Math.floor(Math.sin(fx.bobTiempo / 100) * 8);
         }
         // console.log(fx.bobTiempo, fx.moveCamara);
 
@@ -104,17 +104,16 @@ function gameLoop(tiempoActual) {
     player.comprobarDisparo();
 
     [...enemies]
-        // .map(e => { e.sprite.calculaDistancia(); return e; })
         .sort((a, b) => b.sprite.distancia - a.sprite.distancia)
-        .forEach(e => e.sprite.dibuja());
+        .forEach(e => {
+            e.sprite.dibuja()
+            e.moverse();
+            // e.renderizarEnemie2d();
+            // e.lanzarRayo();
+        });
     // mapa.renderMap();
     // player.lanzarRayos();
     // player.renderPlayer2d();
-    enemies.forEach((enemie) => {
-        // enemie.renderizarEnemie2d();
-        // enemie.lanzarRayo();
-        enemie.moverse();
-    });
     player.renderArma();
     mapa.renderMiniMap();
     mapa.renderEntitieInMinimap(player, player.posXPlayer, player.posYPlayer, '#0d5a0d');

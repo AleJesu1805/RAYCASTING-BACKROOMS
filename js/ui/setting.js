@@ -17,9 +17,9 @@ function jugar() {
     });
     if (/Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
         containerButtons.removeAttribute('hidden');
+        document.documentElement.requestFullscreen();
     }
     try {
-        document.documentElement.requestFullscreen();
         screen.orientation.lock('landscape');
     } catch (error) {
         console.error('Error al intentar rotar o entrar en pantalla completa:', error);
