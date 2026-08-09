@@ -1,4 +1,4 @@
-import { canvas, ctx, shadeCanvas, shadeCtx, viewCanvas, viewCtx, fx, touch } from "./core/canvas.js";
+import { canvas, ctx, shadeCanvas, shadeCtx, viewCanvas, viewCtx, touch, fx } from "./core/canvas.js";
 import { Map } from "./world/Map.js";
 import { Player } from "./entities/Player.js";
 import { Enemies } from "./entities/Enemies.js";
@@ -15,12 +15,16 @@ export const player = new Player(
 export const enemie1 = new Enemies(
     mapa.tamCelda * (mapa.anchM - 2),
     mapa.tamCelda * 1.5,
-    mapa, ctx, 1 * Math.random()
+    mapa.tamCelda * (mapa.anchM - 2),
+    mapa.tamCelda * 1.5,
+    mapa, ctx, 1 * (Math.random() + 1)
 );
 export const enemie2 = new Enemies(
     mapa.tamCelda * 3.5,
     mapa.tamCelda * 7,
-    mapa, ctx, 1 * Math.random()
+    mapa.tamCelda * 3.5,
+    mapa.tamCelda * 7,
+    mapa, ctx, 1 * (Math.random() + 1)
 );
 
 export const enemies = [enemie1, enemie2];
@@ -120,4 +124,7 @@ function gameLoop(tiempoActual) {
     mapa.renderEntitieInMinimap(enemie1, enemie1.posX, enemie1.posY, '#6b1212');
     mapa.renderEntitieInMinimap(enemie2, enemie2.posX, enemie2.posY, '#6b1212');
 }
-requestAnimationFrame(gameLoop);
+
+document.querySelector('button[onclick="jugar()"]').addEventListener('pointerdown', () => {
+    requestAnimationFrame(gameLoop);
+});

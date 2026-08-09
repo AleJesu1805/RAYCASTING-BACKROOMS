@@ -77,8 +77,9 @@ export class Player {
             if (Math.abs(diferencia) < tolerancia || Math.abs(diferencia) > 2 * Math.PI - tolerancia) {
                 const distRayo = rayo.distancia;
                 if (dist < distRayo || distRayo === Infinity) {
-                    enemigo.posX = mapa.tamCelda * (mapa.anchM / 2);
-                    enemigo.posY = mapa.tamCelda * (mapa.anchM / 2);
+                    enemigo.posX = enemigo.xInicial;
+                    enemigo.posY = enemigo.yInicial;
+                    enemigo.velocidad = 1 * Math.random();
                     this.acertaste = true;
                     reproducirSonido('disparoAcierto');
                 }

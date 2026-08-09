@@ -10,7 +10,6 @@ const estadisticas = document.getElementById('estadisticas');
 const elementos = document.querySelectorAll('.hidden');
 
 var configOpen = false;
-
 function jugar() {
     elementos.forEach(el => {
         el.classList.remove('hidden');

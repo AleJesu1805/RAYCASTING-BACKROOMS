@@ -7,9 +7,11 @@ import { Sprite } from "./Sprite.js";
 import { sprite1 } from "../core/assets.js";
 
 export class Enemies {
-    constructor(x, y, escenario, ctx, velocidad) {
+    constructor(x, y, xInicial, yInicial, escenario, ctx, velocidad) {
         this.posX = x;
         this.posY = y;
+        this.xInicial = xInicial;
+        this.yInicial = yInicial;
         this.escenario = escenario;
         this.ctx = ctx;
         this.radio = escenario.tamCelda / 3;

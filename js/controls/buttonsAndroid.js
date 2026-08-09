@@ -50,8 +50,8 @@ joystick.addEventListener('touchend', (e) => {
     if (e.targetTouches.length === 0) {
         ballJoystick.style.left = `50%`;
         ballJoystick.style.top = `50%`;
-        player.stopAvance();
-        player.stopGiro();
+        player.avanzando = 0;
+        player.girando = 0;
     }
 });
 
