@@ -8,8 +8,8 @@
     "theme_color": "#060316",
     "display": "fullscreen",
     "orientation": "portrait",
-    "scope": ".",
-    "start_url": "index.html",
+    "scope": "../../",
+    "start_url": "../../index.html",
     "icons": [
         {
             "src": "../../img/SVGs/arma.svg",
