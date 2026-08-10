@@ -78,6 +78,11 @@ const fps = 60;
 const frameDuration = 1000 / fps;
 let ultimoTiempo = 0;
 
+// Cada cuántos frames se recalcula la ruta A* de los enemigos (moverse() sigue
+// llamándose en cada frame, pero el A* es lo costoso y no necesita ser tan frecuente)
+const INTERVALO_RECALCULO_RUTA = 120;
+let frameCount = 0;
+
 function gameLoop(tiempoActual) {
     requestAnimationFrame(gameLoop);
     const delta = tiempoActual - ultimoTiempo;
@@ -111,10 +116,17 @@ function gameLoop(tiempoActual) {
     }
     player.comprobarDisparo();
 
+    // La ruta A* solo se recalcula cada INTERVALO_RECALCULO_RUTA frames;
+    // moverse() en cambio se sigue ejecutando en cada frame para que el
+    // movimiento se vea fluido usando la última ruta calculada.
+    const debeRecalcularRuta = frameCount % INTERVALO_RECALCULO_RUTA === 0;
+    frameCount++;
+
     [...enemies]
         .sort((a, b) => b.sprite.distancia - a.sprite.distancia)
         .forEach(e => {
             e.sprite.dibuja()
+            if (debeRecalcularRuta) e.actualizarRuta();
             e.moverse();
             // e.renderizarEnemie2d();
             // e.lanzarRayo();

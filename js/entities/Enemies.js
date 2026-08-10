@@ -24,6 +24,22 @@ export class Enemies {
 
         this.rayo = new Rayo(this.ctx, this.escenario, this.posX, this.posY, this.angulo, 0, 0);
         this.sprite = new Sprite(this.posX, this.posY, sprite1, this.ctx);
+
+        // Guarda la última ruta calculada por A* para que moverse() la reutilice
+        // entre recálculos (ver actualizarRuta()).
+        this.ruta = null;
+
+        // Índice del PRÓXIMO waypoint (casilla) de this.ruta hacia el que se está
+        // moviendo el enemigo. Antes moverse() siempre apuntaba a ruta[1] fijo;
+        // ahora avanza este índice a medida que se alcanza cada casilla, para
+        // recorrer TODA la ruta (no solo el primer paso) entre recálculos.
+        this.rutaIndex = 1;
+
+        // Guarda el último ángulo de movimiento válido. Se usa como fallback
+        // en moverse() cuando ya se recorrió toda la ruta disponible (o nunca
+        // hubo una), para que el enemigo siga avanzando en línea recta en esa
+        // dirección en vez de quedarse trabado esperando el próximo recálculo.
+        this.ultimoAngulo = undefined;
     }
 
     lanzarRayo() {
@@ -120,36 +136,87 @@ export class Enemies {
         return null;
     }
 
-    moverse() {
-        // PERSEGUIR AL JUGADOR USANDO A*
+    // Recalcula la ruta hacia el jugador con A* y la guarda en this.ruta.
+    // Es la parte costosa (recorre el grafo de casillas), por eso en main.js
+    // se llama solo cada N frames en lugar de en cada frame.
+    actualizarRuta() {
         const casillaActual = this.aCasilla(this.posX, this.posY);
         const casillaObjetivo = this.aCasilla(player.posXPlayer, player.posYPlayer);
 
-        const ruta = this.calcularRutaAEstrella(casillaActual, casillaObjetivo);
+        const rutaCalculada = this.calcularRutaAEstrella(casillaActual, casillaObjetivo);
 
-        // ruta[0] es la casilla donde ya está el enemigo, ruta[1] es el siguiente paso a dar
-        if (ruta && ruta.length > 1) {
-            const siguienteCasilla = ruta[1];
+        // Si A* no encuentra camino (p. ej. el objetivo queda momentáneamente
+        // inalcanzable), NO sobreescribimos this.ruta con null: conservamos la
+        // última ruta válida para que moverse() pueda seguir usándola/usando
+        // su dirección en vez de trabarse.
+        if (rutaCalculada) {
+            this.ruta = rutaCalculada;
+            this.rutaIndex = 1; // ruta[0] es la casilla actual; el primer objetivo es ruta[1]
+        }
+    }
 
-            // Centro en píxeles de la siguiente casilla del camino
+    // Aplica el movimiento (cos/sin * velocidad) en el ángulo actual,
+    // respetando colisiones en X e Y por separado (permite "deslizar" sobre paredes).
+    avanzarEnAngulo() {
+        const movimientoX = Math.cos(this.angulo) * this.velocidad;
+        const movimientoY = Math.sin(this.angulo) * this.velocidad;
+
+        const nuevaX = this.posX + movimientoX;
+        if (!colision(nuevaX, this.posY, this.radio)) {
+            this.posX = nuevaX;
+        }
+
+        const nuevaY = this.posY + movimientoY;
+        if (!colision(this.posX, nuevaY, this.radio)) {
+            this.posY = nuevaY;
+        }
+    }
+
+    moverse() {
+        // ACTUALIZACIÓN DE MOVIMIENTO: avanza usando la última ruta calculada
+        // por actualizarRuta() (this.ruta), sin volver a ejecutar A* aquí.
+        // ruta[0] es la casilla donde ya está el enemigo; this.rutaIndex apunta
+        // al PRÓXIMO waypoint objetivo dentro de la ruta (empieza en 1).
+        //
+        // Antes esto siempre apuntaba a ruta[1] fijo: al llegar a esa casilla
+        // (mucho antes del siguiente recálculo, porque cruzar una celda es más
+        // rápido que 60 frames) el enemigo se pasaba de largo del punto cada
+        // frame, invirtiendo el ángulo una y otra vez -> oscilación adelante/atrás.
+        // Ahora se avanza this.rutaIndex al llegar a cada waypoint, recorriendo
+        // TODA la ruta calculada en vez de quedarse pegado al primer paso.
+        if (this.ruta && this.rutaIndex < this.ruta.length) {
+            const siguienteCasilla = this.ruta[this.rutaIndex];
+
             const destinoX = siguienteCasilla.x * this.escenario.tamCelda + this.escenario.tamCelda / 2;
             const destinoY = siguienteCasilla.y * this.escenario.tamCelda + this.escenario.tamCelda / 2;
 
-            this.angulo = normalizaAngulo(Math.atan2(destinoY - this.posY, destinoX - this.posX));
+            const dx = destinoX - this.posX;
+            const dy = destinoY - this.posY;
+            const distanciaAlDestino = Math.hypot(dx, dy);
 
-            let movimientoX = Math.cos(this.angulo) * this.velocidad;
-            let movimientoY = Math.sin(this.angulo) * this.velocidad;
-
-            let nuevaX = this.posX + movimientoX;
-            if (!colision(nuevaX, this.posY, this.radio)) {
-                this.posX = nuevaX;
+            if (distanciaAlDestino <= this.velocidad) {
+                // Ya estamos a un paso o menos del centro de la casilla: nos
+                // "enganchamos" a ese punto exacto y pasamos al siguiente
+                // waypoint, en vez de seguir persiguiéndolo y pasarnos de largo
+                // (eso era lo que causaba el vaivén adelante/atrás).
+                this.posX = destinoX;
+                this.posY = destinoY;
+                this.rutaIndex++;
+            } else {
+                this.angulo = normalizaAngulo(Math.atan2(dy, dx));
+                this.ultimoAngulo = this.angulo;
+                this.avanzarEnAngulo();
             }
-
-            let nuevaY = this.posY + movimientoY;
-            if (!colision(this.posX, nuevaY, this.radio)) {
-                this.posY = nuevaY;
-            }
+        } else if (this.ultimoAngulo !== undefined) {
+            // Ya recorrimos todos los waypoints de la ruta calculada (o nunca
+            // hubo una) y todavía no toca recalcular. En vez de quedarnos
+            // trabados, seguimos avanzando en línea recta en la última
+            // dirección conocida hasta el próximo recálculo.
+            this.angulo = this.ultimoAngulo;
+            this.avanzarEnAngulo();
         }
+        // Si no hay ruta ni ultimoAngulo (antes del primer recálculo), el
+        // enemigo simplemente no se mueve todavía: no hay hacia dónde ir.
 
         this.sprite.x = this.posX;
         this.sprite.y = this.posY;
