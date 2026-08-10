@@ -13,6 +13,7 @@
     "icons": [
         {
             "src": "../../img/SVGs/arma-ico.svg",
+            "sizes": "any",
             "type": "image/svg+xml",
             "purpose": "any"
         }
