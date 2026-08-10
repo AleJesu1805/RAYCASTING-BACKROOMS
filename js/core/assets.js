@@ -27,16 +27,21 @@ sprite2.src = 'img/enemigos/enemie2.webp';
 export const sprites = [sprite1, sprite2];
 
 
-// const worker = new Worker('./workers/worker.js');
-// worker.postMessage(true);
 
 const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 const buffers = {};
 
-async function cargarSonido(nombre, url) {
-    const res = await fetch(url);
-    const arrayBuffer = await res.arrayBuffer();
+const worker = new Worker(new URL('../workers/worker.js', import.meta.url));
+
+worker.onmessage = async (e) => {
+    const { nombre, arrayBuffer, ok } = e.data;
+    if (!ok) return;
     buffers[nombre] = await audioCtx.decodeAudioData(arrayBuffer);
+};
+
+function cargarSonido(nombre, url) {
+    const urlAbsoluta = new URL(url, document.baseURI).href;
+    worker.postMessage({ nombre, url: urlAbsoluta });
 }
 
 export function reproducirSonido(nombre) {
