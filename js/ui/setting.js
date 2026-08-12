@@ -1,4 +1,5 @@
 import { resolucionRayos } from "../core/canvas.js";
+import { music1 } from "../core/assets.js";
 
 const expandirPantalla = document.getElementById('expandirPantalla');
 const canvas = document.querySelector('canvas');
@@ -11,6 +12,9 @@ const elementos = document.querySelectorAll('.hidden');
 
 var configOpen = false;
 function jugar() {
+    music1.play();
+    music1.volume = 0.20;
+
     elementos.forEach(el => {
         el.classList.remove('hidden');
     });

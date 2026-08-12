@@ -5,8 +5,8 @@ import { Enemies } from "./entities/Enemies.js";
 import { Sprite } from "./entities/Sprite.js";
 import { imagenes } from "./core/assets.js";
 
-if ('service worker' in navigator) {
-    navigator.serviceWorker.register('js/workers/sw.js');
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('sw.js')
 }
 
 export const mapa = new Map(ctx);

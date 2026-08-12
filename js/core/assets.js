@@ -26,7 +26,8 @@ sprite2.src = 'img/enemigos/enemie2.webp';
 
 export const sprites = [sprite1, sprite2];
 
-
+export const music1 = new Audio();
+music1.src = 'audio/GRINDCORE/SPEED - NOT THAT NICE (OFFICIAL MOVIE)(MP3_160K).mp3'
 
 const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 const buffers = {};
