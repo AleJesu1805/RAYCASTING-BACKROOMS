@@ -14,7 +14,7 @@ export class Enemies {
         this.yInicial = yInicial;
         this.escenario = escenario;
         this.ctx = ctx;
-        this.radio = escenario.tamCelda / 3;
+        this.radio = escenario.tamCelda / 4;
 
         this.min = Math.ceil(Math.PI / 2);
         this.max = Math.floor(Math.PI);
