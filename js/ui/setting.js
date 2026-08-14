@@ -13,7 +13,7 @@ const elementos = document.querySelectorAll('.hidden');
 var configOpen = false;
 function jugar() {
     music1.play();
-    music1.volume = 0.20;
+    music1.volume = 0.020;
 
     elementos.forEach(el => {
         el.classList.remove('hidden');

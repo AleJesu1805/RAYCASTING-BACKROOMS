@@ -40,9 +40,6 @@ function renderFrameInicial() {
 
     viewCtx.clearRect(0, 0, canvas.width, canvas.height);
     viewCtx.drawImage(canvas, 0, 0);
-    // viewCtx.globalAlpha = 0.6;
-    // viewCtx.drawImage(shadeCanvas, 0, 0);
-    // viewCtx.globalAlpha = 1;
     ctx.drawImage(viewCanvas, 0, 0);
     mapa.renderMiniMap();
 }
@@ -78,8 +75,6 @@ const fps = 60;
 const frameDuration = 1000 / fps;
 let ultimoTiempo = 0;
 
-// Cada cuántos frames se recalcula la ruta A* de los enemigos (moverse() sigue
-// llamándose en cada frame, pero el A* es lo costoso y no necesita ser tan frecuente)
 const INTERVALO_RECALCULO_RUTA = 120;
 let frameCount = 0;
 
@@ -95,7 +90,7 @@ function gameLoop(tiempoActual) {
 
         if (player.avanzando !== 0) {
             fx.bobTiempo += delta;
-            fx.moveCamara = Math.floor(Math.sin(fx.bobTiempo / 100) * 8);
+            fx.moveCamara = Math.floor(Math.sin(fx.bobTiempo / 100) * player.avanzando * 8);
         }
         // console.log(fx.bobTiempo, fx.moveCamara);
 
@@ -105,9 +100,6 @@ function gameLoop(tiempoActual) {
 
         viewCtx.clearRect(0, 0, canvas.width, canvas.height);
         viewCtx.drawImage(canvas, 0, 0);
-        // viewCtx.globalAlpha = 0.6;
-        // viewCtx.drawImage(shadeCanvas, 0, 0);
-        // viewCtx.globalAlpha = 1;
         ctx.drawImage(viewCanvas, 0, 0);
     } else {
         fx.bobTiempo = 0;
@@ -116,9 +108,6 @@ function gameLoop(tiempoActual) {
     }
     player.comprobarDisparo();
 
-    // La ruta A* solo se recalcula cada INTERVALO_RECALCULO_RUTA frames;
-    // moverse() en cambio se sigue ejecutando en cada frame para que el
-    // movimiento se vea fluido usando la última ruta calculada.
     const debeRecalcularRuta = frameCount % INTERVALO_RECALCULO_RUTA === 0;
     frameCount++;
 
