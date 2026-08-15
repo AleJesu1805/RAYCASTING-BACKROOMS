@@ -130,6 +130,46 @@ function gameLoop(tiempoActual) {
     mapa.renderEntitieInMinimap(enemie2, enemie2.posX, enemie2.posY, '#6b1212');
 }
 
+
+function cronometro() {
+    let start = 0;
+    let elapsed = 0;
+    let running = false;
+    let timer = null;
+
+    const print = () => {
+        const ms = elapsed + (running ? performance.now() - start : 0);
+        const sec = Math.floor(ms / 1000);
+        const mil = Math.floor(ms % 1000);
+        document.getElementById("tiempo").textContent = `${String(sec).padStart(2, "0")}:${String(mil).padStart(3, "0")}`;
+    };
+
+    return {
+        iniciar() {
+            if (running) return;
+            running = true;
+            start = performance.now() - elapsed;
+            timer = setInterval(print, 10);
+        },
+        pausar() {
+            if (!running) return;
+            running = false;
+            elapsed = performance.now() - start;
+            clearInterval(timer);
+        },
+        reiniciar() {
+            clearInterval(timer);
+            running = false;
+            elapsed = 0;
+            start = 0;
+            console.log("00:000");
+        }
+    };
+}
+
 document.querySelector('button[onclick="jugar()"]').addEventListener('pointerdown', () => {
     requestAnimationFrame(gameLoop);
+    const reloj = cronometro();
+    reloj.iniciar();
+    // reloj.print();
 });

@@ -61,13 +61,13 @@ zonaDeslice.addEventListener('touchstart', (e) => {
 
 zonaDeslice.addEventListener('touchmove', (e) => {
     if (!e.targetTouches[0]) return;
-    if (touch.inicioXDedo > canvas.width / 2) {
-        touch.actXDedo = e.targetTouches[0].pageX;
-        touch.desplazadoXDedo = touch.actXDedo - touch.inicioXDedo;
-        player.angulo += touch.desplazadoXDedo * 0.0040;
-        touch.inicioXDedo = touch.actXDedo;
-        touch.girandoCamara = true;
-    }
+    // if (touch.inicioXDedo > canvas.width / 2) {
+    touch.actXDedo = e.targetTouches[0].pageX;
+    touch.desplazadoXDedo = touch.actXDedo - touch.inicioXDedo;
+    player.angulo += touch.desplazadoXDedo * 0.0040;
+    touch.inicioXDedo = touch.actXDedo;
+    touch.girandoCamara = true;
+    // }
 }, { passive: false });
 
 zonaDeslice.addEventListener('touchend', (e) => {

@@ -5,16 +5,16 @@ export const explosionArma = new Image();
 explosionArma.src = 'img/armas/explosionArma.png';
 
 export const imgPared3 = new Image();
-imgPared3.src = 'img/paredesFuturistas/abstract-geometric-lite.webp';
+imgPared3.src = 'img/paredesFuturistas/abstract-geometric-64.webp';
 
 export const imgPared2 = new Image();
-imgPared2.src = 'img/paredesFuturistas/istockphoto-lite.webp';
+imgPared2.src = 'img/paredesFuturistas/istockphoto-64.webp';
 
 export const imgPared1 = new Image();
-imgPared1.src = 'img/paredesFuturistas/futuristic-geometric-metal-wall-lite.webp';
+imgPared1.src = 'img/paredesFuturistas/1.webp';
 
 export const imgPared4 = new Image();
-imgPared4.src = 'img/paredesFuturistas/photo-wall-texture-lite.webp';
+imgPared4.src = 'img/paredesFuturistas/photo-wall-texture-64.webp';
 
 export const imagenes = [imgArma, imgPared1, imgPared2, imgPared3, imgPared4];
 

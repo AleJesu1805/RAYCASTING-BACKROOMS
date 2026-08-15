@@ -162,6 +162,7 @@ export class Rayo {
         let y0 = canvas.height / 2 - altoMuro / 2 + fx.moveCamara;
         let y1 = y0 + altoMuro;
         let x = this.columna * resolucionRayos;
+        this.ctx.imageSmoothingEnabled = false;
 
         this.ctx.drawImage(
             this.texturaDibujar,

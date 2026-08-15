@@ -46,13 +46,14 @@ img {
   width: 100%;
   height: 100%;
   user-select: none;
+  pointer-events: none;
   touch-action: none;
 }
 
 /* PANTALLA INICIAL */
 
 .container-start {
-  background: url(../img/paredesFuturistas/photo-wall-texture-lite.webp) center / 100% no-repeat;
+  background: url(https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExbDNyYTJqaWxmYmZ3cDhwZXM1czNuYzZ0aXdldjBuZXV2bTl4OGNldCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/Xd7QqFPv4IVAz8dnog/giphy.gif) center / cover no-repeat;
   position: fixed;
   top: 0;
   left: 0;
@@ -65,7 +66,7 @@ img {
 }
 
 .container-start div {
-  backdrop-filter: brightness(20%);
+  backdrop-filter: brightness(50%) contrast(150%);
   position: fixed;
   top: 0;
   left: 0;
@@ -113,6 +114,7 @@ button[onclick="jugar()"] {
   transform: translate(-50%, 0%);
   background: transparent;
   width: 100dvw;
+  image-rendering: pixelated;
   /* height: calc(100vh - var(--alto-estadisticas); */
   height: 100dvh;
   /* border: 5px solid black; */
@@ -137,10 +139,11 @@ button[onclick="jugar()"] {
   width: 5vw;
   height: 25vw;
   border-radius: 100px;
-  background-color: #525087c7;
+  background-color: #16161ac7;
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 3;
 }
 
 #ballJoystick {
@@ -150,7 +153,8 @@ button[onclick="jugar()"] {
   transform: translate(-50%, -50%);
   padding: 60%;
   border-radius: 100%;
-  background-color: #201c84;
+  background-color: #afa5ac;
+  z-index: 3;
 }
 
 /* GIRO */
@@ -158,7 +162,7 @@ button[onclick="jugar()"] {
 #zonaDeslice {
   position: fixed;
   right: 0;
-  width: 50%;
+  width: 100%;
   height: 100%;
   /* background-color: #2a864c6f; */
 }
@@ -198,8 +202,8 @@ img[src="img/SVGs/fuegoDeCañon.svg"] {
   position: absolute;
   top: 0;
   right: calc((var(--medida-responsive)) * (2.8));
-  width: 12dvw;
-  height: 12dvw;
+  width: calc((var(--medida-responsive)) * (2.5));
+  height: calc((var(--medida-responsive)) * (2.5));
 }
 
 #valorSalud {
@@ -217,13 +221,13 @@ img[src="img/SVGs/fuegoDeCañon.svg"] {
 /* TIEMPO */
 
 #container-cronometro {
-  width: 15vw;
-  height: 10vw;
+  width: calc((var(--medida-responsive)) * (5));
+  height: calc((var(--medida-responsive)) * (2.5));
   position: fixed;
   top: 0;
   left: 50%;
   transform: translateX(-50%);
-  background-color: #0a2e033e;
+  background-color: #0a2e03aa;
   border-radius: 0 0 20% 20%;
   display: flex;
   justify-content: center;
@@ -233,7 +237,7 @@ img[src="img/SVGs/fuegoDeCañon.svg"] {
 
 #tiempo {
   font-size: 250%;
-  color: #6bed00;
+  color: #c3c3c3;
   text-shadow: 0px 0px 5px #126e20;
 }
 
