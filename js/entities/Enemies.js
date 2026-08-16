@@ -5,6 +5,7 @@ import { Rayo } from "../world/Rayo.js";
 import { Player } from "./Player.js";
 import { Sprite } from "./Sprite.js";
 import { sprite1 } from "../core/assets.js";
+const valorSalud = document.getElementById('valorSalud');
 
 export class Enemies {
     constructor(x, y, xInicial, yInicial, escenario, ctx, velocidad) {
@@ -221,9 +222,24 @@ export class Enemies {
         this.sprite.x = this.posX;
         this.sprite.y = this.posY;
     }
-    atacar() {
 
+    atacar(player, enemie) {
+        const distancia = Math.hypot(
+            player.posXPlayer - enemie.posX,
+            player.posYPlayer - enemie.posY
+        );
+
+        const rangoAtaque = enemie.radio + player.radio;
+
+        if (distancia <= rangoAtaque) {
+            canvas.style.filter = 'hue-rotate(190deg)';
+            player.vida -= 10 + Math.round(Math.random() * 5);
+            valorSalud.textContent = Math.floor(player.vida / 10) + '%';
+        } else {
+            canvas.style.filter = 'hue-rotate(0deg)';
+        }
     }
+
     renderizarEnemie2d() {
         var xDestino = this.posX + Math.cos(this.angulo) * (20);
         var yDestino = this.posY + Math.sin(this.angulo) * (20);

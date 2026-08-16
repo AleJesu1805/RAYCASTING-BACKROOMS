@@ -114,9 +114,11 @@ button[onclick="jugar()"] {
   transform: translate(-50%, 0%);
   background: transparent;
   width: 100dvw;
-  image-rendering: pixelated;
-  /* height: calc(100vh - var(--alto-estadisticas); */
   height: 100dvh;
+  image-rendering: pixelated;
+  filter: contrast(100%);
+  transition: filter .2s;
+  /* height: calc(100vh - var(--alto-estadisticas); */
   /* border: 5px solid black; */
 }
 
@@ -221,14 +223,16 @@ img[src="img/SVGs/fuegoDeCañon.svg"] {
 /* TIEMPO */
 
 #container-cronometro {
-  width: calc((var(--medida-responsive)) * (5));
+  /* width: calc((var(--medida-responsive)) * (5)); */
+  width: fit-content;
   height: calc((var(--medida-responsive)) * (2.5));
+  padding-inline: 15px;
   position: fixed;
   top: 0;
   left: 50%;
   transform: translateX(-50%);
   background-color: #0a2e03aa;
-  border-radius: 0 0 20% 20%;
+  border-radius: 0 0 20px 20px;
   display: flex;
   justify-content: center;
   align-items: center;

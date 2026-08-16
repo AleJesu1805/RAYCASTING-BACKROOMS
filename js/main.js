@@ -113,10 +113,11 @@ function gameLoop(tiempoActual) {
 
     [...enemies]
         .sort((a, b) => b.sprite.distancia - a.sprite.distancia)
-        .forEach(e => {
+        .forEach((e, i) => {
             e.sprite.dibuja()
             if (debeRecalcularRuta) e.actualizarRuta();
             e.moverse();
+            e.atacar(player, e);
             // e.renderizarEnemie2d();
             // e.lanzarRayo();
         });
@@ -140,8 +141,10 @@ function cronometro() {
     const print = () => {
         const ms = elapsed + (running ? performance.now() - start : 0);
         const sec = Math.floor(ms / 1000);
-        const mil = Math.floor(ms % 1000);
-        document.getElementById("tiempo").textContent = `${String(sec).padStart(2, "0")}:${String(mil).padStart(3, "0")}`;
+        const cent = Math.floor((ms % 1000) / 10);
+
+        document.getElementById("tiempo").textContent =
+            `${String(sec).padStart(2, "0")}:${String(cent).padStart(2, "0")}`;
     };
 
     return {
@@ -162,7 +165,7 @@ function cronometro() {
             running = false;
             elapsed = 0;
             start = 0;
-            console.log("00:000");
+            document.getElementById("tiempo").textContent = "00:00";
         }
     };
 }
