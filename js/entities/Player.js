@@ -1,7 +1,8 @@
 import { canvas, shadeCanvas, viewCtx, resolucionRayos, shadeCtx, FOV, fx } from "../core/canvas.js";
 import { convierteRadianes, normalizaAngulo, colision, distanciaEntrePuntos } from "../core/utils.js";
 import { Rayo } from "../world/Rayo.js";
-import { imgArma, explosionArma, reproducirSonido } from "../core/assets.js";
+import { imgArma, explosionArma } from "../core/assets.js";
+import { reproducirSonido } from "../core/audio.js";
 import { enemies, mapa } from "../main.js";
 
 export class Player {
@@ -61,15 +62,13 @@ export class Player {
 
     disparar(rayo) {
         const alcance = 500;
-        reproducirSonido('disparo');
         this.ctx.drawImage(explosionArma, canvas.width / 2 - 85, canvas.height - 270, 150, 150);
-
+        reproducirSonido('disparo');
         enemies.forEach((enemigo) => {
             const dist = distanciaEntrePuntos(this.posXPlayer, this.posYPlayer, enemigo.posX, enemigo.posY);
             if (dist > alcance) return;
 
-            const tolerancia = Math.atan2(enemigo.radio, dist); // antes: constante fija
-
+            const tolerancia = Math.atan2(enemigo.radio, dist);
             const anguloEnemigo = Math.atan2(enemigo.posY - this.posYPlayer, enemigo.posX - this.posXPlayer);
             const diferencia = normalizaAngulo(anguloEnemigo - rayo.angulo);
 
@@ -85,30 +84,6 @@ export class Player {
             }
         });
     }
-
-    // arriba() {
-    //     this.avanzando = 1;
-    //     fx.moveCamara = 0;
-    // }
-    // abajo() {
-    //     this.avanzando = -1;
-    //     fx.moveCamara = 0;
-    // }
-    // derecha() {
-    //     this.girando = 1;
-
-    // }
-    // izquierda() {
-    //     this.girando = -1;
-    // }
-
-    // stopAvance() {
-    //     this.avanzando = 0;
-    // }
-
-    // stopGiro() {
-    //     this.girando = 0;
-    // }
 
     moverPersonaje() {
         this.lanzarRayos();

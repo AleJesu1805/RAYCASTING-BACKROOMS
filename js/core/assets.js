@@ -26,38 +26,5 @@ sprite2.src = 'img/enemigos/enemie2.webp';
 
 export const sprites = [sprite1, sprite2];
 
-export const music1 = new Audio();
-music1.src = 'audio/GRINDCORE/SPEED - NOT THAT NICE (OFFICIAL MOVIE)(MP3_160K).mp3'
 
-const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-const buffers = {};
-
-const worker = new Worker(new URL('../workers/worker.js', import.meta.url));
-
-worker.onmessage = async (e) => {
-    const { nombre, arrayBuffer, ok } = e.data;
-    if (!ok) return;
-    buffers[nombre] = await audioCtx.decodeAudioData(arrayBuffer);
-};
-
-function cargarSonido(nombre, url) {
-    const urlAbsoluta = new URL(url, document.baseURI).href;
-    worker.postMessage({ nombre, url: urlAbsoluta });
-}
-
-export function reproducirSonido(nombre) {
-    if (!buffers[nombre]) return;
-    const source = audioCtx.createBufferSource();
-    source.buffer = buffers[nombre];
-    source.connect(audioCtx.destination);
-    source.start(0);
-}
-
-cargarSonido('disparoAcierto', 'audio/DisparoComun (1).mp3');
-cargarSonido('disparo', 'audio/disparoAcierto.mp3');
-
-// iOS/Android exigen un gesto del usuario para desbloquear el audio
-document.addEventListener('touchstart', () => {
-    if (audioCtx.state === 'suspended') audioCtx.resume();
-}, { once: true });
 
