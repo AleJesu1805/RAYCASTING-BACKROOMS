@@ -31,7 +31,7 @@ export function reproducirSonido(nombre) {
     source.start(0);
 }
 
-cargarSonido('disparoAcierto', 'audio/DisparoComun (1).mp3');
+cargarSonido('disparoAcierto', 'audio/DisparoComun.mp3');
 cargarSonido('disparo', 'audio/disparoAcierto.mp3');
 
 // iOS/Android exigen un gesto del usuario para desbloquear el audio
@@ -49,7 +49,6 @@ let indice = 0;
 
 export function reproducirSiguiente() {
     if (indice >= arrMusic.length) return;
-
     const audio = arrMusic[indice];
     audio.currentTime = 0;
     audio.onended = () => {

@@ -10,7 +10,8 @@ const estadisticas = document.getElementById('estadisticas');
 const elementos = document.querySelectorAll('.hidden');
 
 var configOpen = false;
-function jugar() {
+async function jugar() {
+    document.activeElement.blur();
     reproducirSiguiente();
     elementos.forEach(el => {
         el.classList.remove('hidden');
@@ -20,7 +21,7 @@ function jugar() {
         document.documentElement.requestFullscreen();
     }
     try {
-        screen.orientation.lock('landscape');
+        await screen.orientation.lock('landscape');
     } catch (error) {
         console.error('Error al intentar rotar o entrar en pantalla completa:', error);
     }

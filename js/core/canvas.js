@@ -1,6 +1,3 @@
-// import { mapa } from "./js/main.js";
-
-// js/core/canvas.js
 export const canvas = document.querySelector('canvas');
 export const ctx = canvas.getContext('2d');
 
@@ -30,7 +27,7 @@ export const touch = {
     girandoCamara: false,
 };
 
-export const resolucionRayos = 5;
+export const resolucionRayos = 1;
 export const FOV = 60;
 export const altoTile = 200;
 export const zBuffer = new Array(Math.floor(canvas.width / resolucionRayos)).fill(Infinity);

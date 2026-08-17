@@ -90,7 +90,7 @@ function gameLoop(tiempoActual) {
 
         if (player.avanzando !== 0) {
             fx.bobTiempo += delta;
-            fx.moveCamara = Math.floor(Math.sin(fx.bobTiempo / 100) * player.avanzando * 8);
+            fx.moveCamara = Math.floor(Math.sin(fx.bobTiempo / 100) * player.avanzando * 10);
         }
         // console.log(fx.bobTiempo, fx.moveCamara);
 

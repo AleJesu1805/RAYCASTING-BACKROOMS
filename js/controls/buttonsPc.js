@@ -28,6 +28,7 @@ document.addEventListener('keydown', (tecla) => {
 });
 
 document.addEventListener('keydown', (tecla) => {
+    tecla.preventDefault();
     if (tecla.repeat) return;
     if (tecla.keyCode === 32) {
         player.disparando = true;
