@@ -1,6 +1,6 @@
 import { player, enemie1 } from "../main.js";
 import { normalizaAngulo, distanciaEntrePuntos } from "../core/utils.js";
-import { imgArma, imgPared1, imgPared2, imagenes } from "../core/assets.js";
+import { imagenes } from "../core/assets.js";
 import { FOV, fx, resolucionRayos, shadeCanvas, shadeCtx, zBuffer, altoTile } from "../core/canvas.js";
 
 export class Rayo {
@@ -142,7 +142,7 @@ export class Rayo {
             this.pixelTextura = this.wallHitY - Math.floor(this.wallHitY / this.escenario.tamCelda) * this.escenario.tamCelda;
         }
 
-        this.casilla = this.escenario.saberCasilla(this.wallHitX, this.wallHitY);
+        this.casilla = this.escenario.saberCasilla(this.wallHitX, this.wallHitY) - 1;
         this.texturaDibujar = imagenes[this.casilla];
 
         this.pixelTextura = Math.floor((this.pixelTextura / this.escenario.tamCelda) * imagenes[this.casilla].width);

@@ -4,27 +4,30 @@ imgArma.src = 'img/armas/imgArmaTrue.webp';
 export const explosionArma = new Image();
 explosionArma.src = 'img/armas/explosionArma.png';
 
-export const imgPared3 = new Image();
-imgPared3.src = 'img/paredesFuturistas/abstract-geometric-64.webp';
+export const imagenes = [];
+export const srcImg = {
+    1: 'img/paredesFuturistas/pared5.webp',
+    5: 'img/paredesFuturistas/pared1.webp',
+    2: 'img/paredesFuturistas/pared2.webp',
+    3: 'img/paredesFuturistas/pared3.webp',
+    4: 'img/paredesFuturistas/pared4.webp',
+}
 
-export const imgPared2 = new Image();
-imgPared2.src = 'img/paredesFuturistas/istockphoto-64.webp';
+for (const [img, src] of Object.entries(srcImg)) {
+    const imagen = new Image();
+    imagen.src = src;
+    imagenes.push(imagen);
+}
 
-export const imgPared1 = new Image();
-imgPared1.src = 'img/paredesFuturistas/1.webp';
 
-export const imgPared4 = new Image();
-imgPared4.src = 'img/paredesFuturistas/photo-wall-texture-64.webp';
-
-export const imagenes = [imgArma, imgPared1, imgPared2, imgPared3, imgPared4];
 
 export const sprite1 = new Image();
 sprite1.src = 'img/enemigos/niñaEsfeluznante.png';
 
-export const sprite2 = new Image();
-sprite2.src = 'img/enemigos/enemie2.webp';
+// export const sprite2 = new Image();
+// sprite2.src = 'img/enemigos/enemie2.webp';
 
-export const sprites = [sprite1, sprite2];
+// export const sprites = [sprite1, sprite2];
 
 
 

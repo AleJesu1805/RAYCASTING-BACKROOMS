@@ -37,21 +37,24 @@ const matriz = [
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
 ];
 
+const colores = {
+    0: '#ad9696',
+    1: '#000000',
+    2: '#a7cf42',
+    3: '#c1dcc8',
+    4: '#306161',
+    5: '#4b2348',
+}
+
 export class Map {
     constructor(ctx) {
         this.anchM = matriz[0].length;
         this.altM = matriz.length;
         this.tamCelda = Math.floor(Math.min(canvas.width / this.anchM, canvas.height / this.altM));
-        this.color1 = '#1c1f42';
-        this.color2 = '#601f5f';
-        this.color3 = '#c1dcc8';
-        this.color4 = '#0a0c0c';
-        this.color0 = '#4b2348';
         this.ctx = ctx;
         this.tamMiniMap = 200;
         this.miniCelda = Math.floor(Math.min(this.tamMiniMap / this.anchM, this.tamMiniMap / this.altM));
 
-        // NUEVO: caché del minimapa
         this.miniMapCache = document.createElement('canvas');
         this.miniMapCache.width = this.anchM * this.miniCelda;
         this.miniMapCache.height = this.altM * this.miniCelda;
@@ -62,8 +65,8 @@ export class Map {
     dibujarMiniMapCache() {
         for (let y = 0; y < this.altM; y++) {
             for (let x = 0; x < this.anchM; x++) {
-                const color = this[`color${matriz[y][x]}`];
-                this.miniMapCacheCtx.fillStyle = color || this.color0;
+                const color = colores[matriz[y][x]];
+                this.miniMapCacheCtx.fillStyle = color;
                 this.miniMapCacheCtx.fillRect(x * this.miniCelda, y * this.miniCelda, this.miniCelda, this.miniCelda);
             }
         }
@@ -72,8 +75,8 @@ export class Map {
     renderMap() {
         for (let y = 0; y < this.altM; y++) {
             for (let x = 0; x < this.anchM; x++) {
-                const color = this[`color${matriz[y][x]}`];
-                this.ctx.fillStyle = color || this.color0;
+                const color = colores[matriz[x][y]];
+                this.ctx.fillStyle = color;
                 this.ctx.fillRect(x * this.tamCelda, y * this.tamCelda, this.tamCelda, this.tamCelda);
             }
         }

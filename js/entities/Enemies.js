@@ -232,11 +232,8 @@ export class Enemies {
         const rangoAtaque = enemie.radio + player.radio;
 
         if (distancia <= rangoAtaque) {
-            canvas.style.filter = 'hue-rotate(190deg)';
             player.vida -= 10 + Math.round(Math.random() * 5);
             valorSalud.textContent = Math.floor(player.vida / 10) + '%';
-        } else {
-            canvas.style.filter = 'hue-rotate(0deg)';
         }
     }
 
