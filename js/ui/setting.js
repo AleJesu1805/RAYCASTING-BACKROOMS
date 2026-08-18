@@ -48,6 +48,10 @@ function ampliar() {
     }
 }
 
+function rotar() {
+    screen.orientation.lock('landscape');
+}
+
 window.jugar = jugar;
 window.abrirConfig = abrirConfig;
 window.ampliar = ampliar;

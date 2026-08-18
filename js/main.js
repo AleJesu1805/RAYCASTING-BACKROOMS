@@ -4,6 +4,8 @@ import { Player } from "./entities/Player.js";
 import { Enemies } from "./entities/Enemies.js";
 import { Sprite } from "./entities/Sprite.js";
 import { imagenes } from "./core/assets.js";
+const btnConfig = document.querySelector(".configuraciones");
+let enPausa;
 
 if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('sw.js')
@@ -78,8 +80,10 @@ let ultimoTiempo = 0;
 const INTERVALO_RECALCULO_RUTA = 120;
 let frameCount = 0;
 
+let animationId;
+
 function gameLoop(tiempoActual) {
-    requestAnimationFrame(gameLoop);
+    animationId = requestAnimationFrame(gameLoop);
     const delta = tiempoActual - ultimoTiempo;
     if (delta < frameDuration) return;
     ultimoTiempo = tiempoActual - (delta % frameDuration);
@@ -170,9 +174,26 @@ function cronometro() {
     };
 }
 
+const reloj = cronometro();
 document.querySelector('button[onclick="jugar()"]').addEventListener('pointerdown', () => {
-    requestAnimationFrame(gameLoop);
-    const reloj = cronometro();
+    animationId = requestAnimationFrame(gameLoop);
+    enPausa = true;
     reloj.iniciar();
     // reloj.print();
 });
+
+btnConfig.addEventListener('pointerdown', () => {
+    pausar();
+});
+
+function pausar() {
+    enPausa = !enPausa;
+    if (!enPausa) {
+        cancelAnimationFrame(animationId);
+        reloj.pausar();
+        console.log(enPausa);
+    } else {
+        requestAnimationFrame(gameLoop);
+        reloj.iniciar();
+    }
+}
