@@ -200,7 +200,7 @@ button[onclick="jugar()"] {
   right: 0;
   width: 50%;
   height: 100%;
-  background-color: #2a864c6f;
+  /* background-color: #2a864c6f; */
 }
 
 .zonaDeslice+.zonaDeslice {
