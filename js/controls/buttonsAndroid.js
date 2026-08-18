@@ -55,26 +55,26 @@ joystick.addEventListener('touchend', (e) => {
     }
 });
 
-zonaDeslice.addEventListener('touchstart', (e) => {
-    touch.inicioXDedo = e.changedTouches[0].pageX;
-}, { passive: false });
+zonaDeslice.forEach((zona) => {
+    zona.addEventListener('touchstart', (e) => {
+        touch.inicioXDedo = e.changedTouches[0].pageX;
+    }, { passive: false });
 
-zonaDeslice.addEventListener('touchmove', (e) => {
-    if (!e.targetTouches[0]) return;
-    // if (touch.inicioXDedo > canvas.width / 2) {
-    touch.actXDedo = e.targetTouches[0].pageX;
-    touch.desplazadoXDedo = touch.actXDedo - touch.inicioXDedo;
-    player.angulo += touch.desplazadoXDedo * 0.0040;
-    touch.inicioXDedo = touch.actXDedo;
-    touch.girandoCamara = true;
-    // }
-}, { passive: false });
+    zona.addEventListener('touchmove', (e) => {
+        if (!e.targetTouches[0]) return;
+        touch.actXDedo = e.targetTouches[0].pageX;
+        touch.desplazadoXDedo = touch.actXDedo - touch.inicioXDedo;
+        player.angulo += touch.desplazadoXDedo * 0.0040;
+        touch.inicioXDedo = touch.actXDedo;
+        touch.girandoCamara = true;
+    }, { passive: false });
 
-zonaDeslice.addEventListener('touchend', (e) => {
-    touch.desplazadoXDedo = 0;
-    player.girando = 0;
-    touch.girandoCamara = false;
-}, { passive: false });
+    zona.addEventListener('touchend', (e) => {
+        touch.desplazadoXDedo = 0;
+        player.girando = 0;
+        touch.girandoCamara = false;
+    }, { passive: false });
+});
 
 disparador.addEventListener('touchstart', (e) => {
     e.preventDefault();

@@ -172,8 +172,8 @@ button[onclick="jugar()"] {
   position: absolute;
   left: 10%;
   bottom: 10%;
-  width: 5vw;
-  height: 25vw;
+  width: 5%;
+  height: 70%;
   border-radius: 100px;
   background-color: #16161ac7;
   display: flex;
@@ -195,12 +195,18 @@ button[onclick="jugar()"] {
 
 /* GIRO */
 
-#zonaDeslice {
+.zonaDeslice {
   position: fixed;
   right: 0;
-  width: 100%;
+  width: 50%;
   height: 100%;
-  /* background-color: #2a864c6f; */
+  background-color: #2a864c6f;
+}
+
+.zonaDeslice+.zonaDeslice {
+  left: 16%;
+  width: 34%;
+  height: 100%;
 }
 
 /* DISPARAR */
@@ -336,18 +342,4 @@ button[onclick="abrirConfig()"] {
 
 #valorResolucion {
   margin: 15px 0px;
-}
-
-/* ANIMACIONES */
-
-@keyframes agrandar {
-  to {
-    scale: 1.2;
-  }
-}
-
-@keyframes filtros {
-  to {
-    filter: hue-rotate(360deg);
-  }
 }

@@ -14,7 +14,7 @@ export const fx = { hue: 0, moveCamara: 0, bobTiempo: 0 };
 export const rangoDePresion = document.querySelector('.container-buttons');
 export const joystick = document.getElementById('joystick');
 export const ballJoystick = document.getElementById('ballJoystick');
-export const zonaDeslice = document.getElementById('zonaDeslice');
+export const zonaDeslice = document.querySelectorAll('.zonaDeslice');
 export const disparador = document.querySelector('.disparador');
 
 export const touch = {
