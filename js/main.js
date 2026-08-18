@@ -5,7 +5,6 @@ import { Enemies } from "./entities/Enemies.js";
 import { Sprite } from "./entities/Sprite.js";
 import { imagenes } from "./core/assets.js";
 const btnConfig = document.querySelector(".configuraciones");
-let enPausa;
 
 if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('sw.js')
@@ -38,7 +37,6 @@ export const enemies = [enemie1, enemie2];
 function renderFrameInicial() {
     mapa.renderFondo();
     player.lanzarRayos();
-    player.renderArma();
 
     viewCtx.clearRect(0, 0, canvas.width, canvas.height);
     viewCtx.drawImage(canvas, 0, 0);
@@ -96,8 +94,6 @@ function gameLoop(tiempoActual) {
             fx.bobTiempo += delta;
             fx.moveCamara = Math.floor(Math.sin(fx.bobTiempo / 100) * player.avanzando * 10);
         }
-        // console.log(fx.bobTiempo, fx.moveCamara);
-
 
         player.moverPersonaje();
         // player.lanzarRayos();
@@ -128,7 +124,7 @@ function gameLoop(tiempoActual) {
     // mapa.renderMap();
     // player.lanzarRayos();
     // player.renderPlayer2d();
-    player.renderArma();
+    // player.renderArma();
     mapa.renderMiniMap();
     mapa.renderEntitieInMinimap(player, player.posXPlayer, player.posYPlayer, '#0d5a0d');
     mapa.renderEntitieInMinimap(enemie1, enemie1.posX, enemie1.posY, '#6b1212');
@@ -177,23 +173,16 @@ function cronometro() {
 const reloj = cronometro();
 document.querySelector('button[onclick="jugar()"]').addEventListener('pointerdown', () => {
     animationId = requestAnimationFrame(gameLoop);
-    enPausa = true;
     reloj.iniciar();
     // reloj.print();
 });
 
-btnConfig.addEventListener('pointerdown', () => {
-    pausar();
-});
+export function pausar() {
+    cancelAnimationFrame(animationId);
+    reloj.pausar();
+}
 
-function pausar() {
-    enPausa = !enPausa;
-    if (!enPausa) {
-        cancelAnimationFrame(animationId);
-        reloj.pausar();
-        console.log(enPausa);
-    } else {
-        requestAnimationFrame(gameLoop);
-        reloj.iniciar();
-    }
+export function despausar() {
+    animationId = requestAnimationFrame(gameLoop);
+    reloj.iniciar();
 }

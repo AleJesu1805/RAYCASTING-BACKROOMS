@@ -1,9 +1,10 @@
 import { canvas, shadeCanvas, viewCtx, resolucionRayos, shadeCtx, FOV, fx } from "../core/canvas.js";
 import { convierteRadianes, normalizaAngulo, colision, distanciaEntrePuntos } from "../core/utils.js";
 import { Rayo } from "../world/Rayo.js";
-import { imgArma, explosionArma } from "../core/assets.js";
 import { reproducirSonido } from "../core/audio.js";
 import { enemies, mapa } from "../main.js";
+
+const explosion = document.getElementById('explosionArma');
 
 export class Player {
     constructor(x, y, escenario, ctx) {
@@ -62,7 +63,10 @@ export class Player {
 
     disparar(rayo) {
         const alcance = 500;
-        this.ctx.drawImage(explosionArma, canvas.width / 2 - 85, canvas.height - 270, 150, 150);
+        explosion.style.opacity = 1;
+        setTimeout(() => {
+            explosion.style.opacity = 0;
+        }, 100);
         reproducirSonido('disparo');
         enemies.forEach((enemigo) => {
             const dist = distanciaEntrePuntos(this.posXPlayer, this.posYPlayer, enemigo.posX, enemigo.posY);
@@ -117,23 +121,5 @@ export class Player {
 
         this.ctx.fillStyle = '#1a551e';
         this.ctx.fillRect(this.posXPlayer - this.radio / 2, this.posYPlayer - this.radio / 2, this.radio, this.radio);
-    }
-
-    renderArma() {
-        const tamArma = 250;
-        this.ctx.drawImage(imgArma, canvas.width / 2 - tamArma / 2, canvas.height - tamArma / 1.1 + fx.moveCamara, tamArma, tamArma);
-
-        let tamañoPuntero = 5;
-        if (this.acertaste) {
-            tamañoPuntero = 1;
-            setTimeout(() => {
-                this.acertaste = false;
-            }, 200)
-        }
-        this.ctx.beginPath();
-        this.ctx.arc(canvas.width / 2 - tamañoPuntero / 2, canvas.height / 2, tamañoPuntero, 0, Math.PI * 2);
-        this.ctx.strokeStyle = '#a20606';
-        this.ctx.lineWidth = 1;
-        this.ctx.stroke();
     }
 }

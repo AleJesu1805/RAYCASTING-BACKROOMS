@@ -1,4 +1,5 @@
 import { reproducirSiguiente } from "../core/audio.js";
+import { despausar, pausar } from "../main.js";
 
 const expandirPantalla = document.getElementById('expandirPantalla');
 const canvas = document.querySelector('canvas');
@@ -32,10 +33,12 @@ function abrirConfig() {
     if (configOpen) {
         configSection.style.opacity = 1;
         configSection.style.display = 'grid';
+        pausar();
     }
     else {
         configSection.style.opacity = 0;
         configSection.style.display = 'none';
+        despausar();
     }
 }
 
