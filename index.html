@@ -35,9 +35,15 @@
 
   <button class="configuraciones" onclick="abrirConfig()"><img id="iconAjustes" src="img/SVGs/ajustes.svg"></button>
   <div class="container-config" style="background-color: transparent;">
-    <button id="expandirPantalla" class="configuraciones" onclick="ampliar()">MAXIMIZAR MINIMIZAR</button>
-
+    <button id="expandirPantalla" class="configuraciones" onclick="ampliar()">MAXIMIZAR <br> MINIMIZAR</button>
     <button id="rotarPantalla" class="configuraciones" onclick="rotar()">ROTAR</button>
+    <div class="configuraciones" id="container-volumen">
+      <span>Volúmen</span>
+      <label for="musica">Música</label>
+      <input type="range" value="20" id="musica">
+      <label for="efectos">Efectos</label>
+      <input type="range" value="80" id="efectos">
+    </div>
   </div>
 
 

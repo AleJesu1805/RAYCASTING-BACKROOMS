@@ -8,6 +8,10 @@ const containerButtons = document.querySelector('.container-buttons');
 const configSection = document.querySelector('.container-config');
 const estadisticas = document.getElementById('estadisticas');
 
+const inputMusica = document.getElementById('musica');
+const inputEfectos = document.getElementById('efectos');
+const inputs = [inputMusica, inputEfectos];
+
 const elementos = document.querySelectorAll('.hidden');
 
 var configOpen = false;
@@ -54,6 +58,15 @@ function ampliar() {
 function rotar() {
     screen.orientation.lock('landscape');
 }
+
+inputs.forEach((input) => {
+    const label = document.querySelector(`label[for="${input.id}"]`);
+    const text = label.textContent;
+    label.textContent = `${text} ${input.value}%`;
+    input.addEventListener('input', () => {
+        label.textContent = `${text} ${input.value}%`;
+    });
+});
 
 window.jugar = jugar;
 window.abrirConfig = abrirConfig;

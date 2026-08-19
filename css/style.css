@@ -308,13 +308,16 @@ button[onclick="abrirConfig()"] {
 }
 
 .configuraciones {
-  padding: 10%;
+  width: clamp(100px, 60%, 500px);
+  height: fit-content;
+  padding-block: 20px;
+  margin: auto;
   z-index: 20;
   background: #717070;
   color: #1c0808;
   font-size: 25px;
   font-family: 'Gothic';
-  border-radius: 20px;
+  border-radius: 15px;
   border: 3px solid #03000a5d;
   /* margin: 5px 0px; */
 }
@@ -324,22 +327,41 @@ button[onclick="abrirConfig()"] {
   opacity: 0;
   left: 50dvw;
   transform: translateX(-50%);
-  backdrop-filter: brightness(60%);
+  backdrop-filter: brightness(60%) blur(2px);
   width: 100dvw;
   height: 100dvh;
   z-index: 10;
   display: none;
-  align-items: center;
-  justify-content: center;
+  /* align-items: center; */
+  /* justify-content: center; */
   transition: opacity .2s ease;
-}
-
-#cambiarResolucion {
-  display: grid;
   text-align: center;
-  padding: 10%;
 }
 
-#valorResolucion {
-  margin: 15px 0px;
+#container-volumen {
+  display: grid;
+  justify-items: center;
+  gap: 20px;
+}
+
+#container-volumen span {
+  letter-spacing: 2px;
+  transform: scale(1.5);
+}
+
+label+input {
+  width: 70%;
+  height: 70%;
+  appearance: none;
+  background-color: #a8a8a8;
+  border-radius: 5px;
+}
+
+label+input::-webkit-slider-thumb {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 5px;
+  background-color: #717070;
+  border: 3px solid #000000;
 }
