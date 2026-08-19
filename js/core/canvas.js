@@ -11,11 +11,13 @@ export const fx = { hue: 0, moveCamara: 0, bobTiempo: 0 };
 
 // VARIABLES Y OBJETOS PARA LA DETECCION DE EVENTOS EN MOVILES
 
-export const rangoDePresion = document.querySelector('.container-buttons');
+export const containerButtons = document.querySelector('.container-buttons');
 export const joystick = document.getElementById('joystick');
 export const ballJoystick = document.getElementById('ballJoystick');
 export const zonaDeslice = document.querySelectorAll('.zonaDeslice');
 export const disparadores = document.querySelectorAll('.disparador');
+
+export const containerGameover = document.querySelector('.container-gameover');
 
 export const touch = {
     inicioXDedo: 0,

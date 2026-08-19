@@ -1,12 +1,11 @@
 import { reproducirSiguiente } from "../core/audio.js";
 import { despausar, pausar } from "../main.js";
+import { containerButtons, containerGameover } from "../core/canvas.js";
 
 const expandirPantalla = document.getElementById('expandirPantalla');
 const canvas = document.querySelector('canvas');
 const pantallaStart = document.querySelector('.container-start');
-const containerButtons = document.querySelector('.container-buttons');
 const configSection = document.querySelector('.container-config');
-const estadisticas = document.getElementById('estadisticas');
 
 const inputMusica = document.getElementById('musica');
 const inputEfectos = document.getElementById('efectos');
@@ -17,12 +16,13 @@ const elementos = document.querySelectorAll('.hidden');
 var configOpen = false;
 async function jugar() {
     document.activeElement.blur();
+    containerGameover.style.display = 'none';
     reproducirSiguiente();
     elementos.forEach(el => {
         el.classList.remove('hidden');
     });
     if (/Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
-        containerButtons.removeAttribute('hidden');
+        containerButtons.style.display = 'flex';
         document.documentElement.requestFullscreen();
     }
     try {

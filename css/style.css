@@ -89,7 +89,7 @@ img {
   /* text-shadow: 0px 0px 10px #4f3d49; */
 }
 
-button[onclick="jugar()"] {
+#sufrir {
   font-family: 'Gothic';
   padding: calc(var(--medida-responsive)/1.5) calc(var(--medida-responsive)*2);
   background: transparent;
@@ -165,6 +165,7 @@ button[onclick="jugar()"] {
   position: fixed;
   bottom: 0;
   z-index: 1;
+  display: none;
 }
 
 /* AVANCE */
@@ -312,14 +313,14 @@ button[onclick="abrirConfig()"] {
 }
 
 .configuraciones {
-  width: clamp(100px, 60%, 500px);
+  width: clamp(70px, 40%, 300px);
   height: fit-content;
-  padding-block: 20px;
+  padding-block: 5px;
   margin: auto;
   z-index: 20;
   background: #717070;
   color: #1c0808;
-  font-size: 25px;
+  font-size: clamp(15px, 3vw, 25px);
   font-family: 'Gothic';
   border-radius: 15px;
   border: 3px solid #03000a5d;
@@ -327,14 +328,14 @@ button[onclick="abrirConfig()"] {
 }
 
 .container-config {
-  position: fixed;
+  position: absolute;
   opacity: 0;
-  left: 50dvw;
-  transform: translateX(-50%);
+  left: 0;
   backdrop-filter: brightness(60%) blur(2px);
   width: 100dvw;
   height: 100dvh;
   z-index: 10;
+  overflow: scroll;
   display: none;
   /* align-items: center; */
   /* justify-content: center; */
@@ -372,5 +373,24 @@ label+input::-webkit-slider-thumb {
 
 /* GAME OVER */
 .container-gameover {
+  background-color: #00000086;
+  color: #500f0f;
+  position: absolute;
+  width: 100dvw;
+  height: 100dvh;
+  display: grid;
+  justify-items: center;
+  align-content: center;
+  gap: 20px;
   display: none;
+}
+
+#asesinatos,
+#tiempoFinal {
+  font-size: 25px;
+  background-color: #717070;
+  border: solid 3px #03000a5d;
+  border-radius: 10px;
+  padding: 15px;
+  text-align: center;
 }

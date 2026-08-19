@@ -1,10 +1,9 @@
-import { canvas, ctx, shadeCanvas, shadeCtx, viewCanvas, viewCtx, touch, fx } from "./core/canvas.js";
+import { canvas, ctx, shadeCanvas, shadeCtx, viewCanvas, viewCtx, touch, fx, containerButtons, containerGameover } from "./core/canvas.js";
 import { Map } from "./world/Map.js";
 import { Player } from "./entities/Player.js";
 import { Enemies } from "./entities/Enemies.js";
 import { Sprite } from "./entities/Sprite.js";
 import { imagenes } from "./core/assets.js";
-const btnConfig = document.querySelector(".configuraciones");
 
 if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('sw.js')
@@ -118,6 +117,10 @@ function gameLoop(tiempoActual) {
             if (debeRecalcularRuta) e.actualizarRuta();
             e.moverse();
             e.atacar(player, e);
+            if (player.vida < 0) {
+                perder();
+                return;
+            }
             // e.renderizarEnemie2d();
             // e.lanzarRayo();
         });
@@ -185,4 +188,11 @@ export function pausar() {
 export function despausar() {
     animationId = requestAnimationFrame(gameLoop);
     reloj.iniciar();
+}
+
+function perder() {
+    pausar();
+    containerButtons.style.display = 'none';
+    containerGameover.style.display = 'grid';
+    containerGameover.querySelector('#tiempoFinal span').textContent = document.querySelector('#tiempo').textContent;
 }

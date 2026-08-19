@@ -233,7 +233,7 @@ export class Enemies {
 
         if (distancia <= rangoAtaque) {
             player.vida -= 10 + Math.round(Math.random() * 5);
-            valorSalud.textContent = Math.floor(player.vida / 10) + '%';
+            valorSalud.textContent = Math.round(player.vida / 10) + '%';
         }
     }
 
