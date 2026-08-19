@@ -89,21 +89,25 @@ export class Map {
     }
 
     renderEntitieInMinimap(entitie, x, y, color) {
-        var escala = this.miniCelda / this.tamCelda;
-        var miniX = x * escala;
-        var miniY = y * escala;
+        const escala = this.miniCelda / this.tamCelda;
+        const centroX = x * escala;
+        const centroY = y * escala;
+        const angulo = entitie.angulo;
 
-        var xDestino = miniX + Math.cos(entitie.angulo) * (20 * escala);
-        var yDestino = miniY + Math.sin(entitie.angulo) * (20 * escala);
-
-        this.ctx.beginPath();
-        this.ctx.moveTo(miniX, miniY);
-        this.ctx.lineTo(xDestino, yDestino);
-        this.ctx.strokeStyle = '#000';
-        this.ctx.stroke();
+        const cos = Math.cos(angulo);
+        const sin = Math.sin(angulo);
+        const largo = 17 * escala;
+        const ancho = 3;
 
         this.ctx.fillStyle = color;
-        this.ctx.fillRect(miniX - 2, miniY - 2, 4, 4);
+        this.ctx.strokeStyle = '#070321';
+        this.ctx.beginPath();
+        this.ctx.moveTo(centroX + cos * largo, centroY + sin * largo);
+        this.ctx.lineTo(centroX - cos * 4 - sin * ancho, centroY - sin * 4 + cos * ancho);
+        this.ctx.lineTo(centroX - cos * 4 + sin * ancho, centroY - sin * 4 - cos * ancho);
+        this.ctx.closePath();
+        this.ctx.fill();
+        this.ctx.stroke();
     }
 
     renderMiniMap() {
