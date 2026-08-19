@@ -40,7 +40,7 @@
     <div class="configuraciones" id="container-volumen">
       <span>Volúmen</span>
       <label for="musica">Música</label>
-      <input type="range" value="20" id="musica">
+      <input type="range" value="20" max="100" id="musica">
       <label for="efectos">Efectos</label>
       <input type="range" value="80" id="efectos">
     </div>
@@ -83,7 +83,7 @@
   <div class="container-gameover">
     <span id="asesinatos">Asesinatos <br> <span>0</span></span>
     <span id="tiempoFinal">Tiempo <br> <span>00:00</span></span>
-    <button id="reintentar" class="configuraciones" onclick="jugar()">Reintentar</button>
+    <button id="reintentar" class="configuraciones" onclick="reintentar()">Reintentar</button>
   </div>
 
   <!-- SCRIPTS -->

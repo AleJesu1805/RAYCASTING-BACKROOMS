@@ -1,3 +1,4 @@
+import { inputs } from "../ui/setting.js";
 export const musics = {
     1: 'audio/GRINDCORE/SPEED - NOT THAT NICE (OFFICIAL MOVIE)(MP3_160K).mp3',
     2: 'audio/GRINDCORE/Scowl - Bloodhound (Official Music Video)(MP3_160K).mp3',
@@ -33,6 +34,8 @@ export function reproducirSonido(nombre) {
 
 cargarSonido('disparoAcierto', 'audio/DisparoComun.mp3');
 cargarSonido('disparo', 'audio/disparoAcierto.mp3');
+cargarSonido('boton', 'audio/boton.mp3');
+cargarSonido('daño', 'audio/hitHurt.wav');
 
 // iOS/Android exigen un gesto del usuario para desbloquear el audio
 document.addEventListener('touchstart', () => {
@@ -56,5 +59,5 @@ export function reproducirSiguiente() {
         reproducirSiguiente();
     };
     audio.play();
-    audio.volume = 0.050;
+    audio.volume = 0.2;
 }

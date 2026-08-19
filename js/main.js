@@ -4,6 +4,7 @@ import { Player } from "./entities/Player.js";
 import { Enemies } from "./entities/Enemies.js";
 import { Sprite } from "./entities/Sprite.js";
 import { imagenes } from "./core/assets.js";
+import { reproducirSiguiente } from "./core/audio.js";
 
 if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('sw.js')
@@ -190,9 +191,37 @@ export function despausar() {
     reloj.iniciar();
 }
 
+let partidaTerminada = false;
+
 function perder() {
+    if (partidaTerminada) return;
+
+    partidaTerminada = true;
     pausar();
+
     containerButtons.style.display = 'none';
     containerGameover.style.display = 'grid';
-    containerGameover.querySelector('#tiempoFinal span').textContent = document.querySelector('#tiempo').textContent;
+
+    containerGameover.querySelector('#tiempoFinal span').textContent =
+        document.querySelector('#tiempo').textContent;
 }
+
+function reintentar() {
+    partidaTerminada = false;
+    reproducirSiguiente();
+
+    player.reiniciar();
+    enemies.forEach((enemigo) => enemigo.reiniciar());
+
+    document.getElementById('valorSalud').textContent = '100%';
+
+    containerGameover.style.display = 'none';
+    containerButtons.style.display = 'flex';
+
+    reloj.reiniciar();
+    cancelAnimationFrame(animationId);
+    animationId = requestAnimationFrame(gameLoop);
+    reloj.iniciar();
+}
+
+window.reintentar = reintentar;

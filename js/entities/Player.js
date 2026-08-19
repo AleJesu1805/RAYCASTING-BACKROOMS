@@ -8,13 +8,16 @@ const explosion = document.getElementById('explosionArma');
 
 export class Player {
     constructor(x, y, escenario, ctx) {
+        this.xInicial = x;
+        this.yInicial = y;
+
         this.posXPlayer = x;
         this.posYPlayer = y;
         this.escenario = escenario;
         this.ctx = ctx;
-        this.vida = 1000;
+        this.vida = 100;
 
-        this.radio = this.escenario.tamCelda / 3;
+        this.radio = this.escenario.tamCelda / 4;
 
         this.avanzando = 0;
         this.girando = 0;
@@ -107,6 +110,16 @@ export class Player {
 
         this.angulo += this.girando * this.velGiro;
         this.angulo = normalizaAngulo(this.angulo);
+    }
+
+    reiniciar() {
+        this.posXPlayer = this.xInicial;
+        this.posYPlayer = this.yInicial;
+        this.vida = 100;
+        this.angulo = 0;
+        this.avanzando = 0;
+        this.girando = 0;
+        this.disparando = false;
     }
 
     renderPlayer2d() {

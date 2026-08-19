@@ -1,4 +1,4 @@
-import { reproducirSiguiente } from "../core/audio.js";
+import { reproducirSiguiente, reproducirSonido } from "../core/audio.js";
 import { despausar, pausar } from "../main.js";
 import { containerButtons, containerGameover } from "../core/canvas.js";
 
@@ -9,15 +9,20 @@ const configSection = document.querySelector('.container-config');
 
 const inputMusica = document.getElementById('musica');
 const inputEfectos = document.getElementById('efectos');
-const inputs = [inputMusica, inputEfectos];
+export const inputs = [inputMusica, inputEfectos];
 
 const elementos = document.querySelectorAll('.hidden');
 
-var configOpen = false;
+let configOpen = false;
+let inGame = false;
 async function jugar() {
+    inGame = true;
     document.activeElement.blur();
+    reproducirSonido('boton');
     containerGameover.style.display = 'none';
-    reproducirSiguiente();
+    setTimeout(() => {
+        reproducirSiguiente();
+    }, 500);
     elementos.forEach(el => {
         el.classList.remove('hidden');
     });
@@ -34,6 +39,7 @@ async function jugar() {
 
 function abrirConfig() {
     configOpen = !configOpen;
+    reproducirSonido('boton');
     if (configOpen) {
         configSection.style.opacity = 1;
         configSection.style.display = 'grid';
@@ -42,20 +48,23 @@ function abrirConfig() {
     else {
         configSection.style.opacity = 0;
         configSection.style.display = 'none';
-        despausar();
+        if (inGame) {
+            despausar();
+        }
     }
 }
 
 function ampliar() {
+    reproducirSonido('boton');
     if (document.fullscreenElement != null) {
         document.exitFullscreen();
-    }
-    else {
+    } else {
         document.documentElement.requestFullscreen();
     }
 }
 
 function rotar() {
+    reproducirSonido('boton');
     screen.orientation.lock('landscape');
 }
 
@@ -71,4 +80,5 @@ inputs.forEach((input) => {
 window.jugar = jugar;
 window.abrirConfig = abrirConfig;
 window.ampliar = ampliar;
+window.rotar = rotar;
 
