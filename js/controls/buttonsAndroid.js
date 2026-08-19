@@ -1,5 +1,5 @@
 import { player } from "../main.js";
-import { canvas, joystick, ballJoystick, rangoDePresion, zonaDeslice, disparador, touch, fx } from "../core/canvas.js";
+import { joystick, ballJoystick, zonaDeslice, disparadores, touch } from "../core/canvas.js";
 
 function avanceMovil(x, y, rect) {
     const centroY = rect.height / 2;
@@ -14,6 +14,8 @@ function avanceMovil(x, y, rect) {
 
 joystick.addEventListener('touchstart', (e) => {
     e.preventDefault();
+    joystick.style.opacity = 1;
+    ballJoystick.style.padding = 70 + '%';
     const rect = joystick.getBoundingClientRect();
     const x = e.changedTouches[0].clientX - rect.left;
     const y = e.changedTouches[0].clientY - rect.top;
@@ -47,6 +49,8 @@ joystick.addEventListener('touchmove', (e) => {
 
 joystick.addEventListener('touchend', (e) => {
     e.preventDefault();
+    joystick.style.opacity = 0.7;
+    ballJoystick.style.padding = 42 + '%';
     if (e.targetTouches.length === 0) {
         ballJoystick.style.left = `50%`;
         ballJoystick.style.top = `50%`;
@@ -76,14 +80,17 @@ zonaDeslice.forEach((zona) => {
     }, { passive: false });
 });
 
-disparador.addEventListener('touchstart', (e) => {
-    e.preventDefault();
-    disparador.classList.add('disparador-activo');
-    player.disparando = true;
+disparadores.forEach((disparador) => {
+    disparador.addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        disparador.classList.add('disparador-activo');
+        player.disparando = true;
+    });
+
+    disparador.addEventListener('touchend', (e) => {
+        e.preventDefault();
+        disparador.classList.remove('disparador-activo');
+        player.disparando = false;
+    });
 });
 
-disparador.addEventListener('touchend', (e) => {
-    e.preventDefault();
-    disparador.classList.remove('disparador-activo');
-    player.disparando = false;
-});

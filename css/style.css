@@ -176,10 +176,11 @@ button[onclick="jugar()"] {
   width: 5%;
   height: 70%;
   border-radius: 100px;
-  background-color: #16161ac7;
+  background-color: #16161a;
   display: flex;
   justify-content: center;
   align-items: center;
+  opacity: .7;
   z-index: 3;
 }
 
@@ -188,7 +189,8 @@ button[onclick="jugar()"] {
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  padding: 60%;
+  padding: 42%;
+  transition: padding 0.2s, top 0.08s linear;
   border-radius: 100%;
   background-color: #afa5ac;
   z-index: 3;
@@ -202,12 +204,6 @@ button[onclick="jugar()"] {
   width: 50%;
   height: 100%;
   /* background-color: #2a864c6f; */
-}
-
-.zonaDeslice+.zonaDeslice {
-  left: 16%;
-  width: 34%;
-  height: 100%;
 }
 
 /* DISPARAR */
@@ -226,6 +222,13 @@ button[onclick="jugar()"] {
   transform: scale(1);
   box-shadow: 0px 0px 5px #aabc07;
   opacity: .5;
+}
+
+.disparador+.disparador {
+  width: 12dvw;
+  height: 12dvw;
+  left: 20%;
+  top: 10%;
 }
 
 .disparador-activo {
@@ -365,4 +368,9 @@ label+input::-webkit-slider-thumb {
   border-radius: 5px;
   background-color: #717070;
   border: 3px solid #000000;
+}
+
+/* GAME OVER */
+.container-gameover {
+  display: none;
 }

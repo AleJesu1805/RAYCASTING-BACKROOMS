@@ -35,8 +35,6 @@ export class Player {
             this.rayos[i] = new Rayo(this.ctx, this.escenario, this.posXPlayer, this.posYPlayer, this.angulo, anguloRayo, i);
             anguloRayo += incrementoAngulo;
         }
-
-        this.acertaste = false;
     }
 
     lanzarRayos() {
@@ -63,11 +61,11 @@ export class Player {
 
     disparar(rayo) {
         const alcance = 500;
+        this.acertaste = false;
         explosion.style.opacity = 1;
         setTimeout(() => {
             explosion.style.opacity = 0;
         }, 100);
-        reproducirSonido('disparo');
         enemies.forEach((enemigo) => {
             const dist = distanciaEntrePuntos(this.posXPlayer, this.posYPlayer, enemigo.posX, enemigo.posY);
             if (dist > alcance) return;
@@ -81,12 +79,15 @@ export class Player {
                 if (dist < distRayo || distRayo === Infinity) {
                     enemigo.posX = enemigo.xInicial;
                     enemigo.posY = enemigo.yInicial;
-                    enemigo.velocidad = 1 * Math.random();
+                    enemigo.velocidad = 1 * (Math.random() + 1);
                     this.acertaste = true;
                     reproducirSonido('disparoAcierto');
                 }
             }
         });
+        if (!this.acertaste) {
+            reproducirSonido('disparo');
+        }
     }
 
     moverPersonaje() {
