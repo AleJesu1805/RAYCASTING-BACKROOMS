@@ -243,32 +243,42 @@ img[src="img/SVGs/fuegoDeCañon.svg"] {
   width: 70%;
 }
 
-/* SALUD */
+/* INFO */
 
-#container-salud {
+.container-info {
   position: absolute;
   top: 0;
   right: calc((var(--medida-responsive)) * (2.8));
-  width: calc((var(--medida-responsive)) * (2.5));
+  width: fit-content;
   height: calc((var(--medida-responsive)) * (2.5));
+  display: flex;
+}
+
+.container-info>div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.container-info>div>span {
+  position: absolute;
+  font-size: 250%;
+  font-weight: 900;
 }
 
 #valorSalud {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 250%;
-  font-weight: 900;
   color: #e84200;
   text-shadow: 0px 0px 5px #9c0247;
-  z-index: 2;
+}
+
+#valorAsesinatos {
+  color: #d3d9d3;
+  text-shadow: 0px 0px 5px #4e574c;
 }
 
 /* TIEMPO */
 
 #container-cronometro {
-  /* width: calc((var(--medida-responsive)) * (5)); */
   width: fit-content;
   height: calc((var(--medida-responsive)) * (2.5));
   padding-inline: 15px;
@@ -281,7 +291,6 @@ img[src="img/SVGs/fuegoDeCañon.svg"] {
   display: flex;
   justify-content: center;
   align-items: center;
-  /* text-align: center; */
 }
 
 #tiempo {
@@ -381,7 +390,9 @@ label+input::-webkit-slider-thumb {
   justify-items: center;
   align-content: center;
   gap: 20px;
+  opacity: 0;
   display: none;
+  transition: opacity 2s ease;
 }
 
 #asesinatos,

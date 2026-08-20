@@ -1,5 +1,5 @@
 import { reproducirSiguiente, reproducirSonido } from "../core/audio.js";
-import { despausar, pausar } from "../main.js";
+import { despausar, pausar, partidaTerminada } from "../main.js";
 import { containerButtons, containerGameover } from "../core/canvas.js";
 
 const expandirPantalla = document.getElementById('expandirPantalla');
@@ -48,7 +48,7 @@ function abrirConfig() {
     else {
         configSection.style.opacity = 0;
         configSection.style.display = 'none';
-        if (inGame) {
+        if (inGame && (partidaTerminada)) {
             despausar();
         }
     }

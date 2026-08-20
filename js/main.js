@@ -191,7 +191,7 @@ export function despausar() {
     reloj.iniciar();
 }
 
-let partidaTerminada = false;
+export let partidaTerminada = false;
 
 function perder() {
     if (partidaTerminada) return;
@@ -201,9 +201,15 @@ function perder() {
 
     containerButtons.style.display = 'none';
     containerGameover.style.display = 'grid';
+    containerGameover.style.opacity = '0';
+
+    requestAnimationFrame(() => {
+        containerGameover.style.opacity = '1';
+    });
 
     containerGameover.querySelector('#tiempoFinal span').textContent =
         document.querySelector('#tiempo').textContent;
+    containerGameover.querySelector('#asesinatos span').textContent = player.asesinatos;
 }
 
 function reintentar() {
@@ -215,13 +221,17 @@ function reintentar() {
 
     document.getElementById('valorSalud').textContent = '100%';
 
-    containerGameover.style.display = 'none';
     containerButtons.style.display = 'flex';
+    containerGameover.style.opacity = '0';
+    setTimeout(() => {
+        containerGameover.style.display = 'none';
+    }, 2000);
 
     reloj.reiniciar();
     cancelAnimationFrame(animationId);
     animationId = requestAnimationFrame(gameLoop);
     reloj.iniciar();
+    renderFrameInicial();
 }
 
 window.reintentar = reintentar;

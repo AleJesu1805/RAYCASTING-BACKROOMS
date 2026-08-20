@@ -19,6 +19,9 @@ export const disparadores = document.querySelectorAll('.disparador');
 
 export const containerGameover = document.querySelector('.container-gameover');
 
+export const valorSalud = document.getElementById('valorSalud');
+export const valorAsesinatos = document.getElementById('valorAsesinatos');
+
 export const touch = {
     inicioXDedo: 0,
     inicioYDedo: 0,

@@ -1,12 +1,10 @@
-import { canvas, shadeCanvas, viewCtx, resolucionRayos, shadeCtx, FOV } from "../core/canvas.js";
-import { convierteRadianes, normalizaAngulo, colision } from "../core/utils.js";
-import { enemie1, player } from "../main.js";
+import { valorSalud } from "../core/canvas.js";
+import { normalizaAngulo, colision } from "../core/utils.js";
+import { player } from "../main.js";
 import { Rayo } from "../world/Rayo.js";
-import { Player } from "./Player.js";
 import { Sprite } from "./Sprite.js";
 import { sprite1 } from "../core/assets.js";
 import { reproducirSonido } from "../core/audio.js";
-const valorSalud = document.getElementById('valorSalud');
 
 export class Enemies {
     constructor(x, y, xInicial, yInicial, escenario, ctx, velocidad) {
@@ -194,7 +192,7 @@ export class Enemies {
         this.atacando = true;
 
         reproducirSonido('daño');
-        player.vida -= 5 + (Math.random() * 5);
+        player.vida -= 50 + (Math.random() * 5);
         valorSalud.textContent = Math.round(player.vida) + '%';
     }
 

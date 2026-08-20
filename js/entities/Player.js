@@ -1,8 +1,8 @@
-import { canvas, shadeCanvas, viewCtx, resolucionRayos, shadeCtx, FOV, fx } from "../core/canvas.js";
+import { canvas, resolucionRayos, shadeCtx, FOV, valorAsesinatos } from "../core/canvas.js";
 import { convierteRadianes, normalizaAngulo, colision, distanciaEntrePuntos } from "../core/utils.js";
 import { Rayo } from "../world/Rayo.js";
 import { reproducirSonido } from "../core/audio.js";
-import { enemies, mapa } from "../main.js";
+import { enemies } from "../main.js";
 
 const explosion = document.getElementById('explosionArma');
 
@@ -16,6 +16,7 @@ export class Player {
         this.escenario = escenario;
         this.ctx = ctx;
         this.vida = 100;
+        this.asesinatos = 0;
 
         this.radio = this.escenario.tamCelda / 4;
 
@@ -84,6 +85,8 @@ export class Player {
                     enemigo.posY = enemigo.yInicial;
                     enemigo.velocidad = 1 * (Math.random() + 1);
                     this.acertaste = true;
+                    this.asesinatos += 1;
+                    valorAsesinatos.textContent = this.asesinatos;
                     reproducirSonido('disparoAcierto');
                 }
             }
@@ -116,6 +119,8 @@ export class Player {
         this.posXPlayer = this.xInicial;
         this.posYPlayer = this.yInicial;
         this.vida = 100;
+        this.asesinatos = 0;
+        valorAsesinatos.textContent = this.asesinatos;
         this.angulo = 0;
         this.avanzando = 0;
         this.girando = 0;
