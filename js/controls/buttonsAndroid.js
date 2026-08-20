@@ -1,5 +1,5 @@
 import { player } from "../main.js";
-import { joystick, ballJoystick, zonaDeslice, disparadores, touch } from "../core/canvas.js";
+import { joystick, ballJoystick, zonaDeslice, disparadores, touch, arma } from "../core/canvas.js";
 
 function avanceMovil(x, y, rect) {
     const centroY = rect.height / 2;
@@ -21,8 +21,8 @@ joystick.addEventListener('touchstart', (e) => {
     const y = e.changedTouches[0].clientY - rect.top;
 
     // ballJoystick.style.left = `${x}px`;
+    arma.style.animation = 'movimiento .3s infinite alternate-reverse';
     ballJoystick.style.top = `${y}px`;
-
     avanceMovil(x, y, rect);
 });
 
@@ -57,6 +57,7 @@ joystick.addEventListener('touchend', (e) => {
         player.avanzando = 0;
         player.girando = 0;
     }
+    arma.style.animation = 'movimiento 0s infinite alternate-reverse';
 });
 
 zonaDeslice.forEach((zona) => {

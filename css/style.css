@@ -131,20 +131,9 @@ img {
   bottom: 0%;
   left: 50%;
   transform: translate(-50%, 0);
-  height: 70%;
-  width: 25%;
-}
-
-#explosionArma {
-  width: 20dvw;
-  height: 20dvw;
-  position: relative;
-  top: 25%;
-  left: 50%;
-  transform: translate(-50%, 0);
-  image-rendering: pixelated;
-  opacity: 0;
-  transition: opacity .1s;
+  height: 80%;
+  width: 30%;
+  animation: movimiento 0s alternate-reverse infinite;
 }
 
 #puntero {
@@ -152,7 +141,7 @@ img {
   top: 0%;
   left: 50%;
   transform: translate(-50%, -50%);
-  padding: 1%;
+  padding: 0.5%;
   border-radius: 100%;
   background-color: #b11010;
 }
@@ -258,6 +247,8 @@ img[src="img/SVGs/fuegoDeCañon.svg"] {
   display: flex;
   align-items: center;
   justify-content: center;
+  box-shadow: 0px 0px 15px 5px #00000072;
+  margin-inline: 10px;
 }
 
 .container-info>div>span {
@@ -403,4 +394,10 @@ label+input::-webkit-slider-thumb {
   border-radius: 10px;
   padding: 15px;
   text-align: center;
+}
+
+@keyframes movimiento {
+  to {
+    translate: 0 10%;
+  }
 }

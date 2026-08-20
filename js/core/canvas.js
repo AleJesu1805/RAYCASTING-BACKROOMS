@@ -22,6 +22,9 @@ export const containerGameover = document.querySelector('.container-gameover');
 export const valorSalud = document.getElementById('valorSalud');
 export const valorAsesinatos = document.getElementById('valorAsesinatos');
 
+export const arma = document.getElementById('arma');
+export const puntero = document.getElementById('puntero');
+
 export const touch = {
     inicioXDedo: 0,
     inicioYDedo: 0,
@@ -32,7 +35,7 @@ export const touch = {
     girandoCamara: false,
 };
 
-export const resolucionRayos = 7;
+export const resolucionRayos = 2;
 export const FOV = 60;
 export const altoTile = 200;
 export const zBuffer = new Array(Math.floor(canvas.width / resolucionRayos)).fill(Infinity);

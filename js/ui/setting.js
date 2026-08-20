@@ -48,7 +48,7 @@ function abrirConfig() {
     else {
         configSection.style.opacity = 0;
         configSection.style.display = 'none';
-        if (inGame && (partidaTerminada)) {
+        if (inGame && (!partidaTerminada)) {
             despausar();
         }
     }

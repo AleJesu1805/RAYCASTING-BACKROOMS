@@ -1,10 +1,8 @@
-import { canvas, resolucionRayos, shadeCtx, FOV, valorAsesinatos } from "../core/canvas.js";
+import { canvas, resolucionRayos, shadeCtx, FOV, valorAsesinatos, arma, puntero } from "../core/canvas.js";
 import { convierteRadianes, normalizaAngulo, colision, distanciaEntrePuntos } from "../core/utils.js";
 import { Rayo } from "../world/Rayo.js";
 import { reproducirSonido } from "../core/audio.js";
 import { enemies } from "../main.js";
-
-const explosion = document.getElementById('explosionArma');
 
 export class Player {
     constructor(x, y, escenario, ctx) {
@@ -66,9 +64,9 @@ export class Player {
     disparar(rayo) {
         const alcance = 500;
         this.acertaste = false;
-        explosion.style.opacity = 1;
+        arma.src = 'img/armas/armaDisparada.webp'
         setTimeout(() => {
-            explosion.style.opacity = 0;
+            arma.src = 'img/armas/arma.webp'
         }, 100);
         enemies.forEach((enemigo) => {
             const dist = distanciaEntrePuntos(this.posXPlayer, this.posYPlayer, enemigo.posX, enemigo.posY);
@@ -81,13 +79,19 @@ export class Player {
             if (Math.abs(diferencia) < tolerancia || Math.abs(diferencia) > 2 * Math.PI - tolerancia) {
                 const distRayo = rayo.distancia;
                 if (dist < distRayo || distRayo === Infinity) {
+                    reproducirSonido('disparoAcierto');
                     enemigo.posX = enemigo.xInicial;
                     enemigo.posY = enemigo.yInicial;
                     enemigo.velocidad = 1 * (Math.random() + 1);
                     this.acertaste = true;
                     this.asesinatos += 1;
+                    puntero.style.backgroundColor = '#100dec';
+                    puntero.style.padding = '1%';
+                    setTimeout(() => {
+                        puntero.style.padding = '0.5%';
+                        puntero.style.backgroundColor = '#b11010';
+                    }, 300);
                     valorAsesinatos.textContent = this.asesinatos;
-                    reproducirSonido('disparoAcierto');
                 }
             }
         });
