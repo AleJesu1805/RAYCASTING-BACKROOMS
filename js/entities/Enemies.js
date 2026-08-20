@@ -192,7 +192,7 @@ export class Enemies {
         this.atacando = true;
 
         reproducirSonido('daño');
-        player.vida -= 50 + (Math.random() * 5);
+        player.vida -= 5 + (Math.random() * 5);
         valorSalud.textContent = Math.round(player.vida) + '%';
     }
 
