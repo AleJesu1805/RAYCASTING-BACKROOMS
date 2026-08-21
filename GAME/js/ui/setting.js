@@ -5,8 +5,12 @@ import { containerButtons, containerGameover } from "../core/canvas.js";
 const configBoton = document.getElementById('configBoton');
 const configSection = document.querySelector('.container-config');
 
+const rotarBtn = document.getElementById('rotar');
+const maximizarBtn = document.getElementById('maximizar');
+
 if (/Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
     containerButtons.style.display = 'flex';
+    screen.orientation.lock('landscape');
 }
 setTimeout(() => {
     reproducirSiguiente();
@@ -14,6 +18,14 @@ setTimeout(() => {
 
 configBoton.addEventListener('pointerdown', () => {
     abrirConfig();
+});
+
+rotarBtn.addEventListener('pointerdown', () => {
+    rotar();
+});
+
+maximizarBtn.addEventListener('pointerdown', () => {
+    maximizar();
 });
 
 let configOpen = false;
@@ -34,7 +46,7 @@ function abrirConfig() {
     }
 }
 
-function ampliar() {
+function maximizar() {
     reproducirSonido('boton');
     if (document.fullscreenElement != null) {
         document.exitFullscreen();
@@ -49,6 +61,6 @@ function rotar() {
 }
 
 window.abrirConfig = abrirConfig;
-window.ampliar = ampliar;
+window.maximizar = maximizar;
 window.rotar = rotar;
 
