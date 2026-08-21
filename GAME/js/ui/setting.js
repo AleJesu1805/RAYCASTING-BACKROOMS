@@ -1,6 +1,6 @@
 import { reproducirSiguiente, reproducirSonido } from "../core/audio.js";
 import { despausar, pausar, partidaTerminada } from "../main.js";
-import { containerButtons, containerGameover } from "../core/canvas.js";
+import { containerButtons } from "../core/canvas.js";
 
 const configBoton = document.getElementById('configBoton');
 const configSection = document.querySelector('.container-config');
@@ -21,6 +21,7 @@ configBoton.addEventListener('pointerdown', () => {
 });
 
 rotarBtn.addEventListener('pointerdown', () => {
+    maximizar();
     rotar();
 });
 

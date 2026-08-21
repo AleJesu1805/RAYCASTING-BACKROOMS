@@ -57,5 +57,5 @@ export function reproducirSiguiente() {
         reproducirSiguiente();
     };
     audio.play();
-    audio.volume = 0.2;
+    audio.volume = 0.01;
 }
