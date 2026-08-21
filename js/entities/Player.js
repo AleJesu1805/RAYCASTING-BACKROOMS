@@ -90,7 +90,7 @@ export class Player {
                     setTimeout(() => {
                         puntero.style.padding = '0.5%';
                         puntero.style.backgroundColor = '#b11010';
-                    }, 300);
+                    }, 200);
                     valorAsesinatos.textContent = this.asesinatos;
                 }
             }

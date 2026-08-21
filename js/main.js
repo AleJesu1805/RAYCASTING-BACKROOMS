@@ -214,14 +214,17 @@ function perder() {
 
 function reintentar() {
     partidaTerminada = false;
-    reproducirSiguiente();
+    // reproducirSiguiente();
 
     player.reiniciar();
     enemies.forEach((enemigo) => enemigo.reiniciar());
 
     document.getElementById('valorSalud').textContent = '100%';
 
-    containerButtons.style.display = 'flex';
+    if (/Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+        containerButtons.style.display = 'flex';
+    }
+
     containerGameover.style.opacity = '0';
     setTimeout(() => {
         containerGameover.style.display = 'none';
