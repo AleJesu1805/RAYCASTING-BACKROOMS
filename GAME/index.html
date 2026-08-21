@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="../img/SVGs/arma.svg" type="image/x-icon">
+  <title>GAME</title>
+  <style>
+    @font-face {
+      font-family: 'Gothic';
+      src: url('../fonts/pixelFont.ttf') format('truetype');
+      font-display: swap;
+    }
+
+    html {
+      background-color: rgb(30, 3, 3);
+    }
+  </style>
+</head>
+
+<body>
+  <!-- CANVAS Y ARMA -->
+  <canvas id="canvas"></canvas>
+  <div class="elements-arma">
+    <div id="puntero"></div>
+    <img id="arma" src="../img/armas/arma.webp">
+  </div>
+
+  <!-- INFO -->
+
+  <div class="container-info">
+    <div>
+      <span id="valorSalud">100%</span><img src="../img/SVGs/corazon.svg">
+    </div>
+    <div>
+      <span id="valorAsesinatos">0</span><img src="../img/SVGs/calavera.svg">
+    </div>
+    <div>
+      <button id="configBoton" class="recuadro"></button><img src="../img/SVGs/ajustes.svg">
+    </div>
+  </div>
+
+  <!-- CONFIGURACIONES -->
+  <ul class="container-config">
+    <li class="config-item"><a class="recuadro" href="../">INICIO</a></li>
+    <li class="config-item"><button class="recuadro">MAXIMIZAR/MINIMIZAR</button></li>
+    <li class="config-item"><button class="recuadro">ROTAR</button></li>
+  </ul>
+
+  <!-- -------------- BOTONES MOVILES ------------------ -->
+
+  <div class="container-buttons">
+    <div id="joystick">
+      <div id="ballJoystick">&nbsp;</div>
+    </div>
+    <div class="zonaDeslice"></div>
+    <div class="zonaDeslice"></div>
+    <button class="disparador"><img src="../img/SVGs/fuegoDeCañon.svg"></button>
+    <button class="disparador"><img src="../img/SVGs/fuegoDeCañon.svg"></button>
+  </div>
+
+  <!-- CRONOMETRO -->
+
+  <div id="container-cronometro"><span id="tiempo">00:00</span></div>
+
+  <!-- GAME OVER -->
+
+  <div class="container-gameover">
+    <span id="asesinatos">Asesinatos <br> <span>0</span></span>
+    <span id="tiempoFinal">Tiempo <br> <span>00:00</span></span>
+    <button id="reintentar" class="recuadro" onclick="reintentar()">Reintentar</button>
+  </div>
+
+  <!-- SCRIPTS -->
+
+  <script src="js/main.js" type="module"></script>
+  <script src="js/controls/buttonsPc.js" type="module"></script>
+  <script src="js/controls/buttonsAndroid.js" type="module"></script>
+  <script src="js/ui/setting.js" type="module"></script>
+</body>
+
+</html>

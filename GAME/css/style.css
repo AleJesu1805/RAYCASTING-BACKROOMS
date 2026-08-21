@@ -1,0 +1,322 @@
+html,
+body {
+  background: #151515;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Gothic';
+  position: fixed;
+  height: 100dvh;
+  width: 100dvw;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  user-select: none;
+  box-sizing: border-box;
+}
+
+:root {
+  --medida-responsive: clamp(20px, 5vw, 30px);
+  /* --resolucion-width: clamp(640px, 90vw, 1280px);
+  --resolucion-height: clamp(360px, 90vh, 720px); */
+  --color-button: #967120;
+  --sombra-button: 0px 0px 15px 3px #b35a00;
+  --alto-estadisticas: 15vh;
+}
+
+li {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+img {
+  width: 100%;
+  height: 100%;
+  user-select: none;
+  pointer-events: none;
+  touch-action: none;
+}
+
+.recuadro {
+  border: 3px solid #03000a5d;
+  font-family: 'Gothic';
+  background-color: #717070;
+  border-radius: 14px;
+}
+
+/* CONFIGURACIONES */
+
+#configBoton {
+  position: absolute;
+  width: 33%;
+  height: 100%;
+  border-radius: 0px 0px 0px 15px;
+  z-index: 2;
+}
+
+#configBoton+img {
+  width: 90%;
+  z-index: 2;
+}
+
+.container-config {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(2px);
+  background-color: #00000086;
+  display: none;
+  justify-items: center;
+  align-content: center;
+  gap: 15px;
+  z-index: 1;
+}
+
+.config-item * {
+  width: fit-content;
+  display: inline-block;
+  padding: 20px;
+  font-size: var(--medida-responsive);
+  color: #510423;
+  opacity: .8;
+
+  &:active {
+    opacity: 1;
+  }
+}
+
+/* CANVAS */
+
+#canvas {
+  position: fixed;
+  left: 50%;
+  top: 0%;
+  transform: translate(-50%, 0%);
+  background: transparent;
+  width: 100dvw;
+  height: 100dvh;
+  image-rendering: pixelated;
+}
+
+/* ARMA */
+
+.elements-arma {
+  position: absolute;
+  bottom: 0%;
+  height: 50dvh;
+  width: 100dvw;
+}
+
+#arma {
+  position: absolute;
+  bottom: 0%;
+  left: 50%;
+  transform: translate(-50%, 0);
+  height: 80%;
+  width: 30%;
+  animation: movimiento 0s alternate-reverse infinite;
+}
+
+#puntero {
+  position: absolute;
+  top: 0%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 0.5%;
+  border-radius: 100%;
+  background-color: #b11010;
+}
+
+/* BOTONES PARA MOVILES */
+
+.container-buttons {
+  width: 100%;
+  height: 70vh;
+  position: fixed;
+  bottom: 0;
+  z-index: 1;
+  display: none;
+}
+
+/* AVANCE */
+
+#joystick {
+  position: absolute;
+  left: 10%;
+  bottom: 10%;
+  width: 5%;
+  height: 70%;
+  border-radius: 100px;
+  background-color: #16161a;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: .7;
+  z-index: 3;
+}
+
+#ballJoystick {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  padding: 42%;
+  transition: padding 0.2s, top 0.08s linear;
+  border-radius: 100%;
+  background-color: #afa5ac;
+  z-index: 3;
+}
+
+/* GIRO */
+
+.zonaDeslice {
+  position: fixed;
+  right: 0;
+  width: 50%;
+  height: 100%;
+  /* background-color: #2a864c6f; */
+}
+
+/* DISPARAR */
+
+.disparador {
+  position: absolute;
+  width: 18dvw;
+  height: 18dvw;
+  border: none;
+  background-color: #757c11;
+  border-radius: 100%;
+  /* clip-path: circle(); */
+  border-radius: 999999px;
+  right: 6dvw;
+  bottom: 10%;
+  transform: scale(1);
+  box-shadow: 0px 0px 5px #aabc07;
+  opacity: .5;
+  transition: all .1s;
+}
+
+.disparador+.disparador {
+  width: 12dvw;
+  height: 12dvw;
+  left: 20%;
+  top: 10%;
+}
+
+.disparador-activo {
+  background-color: #aabc07;
+  box-shadow: 0px 0px 20px #aabc07;
+  opacity: 1;
+  transform: scale(1.2);
+}
+
+img[src="../img/SVGs/fuegoDeCañon.svg"] {
+  width: 70%;
+}
+
+/* INFO */
+
+.container-info {
+  position: absolute;
+  top: 0;
+  right: 0%;
+  width: fit-content;
+  height: calc((var(--medida-responsive)) * (2.5));
+  display: flex;
+  gap: 10px;
+}
+
+.container-info>div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* box-shadow: 0px 0px 15px 5px #00000072; */
+  margin-inline: 0px;
+}
+
+.container-info>div>span {
+  position: absolute;
+  font-size: 250%;
+  font-weight: 900;
+}
+
+#valorSalud {
+  color: #e84200;
+  text-shadow: 0px 0px 5px #9c0247;
+}
+
+#valorAsesinatos {
+  color: #d3d9d3;
+  text-shadow: 0px 0px 5px #4e574c;
+}
+
+/* TIEMPO */
+
+#container-cronometro {
+  width: fit-content;
+  height: calc((var(--medida-responsive)) * (2.5));
+  padding-inline: 15px;
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #0a2e03aa;
+  border-radius: 0 0 20px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#tiempo {
+  font-size: 250%;
+  color: #c3c3c3;
+  text-shadow: 0px 0px 5px #126e20;
+}
+
+/* GAME OVER */
+
+.container-gameover {
+  background-color: #00000086;
+  color: #500f0f;
+  position: absolute;
+  width: 100dvw;
+  height: 100dvh;
+  display: grid;
+  justify-items: center;
+  align-content: center;
+  gap: 20px;
+  opacity: 0;
+  display: none;
+  transition: opacity 2s ease;
+}
+
+#asesinatos,
+#tiempoFinal {
+  font-size: 25px;
+  background-color: #717070;
+  border: solid 3px #03000a5d;
+  border-radius: 10px;
+  padding: 15px;
+  text-align: center;
+}
+
+#reintentar {
+  font-size: 30px;
+  color: #191b1b;
+  border-radius: 10px;
+  padding: 20px;
+}
+
+/* ANIMACIONES */
+
+@keyframes movimiento {
+  to {
+    translate: 0 10%;
+  }
+}

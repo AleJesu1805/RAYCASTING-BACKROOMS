@@ -11,7 +11,7 @@
   <style>
     @font-face {
       font-family: 'Gothic';
-      src: url('fonts/fuente10.ttf') format('truetype');
+      src: url('fonts/pixelFont.ttf') format('truetype');
       font-display: swap;
     }
 
@@ -25,78 +25,14 @@
 
   <!-- -------------- PANTALLA DE MALVENIDA ------------------ -->
 
-  <div class="container-start">
-    <div></div>
-    <h1 id="msg-malvenida" class="central">DySToPHy</h1>
-    <button onclick="jugar()" class="central" id="sufrir"> SUFRIR </button>
-  </div>
-
-  <!-- --------------CONFIGURACIONES ------------------ -->
-
-  <button class="configuraciones" onclick="abrirConfig()"><img id="iconAjustes" src="img/SVGs/ajustes.svg"></button>
-  <div class="container-config" style="background-color: transparent;">
-    <button id="expandirPantalla" class="configuraciones" onclick="ampliar()">MAXIMIZAR MINIMIZAR</button>
-    <button id="rotarPantalla" class="configuraciones" onclick="rotar()">ROTAR</button>
-    <div class="configuraciones" id="container-volumen">
-      <span>Volúmen</span>
-      <label for="musica">Música</label>
-      <input type="range" value="20" max="100" id="musica">
-      <label for="efectos">Efectos</label>
-      <input type="range" value="80" id="efectos">
-    </div>
-  </div>
-
-
-  <!-- -------------- BOTONES MOVILES ------------------ -->
-
-  <div class="container-buttons">
-    <div id="joystick">
-      <div id="ballJoystick">&nbsp;</div>
-    </div>
-    <div class="zonaDeslice"></div>
-    <div class="zonaDeslice"></div>
-    <button class="disparador"><img src="img/SVGs/fuegoDeCañon.svg"></button>
-    <button class="disparador"><img src="img/SVGs/fuegoDeCañon.svg"></button>
-  </div>
-
-  <!-- CANVAS -->
-
-  <canvas id="canvas" class="hidden"></canvas>
-  <div class="elements-arma hidden">
-    <div id="puntero"></div>
-    <img id="arma" src="img/armas/arma.webp">
-  </div>
-
-  <!-- INFO -->
-
-  <div class="container-info hidden">
-    <div>
-      <span id="valorSalud">100%</span><img src="img/SVGs/corazon.svg">
-    </div>
-    <div>
-      <span id="valorAsesinatos">0</span><img src="img/SVGs/calavera.svg">
-    </div>
-  </div>
-
-  <!-- CRONOMETRO -->
-
-  <div id="container-cronometro" class="hidden"><span id="tiempo">00:00</span></div>
-
-  <!-- GAME OVER -->
-
-  <div class="container-gameover">
-    <span id="asesinatos">Asesinatos <br> <span>0</span></span>
-    <span id="tiempoFinal">Tiempo <br> <span>00:00</span></span>
-    <button id="reintentar" class="configuraciones" onclick="reintentar()">Reintentar</button>
-  </div>
-
-  <!-- SCRIPTS -->
-
-  <script src="js/main.js" type="module"></script>
-  <script src="js/controls/buttonsPc.js" type="module"></script>
-  <script src="js/controls/buttonsAndroid.js" type="module"></script>
-  <script src="js/ui/setting.js" type="module"></script>
-  <script src="js/ui/effects.js" type="module"></script>
+  <h1 id="nameGame">DySToPHy</h1>
+  <ul class="container-items-start">
+    <li><a id="linkGame" href="GAME/" onclick="reproducirSonido('boton')">SUFRIR </a></li>
+    <li> <button id="optionsGame" onclick="reproducirSonido('boton')">OPCIONES</button></li>
+    <li><button id="creditsGame" onclick="reproducirSonido('boton')">CREDITOS</button></li>
+  </ul>
+  <div id="containerImg"><img id="niñaEsfeluznante" src="img/enemigos/niñaEsfeluznante.png"></div>
+  <script src="js/script.js"></script>
 </body>
 
 </html>

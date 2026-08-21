@@ -6,10 +6,6 @@ import { Sprite } from "./entities/Sprite.js";
 import { imagenes } from "./core/assets.js";
 import { reproducirSiguiente } from "./core/audio.js";
 
-if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('sw.js')
-}
-
 export const mapa = new Map(ctx);
 export const player = new Player(
     mapa.tamCelda * 5,
@@ -175,11 +171,8 @@ function cronometro() {
 }
 
 const reloj = cronometro();
-document.querySelector('button[onclick="jugar()"]').addEventListener('pointerdown', () => {
-    animationId = requestAnimationFrame(gameLoop);
-    reloj.iniciar();
-    // reloj.print();
-});
+reloj.iniciar();
+animationId = requestAnimationFrame(gameLoop);
 
 export function pausar() {
     cancelAnimationFrame(animationId);

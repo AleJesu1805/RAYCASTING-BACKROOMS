@@ -1,10 +1,9 @@
-import { inputs } from "../ui/setting.js";
 export const musics = {
-    1: 'audio/GRINDCORE/SPEED - NOT THAT NICE (OFFICIAL MOVIE)(MP3_160K).mp3',
-    2: 'audio/GRINDCORE/Scowl - Bloodhound (Official Music Video)(MP3_160K).mp3',
-    3: 'audio/GRINDCORE/Scar The Martyr - Blood Host [OFFICIAL VIDEO](MP3_160K).mp3',
-    4: 'audio/GRINDCORE/Befouled Tongue - Between The Realms - feat. CJ McCreery (Official Video)(MP3_160K).mp3',
-    5: 'audio/GRINDCORE/Days Spent - _Best Wishes_(MP3_160K).mp3',
+    1: '../audio/GRINDCORE/Days Spent - _Best Wishes_(MP3_160K).mp3',
+    5: '../audio/GRINDCORE/SPEED - NOT THAT NICE (OFFICIAL MOVIE)(MP3_160K).mp3',
+    2: '../audio/GRINDCORE/Scowl - Bloodhound (Official Music Video)(MP3_160K).mp3',
+    3: '../audio/GRINDCORE/Scar The Martyr - Blood Host [OFFICIAL VIDEO](MP3_160K).mp3',
+    4: '../audio/GRINDCORE/Befouled Tongue - Between The Realms - feat. CJ McCreery (Official Video)(MP3_160K).mp3',
 }
 const arrMusic = [];
 
@@ -32,12 +31,11 @@ export function reproducirSonido(nombre) {
     source.start(0);
 }
 
-cargarSonido('disparoAcierto', 'audio/DisparoComun.mp3');
-cargarSonido('disparo', 'audio/disparoAcierto.mp3');
-cargarSonido('boton', 'audio/boton.mp3');
-cargarSonido('daño', 'audio/hitHurt.wav');
+cargarSonido('disparoAcierto', '../audio/DisparoComun.mp3');
+cargarSonido('disparo', '../audio/disparoAcierto.mp3');
+cargarSonido('boton', '../audio/boton.mp3');
+cargarSonido('daño', '../audio/hitHurt.wav');
 
-// iOS/Android exigen un gesto del usuario para desbloquear el audio
 document.addEventListener('touchstart', () => {
     if (audioCtx.state === 'suspended') audioCtx.resume();
 }, { once: true });

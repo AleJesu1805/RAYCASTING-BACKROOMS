@@ -64,9 +64,9 @@ export class Player {
     disparar(rayo) {
         const alcance = 500;
         this.acertaste = false;
-        arma.src = 'img/armas/armaDisparada.webp'
+        arma.src = '../img/armas/armaDisparada.webp'
         setTimeout(() => {
-            arma.src = 'img/armas/arma.webp'
+            arma.src = '../img/armas/arma.webp'
         }, 100);
         enemies.forEach((enemigo) => {
             const dist = distanciaEntrePuntos(this.posXPlayer, this.posYPlayer, enemigo.posX, enemigo.posY);

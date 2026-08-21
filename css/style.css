@@ -17,387 +17,72 @@ body {
 }
 
 :root {
-  --medida-responsive: clamp(20px, 5vw, 30px);
-  /* --resolucion-width: clamp(640px, 90vw, 1280px);
-  --resolucion-height: clamp(360px, 90vh, 720px); */
-  --color-button: #967120;
-  --sombra-button: 0px 0px 15px 3px #b35a00;
-  --alto-estadisticas: 15vh;
+  --medida-responsive: clamp(70px, 13vw, 100px);
 }
 
-.hidden {
-  display: none !important;
+a {
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+li {
+  list-style: none;
 }
 
 button {
-  opacity: 1;
-  transform: scale(1);
-  transition: .1s transform ease, .1s opacity ease;
-
-  /* &:hover {
-    opacity: 1;
-  } */
-
-  &:active {
-    opacity: 1;
-  }
-}
-
-img {
-  width: 100%;
-  height: 100%;
-  user-select: none;
-  pointer-events: none;
-  touch-action: none;
-}
-
-/* PANTALLA INICIAL */
-
-.container-start {
-  /* background: url(https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExbDNyYTJqaWxmYmZ3cDhwZXM1czNuYzZ0aXdldjBuZXV2bTl4OGNldCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/Xd7QqFPv4IVAz8dnog/giphy.gif) center / cover no-repeat; */
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100dvw;
-  height: 100%;
-  display: grid;
-  justify-items: center;
-  /* align-content: center; */
-  /* gap: 8vw; */
-}
-
-.container-start div {
-  /* backdrop-filter: brightness(50%) contrast(150%); */
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-}
-
-.central {
-  position: relative;
-  text-align: center;
-  font-size: calc(var(--medida-responsive) * 3);
-}
-
-#msg-malvenida {
-  letter-spacing: 10px;
-  line-height: 50px;
-  margin: 50px 50px;
-  color: hsl(109, 80%, 22%);
-  /* text-shadow: 0px 0px 10px #4f3d49; */
-}
-
-#sufrir {
   font-family: 'Gothic';
-  padding: calc(var(--medida-responsive)/1.5) calc(var(--medida-responsive)*2);
-  background: transparent;
-  /* box-shadow: var(--sombra-button); */
-  border-radius: 25px;
+  cursor: pointer;
+  background-color: transparent;
   border: none;
-  font-weight: 900;
-  margin: 0px 50px;
-  color: #85858d;
-  /* text-shadow: 0px 0px 10px #30a418; */
-  font-size: calc(var(--medida-responsive) * 3);
-  /* animation: agrandar 1s alternate-reverse infinite; */
 }
 
-/* CANVAS */
-
-#canvas {
-  position: fixed;
-  left: 50%;
-  top: 0%;
-  transform: translate(-50%, 0%);
-  background: transparent;
-  width: 100dvw;
-  height: 100dvh;
-  image-rendering: pixelated;
-}
-
-/* ARMA */
-
-.elements-arma {
+#nameGame {
+  font-size: var(--medida-responsive);
+  margin-top: 30px;
+  margin-inline: 20px;
+  color: #0f4107;
   position: absolute;
-  bottom: 0%;
-  height: 50dvh;
-  width: 100dvw;
-}
-
-#arma {
-  position: absolute;
-  bottom: 0%;
-  left: 50%;
-  transform: translate(-50%, 0);
-  height: 80%;
-  width: 30%;
-  animation: movimiento 0s alternate-reverse infinite;
-}
-
-#puntero {
-  position: absolute;
-  top: 0%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  padding: 0.5%;
-  border-radius: 100%;
-  background-color: #b11010;
-}
-
-/* BOTONES PARA MOVILES */
-
-.container-buttons {
-  width: 100%;
-  height: 70vh;
-  position: fixed;
-  bottom: 0;
-  z-index: 1;
-  display: none;
-}
-
-/* AVANCE */
-
-#joystick {
-  position: absolute;
-  left: 10%;
-  bottom: 10%;
-  width: 5%;
-  height: 70%;
-  border-radius: 100px;
-  background-color: #16161a;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  opacity: .7;
-  z-index: 3;
-}
-
-#ballJoystick {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  padding: 42%;
-  transition: padding 0.2s, top 0.08s linear;
-  border-radius: 100%;
-  background-color: #afa5ac;
-  z-index: 3;
-}
-
-/* GIRO */
-
-.zonaDeslice {
-  position: fixed;
-  right: 0;
-  width: 50%;
-  height: 100%;
-  /* background-color: #2a864c6f; */
-}
-
-/* DISPARAR */
-
-.disparador {
-  position: absolute;
-  width: 18dvw;
-  height: 18dvw;
-  border: none;
-  background-color: #757c11;
-  border-radius: 100%;
-  /* clip-path: circle(); */
-  border-radius: 999999px;
-  right: 6dvw;
-  bottom: 10%;
-  transform: scale(1);
-  box-shadow: 0px 0px 5px #aabc07;
-  opacity: .5;
-}
-
-.disparador+.disparador {
-  width: 12dvw;
-  height: 12dvw;
-  left: 20%;
-  top: 10%;
-}
-
-.disparador-activo {
-  background-color: #aabc07;
-  box-shadow: 0px 0px 20px #aabc07;
-  opacity: 1;
-  transform: scale(1.2);
-}
-
-img[src="img/SVGs/fuegoDeCañon.svg"] {
-  width: 70%;
-}
-
-/* INFO */
-
-.container-info {
-  position: absolute;
-  top: 0;
-  right: calc((var(--medida-responsive)) * (2.8));
-  width: fit-content;
-  height: calc((var(--medida-responsive)) * (2.5));
-  display: flex;
-}
-
-.container-info>div {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  /* box-shadow: 0px 0px 15px 5px #00000072; */
-  margin-inline: 10px;
-}
-
-.container-info>div>span {
-  position: absolute;
-  font-size: 250%;
-  font-weight: 900;
-}
-
-#valorSalud {
-  color: #e84200;
-  text-shadow: 0px 0px 5px #9c0247;
-}
-
-#valorAsesinatos {
-  color: #d3d9d3;
-  text-shadow: 0px 0px 5px #4e574c;
-}
-
-/* TIEMPO */
-
-#container-cronometro {
-  width: fit-content;
-  height: calc((var(--medida-responsive)) * (2.5));
-  padding-inline: 15px;
-  position: fixed;
-  top: 0;
   left: 50%;
   transform: translateX(-50%);
-  background-color: #0a2e03aa;
-  border-radius: 0 0 20px 20px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
-#tiempo {
-  font-size: 250%;
-  color: #c3c3c3;
-  text-shadow: 0px 0px 5px #126e20;
-}
-
-/* CONFIGURACIONES */
-
-button[onclick="abrirConfig()"] {
-  position: fixed;
-  top: 0;
-  right: 0;
-  margin: 0;
-  padding: 0;
-  border-radius: 0 0 0 40%;
-  width: calc((var(--medida-responsive)) * (2.5));
-  height: calc((var(--medida-responsive)) * (2.5));
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-#iconAjustes {
+.container-items-start {
+  width: fit-content;
+  background-color: #0f41075a;
+  margin-left: 40px;
+  margin-bottom: clamp(10px, 5vh, 100px);
   position: absolute;
-  width: 60%;
-  height: 60%;
-}
-
-.configuraciones {
-  width: clamp(70px, 40%, 300px);
-  height: fit-content;
-  padding-block: 5px;
-  margin: auto;
-  z-index: 20;
-  background: #717070;
-  color: #1c0808;
-  font-size: clamp(15px, 3vw, 25px);
-  font-family: 'Gothic';
-  border-radius: 15px;
-  border: 3px solid #03000a5d;
-  /* margin: 5px 0px; */
-}
-
-.container-config {
-  position: absolute;
-  opacity: 0;
-  left: 0;
-  backdrop-filter: brightness(60%) blur(2px);
-  width: 100dvw;
-  height: 100dvh;
-  z-index: 10;
-  display: none;
-  /* align-items: center; */
-  /* justify-content: center; */
-  transition: opacity .2s ease;
-  text-align: center;
-}
-
-#container-volumen {
-  display: grid;
-  justify-items: center;
-  gap: 20px;
-}
-
-#container-volumen span {
-  letter-spacing: 2px;
-  transform: scale(1.5);
-}
-
-label+input {
-  width: 70%;
-  height: 70%;
-  appearance: none;
-  background-color: #a8a8a8;
-  border-radius: 5px;
-}
-
-label+input::-webkit-slider-thumb {
-  appearance: none;
-  width: 20px;
-  height: 20px;
-  border-radius: 5px;
-  background-color: #717070;
-  border: 3px solid #000000;
-}
-
-/* GAME OVER */
-.container-gameover {
-  background-color: #00000086;
-  color: #500f0f;
-  position: absolute;
-  width: 100dvw;
-  height: 100dvh;
-  display: grid;
-  justify-items: center;
-  align-content: center;
-  gap: 20px;
-  opacity: 0;
-  display: none;
-  transition: opacity 2s ease;
-}
-
-#asesinatos,
-#tiempoFinal {
-  font-size: 25px;
-  background-color: #717070;
-  border: solid 3px #03000a5d;
+  bottom: 0%;
   border-radius: 10px;
-  padding: 15px;
-  text-align: center;
+  display: grid;
+  gap: 20px;
 }
 
-@keyframes movimiento {
-  to {
-    translate: 0 10%;
-  }
+.container-items-start>li {
+  margin: 8px;
+}
+
+#linkGame {
+  font-size: clamp(40px, 7vw, 70px);
+  color: #b5b7bb;
+}
+
+li button {
+  font-size: clamp(40px, 7vw, 70px);
+  color: #1f6c3d;
+}
+
+#containerImg {
+  position: absolute;
+  width: clamp(100px, 30dvw, 500px);
+  height: clamp(200px, 60dvh, 1000px);
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+}
+
+#containerImg img {
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 2/1;
 }
