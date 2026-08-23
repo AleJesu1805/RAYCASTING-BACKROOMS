@@ -60,6 +60,38 @@ export class Map {
         this.miniMapCache.height = this.altM * this.miniCelda;
         this.miniMapCacheCtx = this.miniMapCache.getContext('2d');
         this.dibujarMiniMapCache();
+
+        // Se precalculan una sola vez todas las casillas transitables (sin pared)
+        // para poder elegir una al azar en cada disparo sin recorrer la matriz cada vez.
+        this.casillasLibres = this.calcularCasillasLibres();
+    }
+
+    calcularCasillasLibres() {
+        const libres = [];
+        for (let y = 0; y < this.altM; y++) {
+            for (let x = 0; x < this.anchM; x++) {
+                if (matriz[y][x] === 0) {
+                    libres.push({
+                        x: x * this.tamCelda + this.tamCelda / 2,
+                        y: y * this.tamCelda + this.tamCelda / 2
+                    });
+                }
+            }
+        }
+        return libres;
+    }
+
+    posicionLibreAleatoriaLejosDe(x, y, distanciaMinima) {
+        const distMinCuadrada = distanciaMinima * distanciaMinima;
+
+        const candidatas = this.casillasLibres.filter((casilla) => {
+            const dx = casilla.x - x;
+            const dy = casilla.y - y;
+            return (dx * dx + dy * dy) >= distMinCuadrada;
+        });
+
+        const lista = candidatas.length > 0 ? candidatas : this.casillasLibres;
+        return lista[Math.floor(Math.random() * lista.length)];
     }
 
     dibujarMiniMapCache() {

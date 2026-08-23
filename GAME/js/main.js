@@ -14,21 +14,45 @@ export const player = new Player(
 );
 
 export const enemie1 = new Enemies(
-    mapa.tamCelda * (mapa.anchM - 2),
-    mapa.tamCelda * 1.5,
-    mapa.tamCelda * (mapa.anchM - 2),
-    mapa.tamCelda * 1.5,
+    mapa.tamCelda * 14.5,
+    mapa.tamCelda * 13,
+    mapa.tamCelda * 14.5,
+    mapa.tamCelda * 13,
     mapa, ctx, 1 * (Math.random() + 1)
 );
 export const enemie2 = new Enemies(
-    mapa.tamCelda * 3.5,
-    mapa.tamCelda * 7,
-    mapa.tamCelda * 3.5,
-    mapa.tamCelda * 7,
+    mapa.tamCelda * 14.5,
+    mapa.tamCelda * 13,
+    mapa.tamCelda * 14.5,
+    mapa.tamCelda * 13,
     mapa, ctx, 1 * (Math.random() + 1)
 );
 
-export const enemies = [enemie1, enemie2];
+export const enemie3 = new Enemies(
+    mapa.tamCelda * 14.5,
+    mapa.tamCelda * 13,
+    mapa.tamCelda * 14.5,
+    mapa.tamCelda * 13,
+    mapa, ctx, 1 * (Math.random() + 1)
+);
+
+export const enemie4 = new Enemies(
+    mapa.tamCelda * 14.5,
+    mapa.tamCelda * 13,
+    mapa.tamCelda * 14.5,
+    mapa.tamCelda * 13,
+    mapa, ctx, 1 * (Math.random() + 1)
+);
+
+export const enemie5 = new Enemies(
+    mapa.tamCelda * 14.5,
+    mapa.tamCelda * 13,
+    mapa.tamCelda * 14.5,
+    mapa.tamCelda * 13,
+    mapa, ctx, 1 * (Math.random() + 1)
+);
+
+export const enemies = [enemie1, enemie2, enemie3, enemie4, enemie5];
 
 function renderFrameInicial() {
     mapa.renderFondo();
@@ -129,6 +153,9 @@ function gameLoop(tiempoActual) {
     mapa.renderEntitieInMinimap(player, player.posXPlayer, player.posYPlayer, '#0d5a0d');
     mapa.renderEntitieInMinimap(enemie1, enemie1.posX, enemie1.posY, '#6b1212');
     mapa.renderEntitieInMinimap(enemie2, enemie2.posX, enemie2.posY, '#6b1212');
+    mapa.renderEntitieInMinimap(enemie3, enemie3.posX, enemie3.posY, '#6b1212');
+    mapa.renderEntitieInMinimap(enemie4, enemie4.posX, enemie4.posY, '#6b1212');
+    mapa.renderEntitieInMinimap(enemie5, enemie5.posX, enemie5.posY, '#6b1212');
 }
 
 

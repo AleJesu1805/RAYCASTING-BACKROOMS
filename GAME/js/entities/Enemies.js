@@ -196,6 +196,21 @@ export class Enemies {
         valorSalud.textContent = Math.round(player.vida) + '%';
     }
 
+    teletransportarA(x, y) {
+        this.posX = x;
+        this.posY = y;
+
+        // Se limpia la ruta previa para que no intente seguir el camino
+        // calculado desde la posicion anterior; se recalculara en el
+        // siguiente ciclo de actualizarRuta().
+        this.ruta = null;
+        this.rutaIndex = 1;
+        this.ultimoAngulo = undefined;
+
+        this.sprite.x = this.posX;
+        this.sprite.y = this.posY;
+    }
+
     reiniciar() {
         this.posX = this.xInicial;
         this.posY = this.yInicial;

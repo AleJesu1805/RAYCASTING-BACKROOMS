@@ -80,8 +80,16 @@ export class Player {
                 const distRayo = rayo.distancia;
                 if (dist < distRayo || distRayo === Infinity) {
                     reproducirSonido('disparoAcierto');
-                    enemigo.posX = enemigo.xInicial;
-                    enemigo.posY = enemigo.yInicial;
+
+                    // Se teletransporta a una casilla libre (sin pared) elegida al azar,
+                    // alejada al menos 10 celdas de la posicion actual del jugador.
+                    const distanciaMinima = this.escenario.tamCelda * 10;
+                    const nuevaPos = this.escenario.posicionLibreAleatoriaLejosDe(
+                        this.posXPlayer,
+                        this.posYPlayer,
+                        distanciaMinima
+                    );
+                    enemigo.teletransportarA(nuevaPos.x, nuevaPos.y);
                     enemigo.velocidad = 1 * (Math.random() + 1);
                     this.acertaste = true;
                     this.asesinatos += 1;
