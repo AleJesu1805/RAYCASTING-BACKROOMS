@@ -34,12 +34,10 @@ function abrirConfig() {
     configOpen = !configOpen;
     reproducirSonido('boton');
     if (configOpen) {
-        configSection.style.opacity = 1;
-        configSection.style.display = 'grid';
+        configSection.style.display = 'flex';
         pausar();
     }
     else {
-        configSection.style.opacity = 0;
         configSection.style.display = 'none';
         if (!partidaTerminada) {
             despausar();

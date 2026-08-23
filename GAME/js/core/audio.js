@@ -23,11 +23,17 @@ function cargarSonido(nombre, url) {
     worker.postMessage({ nombre, url: urlAbsoluta });
 }
 
-export function reproducirSonido(nombre) {
+export function reproducirSonido(nombre, volumen = 0.5) {
     if (!buffers[nombre]) return;
+
     const source = audioCtx.createBufferSource();
+    const gainNode = audioCtx.createGain();
+
     source.buffer = buffers[nombre];
-    source.connect(audioCtx.destination);
+    gainNode.gain.value = volumen;
+
+    source.connect(gainNode);
+    gainNode.connect(audioCtx.destination);
     source.start(0);
 }
 

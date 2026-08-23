@@ -86,11 +86,11 @@ export class Player {
                     this.acertaste = true;
                     this.asesinatos += 1;
                     puntero.style.backgroundColor = '#100dec';
-                    puntero.style.padding = '1%';
+                    // puntero.style.padding = '%';
                     setTimeout(() => {
-                        puntero.style.padding = '0.5%';
+                        // puntero.style.padding = '0.5%';
                         puntero.style.backgroundColor = '#b11010';
-                    }, 200);
+                    }, 150);
                     valorAsesinatos.textContent = this.asesinatos;
                 }
             }
