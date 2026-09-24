@@ -1,21 +1,21 @@
 {
-    "short_name": "DyS",
-    "name": "DySToPHy",
-    "description": "juego en 2.5d de matar fantasmas",
-    "dir": "auto",
-    "lang": "es",
-    "background_color": "#060316",
-    "theme_color": "#060316",
-    "display": "fullscreen",
-    "orientation": "portrait",
-    "scope": "../../",
-    "start_url": "../../index.html",
-    "icons": [
-        {
-            "src": "../../img/SVGs/arma-ico.svg",
-            "sizes": "any",
-            "type": "image/svg+xml",
-            "purpose": "any"
-        }
-    ]
+  "short_name": "DyS",
+  "name": "DySToPHy",
+  "description": "juego en 2.5d de matar fantasmas",
+  "dir": "auto",
+  "lang": "es",
+  "background_color": "#060316",
+  "theme_color": "#060316",
+  "display": "fullscreen",
+  "orientation": "landscape",
+  "scope": "../../",
+  "start_url": "../../index.html",
+  "icons": [
+    {
+      "src": "../../img/SVGs/arma-ico.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
 }
