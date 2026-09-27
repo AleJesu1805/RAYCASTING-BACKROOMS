@@ -12,7 +12,7 @@
   "start_url": "../../index.html",
   "icons": [
     {
-      "src": "../../img/SVGs/arma-ico.svg",
+      "src": "../../img/SVGs/arma.svg",
       "sizes": "any",
       "type": "image/svg+xml",
       "purpose": "any"
