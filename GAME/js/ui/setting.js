@@ -8,10 +8,10 @@ const configSection = document.querySelector(".container-config");
 const rotarBtn = document.getElementById("rotar");
 const maximizarBtn = document.getElementById("maximizar");
 
-// if (/Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
-//     containerButtons.style.display = 'flex';
-//     screen.orientation.lock('landscape');
-// }
+if (/Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+  containerButtons.style.display = "flex";
+  screen.orientation.lock("landscape");
+}
 setTimeout(() => {
   reproducirSiguiente();
 }, 500);
