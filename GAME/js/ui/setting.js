@@ -2,64 +2,62 @@ import { reproducirSiguiente, reproducirSonido } from "../core/audio.js";
 import { despausar, pausar, partidaTerminada } from "../main.js";
 import { containerButtons } from "../core/canvas.js";
 
-const configBoton = document.getElementById('configBoton');
-const configSection = document.querySelector('.container-config');
+const configBoton = document.getElementById("configBoton");
+const configSection = document.querySelector(".container-config");
 
-const rotarBtn = document.getElementById('rotar');
-const maximizarBtn = document.getElementById('maximizar');
+const rotarBtn = document.getElementById("rotar");
+const maximizarBtn = document.getElementById("maximizar");
 
-if (/Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
-    containerButtons.style.display = 'flex';
-    screen.orientation.lock('landscape');
-}
+// if (/Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+//     containerButtons.style.display = 'flex';
+//     screen.orientation.lock('landscape');
+// }
 setTimeout(() => {
-    reproducirSiguiente();
+  reproducirSiguiente();
 }, 500);
 
-configBoton.addEventListener('pointerdown', () => {
-    abrirConfig();
+configBoton.addEventListener("pointerdown", () => {
+  abrirConfig();
 });
 
-rotarBtn.addEventListener('pointerdown', () => {
-    maximizar();
-    rotar();
+rotarBtn.addEventListener("pointerdown", () => {
+  maximizar();
+  rotar();
 });
 
-maximizarBtn.addEventListener('pointerdown', () => {
-    maximizar();
+maximizarBtn.addEventListener("pointerdown", () => {
+  maximizar();
 });
 
 let configOpen = false;
 function abrirConfig() {
-    configOpen = !configOpen;
-    reproducirSonido('boton');
-    if (configOpen) {
-        configSection.style.display = 'flex';
-        pausar();
+  configOpen = !configOpen;
+  reproducirSonido("boton");
+  if (configOpen) {
+    configSection.style.display = "flex";
+    pausar();
+  } else {
+    configSection.style.display = "none";
+    if (!partidaTerminada) {
+      despausar();
     }
-    else {
-        configSection.style.display = 'none';
-        if (!partidaTerminada) {
-            despausar();
-        }
-    }
+  }
 }
 
 function maximizar() {
-    reproducirSonido('boton');
-    if (document.fullscreenElement != null) {
-        document.exitFullscreen();
-    } else {
-        document.documentElement.requestFullscreen();
-    }
+  reproducirSonido("boton");
+  if (document.fullscreenElement != null) {
+    document.exitFullscreen();
+  } else {
+    document.documentElement.requestFullscreen();
+  }
 }
 
 function rotar() {
-    reproducirSonido('boton');
-    screen.orientation.lock('landscape');
+  reproducirSonido("boton");
+  screen.orientation.lock("landscape");
 }
 
 window.abrirConfig = abrirConfig;
 window.maximizar = maximizar;
 window.rotar = rotar;
-
